@@ -9,11 +9,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name="users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails {
 
     @Id
@@ -27,23 +29,23 @@ public class User implements UserDetails {
     @Column(name="password", nullable = false)
     private String password;
 
-    @Column(name="common_name", nullable = false)
-    private String commonName;
+    @Column(name="name", nullable = false)
+    private String name;
 
-    @Column(name="given_name", nullable = false)
-    private String givenName;
+    @Column(name="surname", nullable = false)
+    private String surname;
 
-    @Column(name="organization", nullable = false)
-    private String organization;
+    @Column(name="birthday", nullable = false)
+    private Date birthday;
 
-    @Column(name="organizational_unit", nullable = false)
-    private String organizationalUnit;
+    @Column(name="phone_number", nullable = false)
+    private String phoneNumber;
+
+    @Column(name="city", nullable = false)
+    private String city;
 
     @Column(name="country", nullable = false)
     private String country;
-
-    @Column(name="locality", nullable = false)
-    private String locality;
 
     @Getter
     @Enumerated(EnumType.STRING)

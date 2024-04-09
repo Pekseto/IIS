@@ -13,11 +13,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public enum Role {
 
-    ADMIN(Set.of(
-            Permission.ADMIN_READ,
-            Permission.ADMIN_UPDATE,
-            Permission.ADMIN_DELETE,
-            Permission.ADMIN_CREATE
+    LEAGUE_ADMIN(Set.of(
+            Permission.LEAGUE_ADMIN_READ,
+            Permission.LEAGUE_ADMIN_UPDATE,
+            Permission.LEAGUE_ADMIN_DELETE,
+            Permission.LEAGUE_ADMIN_CREATE
+    )),
+    PLAYER(Set.of(
+            Permission.PLAYER_READ,
+            Permission.PLAYER_UPDATE
+    )),
+    COACH(Set.of(
+            Permission.COACH_READ,
+            Permission.COACH_UPDATE
+    )),
+    TEAM_MANAGER(Set.of(
+            Permission.TEAM_MANAGER_READ,
+            Permission.TEAM_MANAGER_UPDATE
     ))
     ;
 
