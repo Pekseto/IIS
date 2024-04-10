@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JudgeDTO {
+public class RefereeDTO {
     @NotNull
     @NotBlank
     private String name;

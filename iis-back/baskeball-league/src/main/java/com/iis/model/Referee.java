@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 @Data
 @Entity
-@Table(name="judges")
-public class Judge extends User {
+@Table(name="referees")
+public class Referee extends User {
 
     @Column(name = "point", nullable = false)
     private double point;
