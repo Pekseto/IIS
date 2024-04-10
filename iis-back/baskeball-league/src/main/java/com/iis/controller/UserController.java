@@ -41,6 +41,7 @@ public class UserController {
     }
 
     private RegisteredUserDto registerPlayer(RegisteredUserDto userForRegistration) {
+        userForRegistration.setPassword("player");
         Player newPlayer = mapper.map(userForRegistration, Player.class);
         userService.registerPlayer(newPlayer);
 
@@ -48,6 +49,7 @@ public class UserController {
     }
 
     private RegisteredUserDto registerCoach(RegisteredUserDto userForRegistration) {
+        userForRegistration.setPassword("coach");
         Coach newCoach = mapper.map(userForRegistration, Coach.class);
         userService.registerCoach(newCoach);
 
@@ -55,6 +57,7 @@ public class UserController {
     }
 
     private RegisteredUserDto registerTeamManager(RegisteredUserDto userForRegistration) {
+        userForRegistration.setPassword("manager");
         TeamManager newManager = mapper.map(userForRegistration, TeamManager.class);
         userService.registerTeamManager(newManager);
 

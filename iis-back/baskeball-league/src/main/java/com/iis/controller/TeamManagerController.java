@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/players")
+@RequestMapping("/api/managers")
 @CrossOrigin
 public class TeamManagerController {
 
