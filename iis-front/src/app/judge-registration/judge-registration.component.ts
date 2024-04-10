@@ -36,7 +36,7 @@ export class JudgeRegistrationComponent {
       role: '',
       height: 0,
       weight: 0,
-      status: ''
+      status: '',
     };
 
     if (this.registrationForm.valid) {

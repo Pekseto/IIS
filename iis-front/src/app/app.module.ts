@@ -9,13 +9,17 @@ import { JwtInterceptor } from './jwt/jwt.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JudgeRegistrationComponent } from './judge-registration/judge-registration.component';
 import { PlayerRegistrationComponent } from './player-registration/player-registration.component';
+import { TeamManagerRegistrationComponent } from './team-manager-registration/team-manager-registration.component';
+import { TeamRegistrationComponent } from './team-registration/team-registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     JudgeRegistrationComponent,
-    PlayerRegistrationComponent
+    PlayerRegistrationComponent,
+    TeamManagerRegistrationComponent,
+    TeamRegistrationComponent
   ],
   imports: [
     BrowserModule,

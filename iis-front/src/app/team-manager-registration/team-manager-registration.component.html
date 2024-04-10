@@ -32,22 +32,6 @@
                     <input class="form-control" formControlName="country" type="text" />
                 </div>
                 <div class="form-group mb-3">
-                    <label>Height</label>
-                    <input class="form-control" formControlName="height" type="text" />
-                </div>
-                <div class="form-group mb-3">
-                    <label>Weight</label>
-                    <input class="form-control" formControlName="weight" type="text" />
-                </div>
-                <div class="form-group mb-3">
-                    <label>Status</label>
-                    <select formControlName="status">
-                        <option value="ACTIVE">Active</option>
-                        <option value="INACTIVE">Inactive</option>
-                        <option value="INJURED">Injured</option>
-                    </select>
-                </div>
-                <div class="form-group mb-3">
                     <label>Team</label>
                     <select class="form-control" [(ngModel)]="selectedTeam">
                         <option *ngFor="let team of teams" [value]="team">{{ team.name }}</option>

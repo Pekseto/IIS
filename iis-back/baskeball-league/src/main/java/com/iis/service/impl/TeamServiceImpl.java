@@ -6,6 +6,8 @@ import com.iis.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
@@ -15,5 +17,10 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Team register(Team teamForRegistration) {
         return teamRepository.save(teamForRegistration);
+    }
+
+    @Override
+    public List<Team> getAll() {
+        return teamRepository.findAll();
     }
 }
