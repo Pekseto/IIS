@@ -8,12 +8,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './jwt/jwt.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JudgeRegistrationComponent } from './judge-registration/judge-registration.component';
+import { PlayerRegistrationComponent } from './player-registration/player-registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    JudgeRegistrationComponent
+    JudgeRegistrationComponent,
+    PlayerRegistrationComponent
   ],
   imports: [
     BrowserModule,

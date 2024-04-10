@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="login-form ">
+        <form [formGroup]="registrationForm" (ngSubmit)="register()">
+            <h2 class="align-middle title">Player registration</h2>
+            <div class="row d-flex">
+                <div class="form-group mb-3">
+                    <label>Name</label>
+                    <input class="form-control" formControlName="name" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Surname</label>
+                    <input class="form-control" formControlName="surname" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Email</label>
+                    <input class="form-control" formControlName="email" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Date of birth</label>
+                    <input class="form-control" formControlName="birthday" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Phone number</label>
+                    <input class="form-control" formControlName="phoneNumber" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>City</label>
+                    <input class="form-control" formControlName="city" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Country</label>
+                    <input class="form-control" formControlName="country" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Height</label>
+                    <input class="form-control" formControlName="height" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Weight</label>
+                    <input class="form-control" formControlName="weight" type="text" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Status</label>
+                    <select formControlName="status">
+                        <option value="ACTIVE">Active</option>
+                        <option value="INACTIVE">Inactive</option>
+                        <option value="INJURED">Injured</option>
+                    </select>
+                </div>
+                <button color="primary" type="submit" class="btn btn-primary btn-block">Create account</button>
+            </div>
+        </form>
+    </div>
+</div>

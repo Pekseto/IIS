@@ -47,9 +47,6 @@ public class User implements UserDetails {
     @Column(name="country", nullable = false)
     private String country;
 
-    @Column(name = "jmbg", unique = true, nullable = false)
-    private String jmbg;
-
     @Getter
     @Enumerated(EnumType.STRING)
     @Column(name="role", nullable = false)
