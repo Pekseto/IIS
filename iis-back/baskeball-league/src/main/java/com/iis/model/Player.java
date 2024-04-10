@@ -19,6 +19,9 @@ public class Player extends User{
     @Column(name="status", nullable = false)
     private PlayerStatus status;
 
+    @Column(name="jersey_number", nullable = false)
+    private int jerseyNumber;
+
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
