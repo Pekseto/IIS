@@ -42,6 +42,14 @@ export class AuthService {
         );
       }
 
+      logout(): void {
+        this.router.navigate(['']).then(_ => {
+          this.tokenStorage.clear();
+          this.user$.next({email: "", id: 0});
+          }
+        );
+      }
+
       private setUser(): void {
         const jwtHelperService = new JwtHelperService();
         const accessToken = this.tokenStorage.getAccessToken() || "";

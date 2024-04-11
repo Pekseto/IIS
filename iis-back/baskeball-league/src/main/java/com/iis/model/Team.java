@@ -23,7 +23,7 @@ public class Team {
     private String city;
 
     @Column(name="country", nullable = false)
-    private String password;
+    private String country;
 
     @Column(name="address", nullable = false)
     private String address;

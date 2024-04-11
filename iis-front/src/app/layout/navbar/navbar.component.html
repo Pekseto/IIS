@@ -1,0 +1,61 @@
+<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid p-0">
+        <a class="navbar-brand ms-2 me-4" [routerLink]="['']">
+            <img src="../../../../assets/Basketball_PNG.png" alt="Basketball icon" width="35" height="35">
+            <span class="m-lg-2">Basketball league</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+
+                <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['gamecenter']"><i
+                            class="bi bi-house-door"></i> Game center</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['standings']"><i
+                            class="bi bi-house-door"></i> Standings</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['teams']"><i
+                            class="bi bi-house-door"></i> Teams</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['players']"><i
+                            class="bi bi-house-door"></i> Players</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['stats']"><i
+                            class="bi bi-house-door"></i> Stats</a>
+                </li>
+                <li class="nav-item dropdown me-3">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-clipboard2-pulse"></i> More
+                    </a>
+                    <ul class="dropdown-menu me-3">
+                        <li><a class="dropdown-item" [routerLink]="['']">
+                                <i class="bi bi-search"></i> Dodati sta treba, ako ne treba nista onda brisati ovo</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            <!-- LOGIN / LOGOUT -->
+            <ul class="navbar-nav ms-auto">
+
+
+                <li class="nav-item" *ngIf="this.user.id == 0">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['login']">Login</a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.user.id != 0">
+                    <a class="nav-link active" aria-current="page" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
