@@ -32,6 +32,9 @@ export class TeamRegistrationComponent {
       phoneNumber: this.registrationForm.value.phoneNumber || "",
       city: this.registrationForm.value.city || "",
       country: this.registrationForm.value.country || "",
+      playerIds: [],
+      teamManagerId: 0,
+      coachId: 0
     };
 
     if (this.registrationForm.valid) {

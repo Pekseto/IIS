@@ -22,14 +22,14 @@ export class TeamManagerRegistrationComponent {
   ) {}
 
   registrationForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    surname: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl(''),
     birthday: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    country: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9 -]*')]),
+    city: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    country: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
   });
 
   ngOnInit(): void {

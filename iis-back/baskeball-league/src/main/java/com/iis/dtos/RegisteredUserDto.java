@@ -11,7 +11,6 @@ import java.util.Date;
 
 @Data
 public class RegisteredUserDto {
-    private Long id;
 
     private String email;
 
@@ -37,5 +36,5 @@ public class RegisteredUserDto {
 
     private String playerStatus;
 
-    private Team team;
+    private Long teamId;
 }

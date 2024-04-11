@@ -11,6 +11,7 @@ import com.iis.service.UserService;
 import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
     public ResponseEntity<RegisteredUserDto> register(@RequestBody RegisteredUserDto userForRegistration) {
         return switch (userForRegistration.getRole()) {
             case "PLAYER" -> ResponseEntity.ok(registerPlayer(userForRegistration));

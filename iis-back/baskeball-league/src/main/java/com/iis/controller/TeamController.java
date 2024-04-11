@@ -1,10 +1,14 @@
 package com.iis.controller;
 
+import com.iis.dtos.TeamDto;
+import com.iis.model.Player;
 import com.iis.model.Team;
 import com.iis.service.TeamService;
+import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,13 +16,13 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/teams")
-@CrossOrigin
 public class TeamController {
 
     private final TeamService teamService;
 
     @PostMapping("/register")
-    public ResponseEntity<Team> register(@RequestBody Team team){
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
+    public ResponseEntity<Team> register(@RequestBody TeamDto team){
         try {
             return ResponseEntity.ok(teamService.register(team));
         } catch (Exception e) {

@@ -1,3 +1,5 @@
+import { Team } from "./team.model";
+
 export interface Registration {
     name: string,
     surname: string,
@@ -11,4 +13,5 @@ export interface Registration {
     height: number,
     weight: number,
     status: string,
+    team?: Team,
 }

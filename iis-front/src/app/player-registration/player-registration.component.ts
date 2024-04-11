@@ -23,18 +23,19 @@ export class PlayerRegistrationComponent {
   ) {}
 
   registrationForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    surname: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl(''),
-    birthday: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    country: new FormControl('', [Validators.required]),
-    height: new FormControl(-1, [Validators.required]),
-    weight: new FormControl(-1, [Validators.required]),
+    birthday: new FormControl('', [Validators.required]), // Prilagođena validacija za datum
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9 -]*')]), // Primer za broj telefona
+    city: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    country: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    height: new FormControl(-1, [Validators.required, Validators.min(0)]), // Minimalna vrednost visine
+    weight: new FormControl(-1, [Validators.required, Validators.min(0)]), // Minimalna vrednost težine
     status: new FormControl('', [Validators.required]),
-  });
+});
+
 
   ngOnInit(): void {
     this.teamService.getAll().subscribe(data => {
