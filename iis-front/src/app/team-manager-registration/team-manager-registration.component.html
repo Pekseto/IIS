@@ -26,7 +26,14 @@
                 </div>
                 <div class="form-group mb-3">
                     <label>Date of birth</label>
-                    <input class="form-control" formControlName="birthday" type="text" />
+                    <input class="form-control" formControlName="birthday" type="date" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>JMBG</label>
+                    <input class="form-control" formControlName="jmbg" type="text" />
+                    <small *ngIf="registrationForm.get('jmbg')?.hasError('pattern')" class="text-danger">
+                        Invalid jmbg format
+                    </small>
                 </div>
                 <div class="form-group mb-3">
                     <label>Phone number</label>
@@ -51,8 +58,8 @@
                 </div>
                 <div class="form-group mb-3">
                     <label>Team</label>
-                    <select class="form-control" [(ngModel)]="selectedTeam">
-                        <option *ngFor="let team of teams" [value]="team">{{ team.name }}</option>
+                    <select class="form-control" [(ngModel)]="selectedTeamId">
+                        <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
                     </select>
                 </div>
                 <button color="primary" type="submit" class="btn btn-primary btn-block">Create account</button>

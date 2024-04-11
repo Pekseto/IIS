@@ -9,9 +9,10 @@ export interface Registration {
     phoneNumber: string,
     city: string,
     country: string,
+    jmbg: string,
     role: string,
     height: number,
     weight: number,
     status: string,
-    team?: Team,
+    team?: number,
 }

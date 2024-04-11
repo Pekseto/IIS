@@ -14,7 +14,7 @@ import { Team } from '../model/team.model';
 export class PlayerRegistrationComponent {
 
   teams: Team[] = [];
-  selectedTeam: any;
+  selectedTeam!: Team;
 
   constructor(
     private authService: AuthService,
@@ -31,6 +31,7 @@ export class PlayerRegistrationComponent {
     phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9 -]*')]), // Primer za broj telefona
     city: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
     country: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    jmbg: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*')]),
     height: new FormControl(-1, [Validators.required, Validators.min(0)]), // Minimalna vrednost visine
     weight: new FormControl(-1, [Validators.required, Validators.min(0)]), // Minimalna vrednost težine
     status: new FormControl('', [Validators.required]),
@@ -57,7 +58,8 @@ export class PlayerRegistrationComponent {
       height: this.registrationForm.value.height || -1,
       weight: this.registrationForm.value.weight || -1,
       status: this.registrationForm.value.status || "",
-      team: this.selectedTeam,
+      team: this.selectedTeam.id,
+      jmbg: this.registrationForm.value.jmbg || ""
     };
 
     if (this.registrationForm.valid) {

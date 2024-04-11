@@ -25,12 +25,30 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public Team register(TeamDto teamForRegistration) {
-        Team team = mapper.map(teamForRegistration,Team.class);
-        team.setPlayers(playerRepository.findAllById(teamForRegistration.getPlayerIds()));
-        team.setTeamManager(teamManagerRepository.findById(teamForRegistration.getTeamManagerId()).orElse(null));
-        team.setCoach(coachRepository.findById(teamForRegistration.getCoachId()).orElse(null));
+        Team team = mapper.map(teamForRegistration, Team.class);
+        
+        if (teamForRegistration.getPlayerIds() != null && !teamForRegistration.getPlayerIds().isEmpty()) {
+            team.setPlayers(playerRepository.findAllById(teamForRegistration.getPlayerIds()));
+        } else {
+            team.setPlayers(null); // ili new ArrayList<>()
+        }
+
+        if (teamForRegistration.getTeamManagerId() != null) {
+            team.setTeamManager(teamManagerRepository.findById(teamForRegistration.getTeamManagerId()).orElse(null));
+        } else {
+            // Ako je id menadžera null, postavite ga na null
+            team.setTeamManager(null);
+        }
+
+        if (teamForRegistration.getCoachId() != null) {
+            team.setCoach(coachRepository.findById(teamForRegistration.getCoachId()).orElse(null));
+        } else {
+            team.setCoach(null);
+        }
+
         return teamRepository.save(team);
     }
+
 
     @Override
     public List<Team> getAll() {

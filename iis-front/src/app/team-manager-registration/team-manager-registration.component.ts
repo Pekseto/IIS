@@ -13,7 +13,7 @@ import { Team } from '../model/team.model';
 })
 export class TeamManagerRegistrationComponent {
   teams: Team[] = [];
-  selectedTeam: any;
+  selectedTeamId: number = -1;
 
   constructor(
     private authService: AuthService,
@@ -27,6 +27,7 @@ export class TeamManagerRegistrationComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl(''),
     birthday: new FormControl('', [Validators.required]),
+    jmbg: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*')]),
     phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9 -]*')]),
     city: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
     country: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
@@ -45,6 +46,7 @@ export class TeamManagerRegistrationComponent {
       email: this.registrationForm.value.email || "",
       password: this.registrationForm.value.password || "",
       birthday: this.registrationForm.value.birthday || "",
+      jmbg: this.registrationForm.value.jmbg || "",
       phoneNumber: this.registrationForm.value.phoneNumber || "",
       city: this.registrationForm.value.city || "",
       country: this.registrationForm.value.country || "",
@@ -52,7 +54,7 @@ export class TeamManagerRegistrationComponent {
       height: 0,
       weight: 0,
       status: '',
-      team: this.selectedTeam
+      team: this.selectedTeamId || -1
     };
 
     if (this.registrationForm.valid) {

@@ -1,4 +1,5 @@
 export interface Team {
+    id?: number,
     name: string,
     address: string,
     email: string,
@@ -6,6 +7,6 @@ export interface Team {
     city: string,
     country: string,
     playerIds: number[],
-    teamManagerId: number,
-    coachId: number
+    teamManagerId: number | null,
+    coachId: number | null
 }

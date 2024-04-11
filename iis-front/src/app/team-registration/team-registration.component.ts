@@ -33,8 +33,8 @@ export class TeamRegistrationComponent {
       city: this.registrationForm.value.city || "",
       country: this.registrationForm.value.country || "",
       playerIds: [],
-      teamManagerId: 0,
-      coachId: 0
+      teamManagerId: null,
+      coachId: null 
     };
 
     if (this.registrationForm.valid) {

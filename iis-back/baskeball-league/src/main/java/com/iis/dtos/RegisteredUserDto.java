@@ -20,7 +20,7 @@ public class RegisteredUserDto {
 
     private String surname;
 
-    private Date birthday;
+    private String birthday;
 
     private String phoneNumber;
 
@@ -36,7 +36,7 @@ public class RegisteredUserDto {
 
     private double weight;
 
-    private String playerStatus;
+    private String status;
 
-    private Long teamId;
+    private Long team;
 }

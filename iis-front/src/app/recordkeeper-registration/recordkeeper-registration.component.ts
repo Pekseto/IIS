@@ -21,6 +21,7 @@ export class RecordkeeperRegistrationComponent {
     email: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
+    jmbg: new FormControl('', [Validators.required]),
   });
 
   register(): void {
@@ -29,6 +30,7 @@ export class RecordkeeperRegistrationComponent {
       surname: this.registrationForm.value.surname || "",
       email: this.registrationForm.value.email || "",
       password: this.registrationForm.value.password || "",
+      jmbg: this.registrationForm.value.jmbg || "",
       birthday: '',
       phoneNumber: '',
       city: '',
