@@ -28,6 +28,8 @@ public class RegisteredUserDto {
 
     private String country;
 
+    private String jmbg;
+
     private String role;
 
     private double height;

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
+
     Player registerPlayer(Player player);
     Coach registerCoach(Coach coach);
     TeamManager registerTeamManager(TeamManager teamManager);
+
 }

@@ -11,6 +11,9 @@ import { JudgeRegistrationComponent } from './judge-registration/judge-registrat
 import { PlayerRegistrationComponent } from './player-registration/player-registration.component';
 import { TeamManagerRegistrationComponent } from './team-manager-registration/team-manager-registration.component';
 import { TeamRegistrationComponent } from './team-registration/team-registration.component';
+import { RecordkeeperRegistrationComponent } from './recordkeeper-registration/recordkeeper-registration.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { HomeComponent } from './layout/home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { TeamRegistrationComponent } from './team-registration/team-registration
     JudgeRegistrationComponent,
     PlayerRegistrationComponent,
     TeamManagerRegistrationComponent,
-    TeamRegistrationComponent
+    TeamRegistrationComponent,
+    RecordkeeperRegistrationComponent,
+    NavbarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

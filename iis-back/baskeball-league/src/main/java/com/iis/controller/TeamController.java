@@ -21,7 +21,7 @@ public class TeamController {
     private final TeamService teamService;
 
     @PostMapping("/register")
-    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
     public ResponseEntity<Team> register(@RequestBody TeamDto team){
         try {
             return ResponseEntity.ok(teamService.register(team));

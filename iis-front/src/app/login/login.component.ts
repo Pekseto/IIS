@@ -22,7 +22,7 @@ export class LoginComponent {
 
   login(): void {
     const login: Login = {
-      username: this.loginForm.value.username || "",
+      email: this.loginForm.value.username || "",
       password: this.loginForm.value.password || "",
     };
 
