@@ -20,6 +20,9 @@ public enum Permission {
     RECORD_KEEPER_CREATE("recordKeeper:create"),
     RECORD_KEEPER_READ("recordKeeper:read"),
     RECORD_KEEPER_UPDATE("recordKeeper:update"),
+    REFEREE_READ("referee:read"),
+    REFEREE_UPDATE("referee:update"),
+    REFEREE_DELETE("referee:delete"),
     ;
 
     private final String permission;

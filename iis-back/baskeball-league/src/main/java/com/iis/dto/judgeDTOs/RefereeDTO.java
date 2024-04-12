@@ -1,5 +1,6 @@
 package com.iis.dto.judgeDTOs;
 
+import com.iis.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,11 +9,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RefereeDTO {
+
+    private long id;
+
     @NotNull
     @NotBlank
     private String name;
@@ -53,4 +59,10 @@ public class RefereeDTO {
     @NotNull
     @NotBlank
     private String jmbg;
+
+    @NotNull
+    @NotBlank
+    private Date birthday;
+
+    private Role role;
 }

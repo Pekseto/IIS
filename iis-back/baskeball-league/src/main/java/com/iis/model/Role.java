@@ -34,6 +34,10 @@ public enum Role {
     RECORD_KEEPER(Set.of(
             Permission.RECORD_KEEPER_READ,
             Permission.RECORD_KEEPER_UPDATE
+    )),
+    REFEREE(Set.of(
+            Permission.REFEREE_UPDATE,
+            Permission.REFEREE_READ
     ))
     ;
 

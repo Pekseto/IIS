@@ -13,7 +13,7 @@ import { CoachRegistrationComponent } from "./coach-registration/coach-registrat
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'judge-registration', component: JudgeRegistrationComponent },
+    { path: 'referee-registration', component: JudgeRegistrationComponent },
     { path: 'player-registration', component: PlayerRegistrationComponent },
     { path: 'team-manager-registration', component: TeamManagerRegistrationComponent},
     { path: 'team-registration', component: TeamRegistrationComponent},

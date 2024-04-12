@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RefereeRepository extends JpaRepository<Referee, Long> {
-
-    //Optional<Judge> findBy(long id);
 }

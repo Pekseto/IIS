@@ -10,6 +10,7 @@ import { AuthenticationResponse } from "../responses/authentication-response.mod
 import { Injectable } from "@angular/core";
 import { Registration } from "../model/registration.model";
 import { RecordKeeper } from "../model/record-keeper.model";
+import { Referee } from "../model/referee.model";
 
 
 @Injectable({
@@ -40,6 +41,10 @@ export class AuthService {
 
       registerRecordKeeper(registration: RecordKeeper): Observable<AuthenticationResponse>{
         return this.http.post<AuthenticationResponse>(environment.apiHost + 'record-keeper/register', registration);
+      }
+
+      registerReferee(registration: Referee) : Observable<AuthenticationResponse> {
+        return this.http.post<AuthenticationResponse>(environment.apiHost + 'referee/register', registration);
       }
 
       logout(): void {

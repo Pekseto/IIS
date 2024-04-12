@@ -27,12 +27,14 @@ public class RefereeController {
 
     @GetMapping("/getReferee/{id}")
     @Operation(summary = "Get referee data by id")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
     public ResponseEntity<RefereeDTO> getJudge(@PathVariable("id") Long id) {
         return ResponseEntity.ok(refereeService.GetById(id));
     }
 
     @PutMapping("/update")
     @Operation(summary = "Update data about referee")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
     public ResponseEntity<RefereeDTO> update(@RequestBody RefereeDTO judge) {
         return ResponseEntity.ok(refereeService.Update(judge));
     }

@@ -1,14 +1,14 @@
 package com.iis.controller;
 
+import com.iis.dto.judgeDTOs.RefereeDTO;
 import com.iis.dtos.RegisteredUserDto;
 import com.iis.model.Coach;
 import com.iis.model.Player;
+import com.iis.model.Referee;
 import com.iis.model.TeamManager;
 import com.iis.security.authentication.AuthenticationRequest;
 import com.iis.security.authentication.AuthenticationResponse;
-import com.iis.service.AuthenticationService;
-import com.iis.service.TeamService;
-import com.iis.service.UserService;
+import com.iis.service.*;
 import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +24,7 @@ public class UserController {
     private final AuthenticationService authenticationService;
     private final UserService userService;
     private final TeamService teamService;
+    private final RefereeService refereeService;
     private final Mapper mapper;
 
     @PostMapping("/login")
