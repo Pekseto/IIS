@@ -13,7 +13,7 @@ import { Team } from '../model/team.model';
 })
 export class TeamManagerRegistrationComponent {
   teams: Team[] = [];
-  selectedTeamId: number = -1;
+  selectedTeam!: Team;
 
   constructor(
     private authService: AuthService,
@@ -54,13 +54,13 @@ export class TeamManagerRegistrationComponent {
       height: 0,
       weight: 0,
       status: '',
-      team: this.selectedTeamId || -1
+      team: this.selectedTeam ? this.selectedTeam.id : undefined,
     };
 
     if (this.registrationForm.valid) {
       this.authService.register(registration).subscribe({
         next: (response) => {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         },
       });
     }

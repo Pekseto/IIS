@@ -6,7 +6,7 @@ export interface Team {
     phoneNumber: string,
     city: string,
     country: string,
-    playerIds: number[],
-    teamManagerId: number | null,
-    coachId: number | null
+    playerIds?: number[],
+    teamManagerId?: number ,
+    coachId?: number
 }

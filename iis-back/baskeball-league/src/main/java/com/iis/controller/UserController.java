@@ -10,12 +10,10 @@ import com.iis.service.AuthenticationService;
 import com.iis.service.UserService;
 import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,6 +38,21 @@ public class UserController {
             case "TEAM_MANAGER" -> ResponseEntity.ok(registerTeamManager(userForRegistration));
             default -> ResponseEntity.badRequest().build();
         };
+    }
+
+    @PutMapping("/edit")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN') and #admin.id == authentication.principal.id")
+    public ResponseEntity<RegisteredUserDto> updateAdmin(@RequestBody RegisteredUserDto admin){
+        try {
+            return ResponseEntity.ok(userService.updateAdmin(admin));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    @GetMapping("/getAdmin/{id}")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
+    public ResponseEntity<RegisteredUserDto> getById(@PathVariable long id){
+        return ResponseEntity.ok(mapper.map(userService.getById(id),RegisteredUserDto.class));
     }
 
     private RegisteredUserDto registerPlayer(RegisteredUserDto userForRegistration) {

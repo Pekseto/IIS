@@ -39,9 +39,37 @@
                     <ul class="dropdown-menu me-3">
                         <li><a class="dropdown-item" [routerLink]="['']">
                                 <i class="bi bi-search"></i> Dodati sta treba, ako ne treba nista onda brisati ovo</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/user-info']"><i class="bi bi-people"></i> My profile</a></li>
                     </ul>
                 </li>
+                
+                <li class="nav-item dropdown me-3" *ngIf="user && user.role === 'LEAGUE_ADMIN'">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-clipboard2-pulse"></i> Register
+                    </a>
+                    <ul class="dropdown-menu me-3">
+                        <li><a class="dropdown-item" [routerLink]="['/team-registration']"><i class="bi bi-people"></i> Team</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/player-registration']"><i class="bi bi-person"></i> Player</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/team-manager-registration']"><i class="bi bi-person-check"></i> Team Manager</a></li>
+                    </ul>
+                </li>         
+                <li class="nav-item me-3" *ngIf="user && user.role === 'LEAGUE_ADMIN'">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['/schedule-managment']"><i
+                            class="bi bi-house-door"></i> Schedule Managmet</a>
+                </li>      
+                <li class="nav-item me-3" *ngIf="user && user.role === 'LEAGUE_ADMIN'">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['/league-rules']"><i
+                            class="bi bi-house-door"></i> League Rules</a>
+                </li> 
+                <li class="nav-item me-3" *ngIf="user && user.role === 'LEAGUE_ADMIN'">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['/notifications']"><i
+                            class="bi bi-house-door"></i> Notifications</a>
+                </li> 
 
+                <li class="nav-item me-3" *ngIf="user && user.role === 'TEAM_MANAGER'">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['/notifications']"><i
+                            class="bi bi-house-door"></i> Team info </a>
+                </li> 
             </ul>
 
             <!-- LOGIN / LOGOUT -->

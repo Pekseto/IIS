@@ -20,4 +20,9 @@ public class TeamManagerServiceImpl implements TeamManagerService {
 
         return mapper.map(teamManagerRepository.save(teamManagerToEdit),RegisteredUserDto.class);
     }
+
+    @Override
+    public TeamManager getById(long id) {
+        return teamManagerRepository.getReferenceById(id);
+    }
 }

@@ -58,14 +58,14 @@ export class PlayerRegistrationComponent {
       height: this.registrationForm.value.height || -1,
       weight: this.registrationForm.value.weight || -1,
       status: this.registrationForm.value.status || "",
-      team: this.selectedTeam.id,
+      team: this.selectedTeam ? this.selectedTeam.id : undefined,
       jmbg: this.registrationForm.value.jmbg || ""
     };
 
     if (this.registrationForm.valid) {
       this.authService.register(registration).subscribe({
         next: (response) => {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         },
       });
     }

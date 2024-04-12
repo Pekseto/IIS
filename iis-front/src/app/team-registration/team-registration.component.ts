@@ -32,15 +32,12 @@ export class TeamRegistrationComponent {
       phoneNumber: this.registrationForm.value.phoneNumber || "",
       city: this.registrationForm.value.city || "",
       country: this.registrationForm.value.country || "",
-      playerIds: [],
-      teamManagerId: null,
-      coachId: null 
     };
 
     if (this.registrationForm.valid) {
       this.teamService.register(team).subscribe({
         next: (response) => {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         },
       });
     }

@@ -14,7 +14,7 @@ import { Registration } from "../model/registration.model";
     providedIn:'root'
   })
 export class AuthService {
-    user$ = new BehaviorSubject<User>({id: 0, role: "", email: ""});
+    user$ = new BehaviorSubject<User>({id: 0, role: ""});
 
     constructor(private http: HttpClient,
       private tokenStorage: TokenStorage,
@@ -47,7 +47,6 @@ export class AuthService {
           this.tokenStorage.clear();
           this.user$.next({
             id: 0, role: "",
-            email: ""
           });
           }
         );
@@ -59,9 +58,9 @@ export class AuthService {
         const user: User = {
           id: +jwtHelperService.decodeToken(accessToken).id,
           role: jwtHelperService.decodeToken(accessToken).role,
-          email: jwtHelperService.decodeToken(accessToken).email[
+          /*email: jwtHelperService.decodeToken(accessToken).email[
             'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
-          ],
+          ],*/
         };
         this.user$.next(user);
       }

@@ -7,6 +7,7 @@ import { TeamManagerRegistrationComponent } from "./team-manager-registration/te
 import { TeamRegistrationComponent } from "./team-registration/team-registration.component";
 import { RecordkeeperRegistrationComponent } from "./recordkeeper-registration/recordkeeper-registration.component";
 import { HomeComponent } from "./layout/home/home.component";
+import { UserInfoComponent } from "./user-info/user-info.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'team-manager-registration', component: TeamManagerRegistrationComponent},
     { path: 'team-registration', component: TeamRegistrationComponent},
     { path: 'recordkeeper-registration', component: RecordkeeperRegistrationComponent },
+    { path: 'user-info', component: UserInfoComponent},
 ];
 
 @NgModule({

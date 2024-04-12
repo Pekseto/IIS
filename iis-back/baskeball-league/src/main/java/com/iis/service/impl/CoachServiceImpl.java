@@ -22,4 +22,9 @@ public class CoachServiceImpl implements CoachService {
 
         return mapper.map(coachRepository.save(coachToEdit), RegisteredUserDto.class);
     }
+
+    @Override
+    public Coach getById(long id) {
+        return coachRepository.getReferenceById(id);
+    }
 }

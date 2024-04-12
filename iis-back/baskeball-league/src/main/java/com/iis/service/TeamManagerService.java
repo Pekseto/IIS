@@ -5,4 +5,5 @@ import com.iis.model.TeamManager;
 
 public interface TeamManagerService {
     RegisteredUserDto edit(RegisteredUserDto manager);
+    TeamManager getById(long id);
 }

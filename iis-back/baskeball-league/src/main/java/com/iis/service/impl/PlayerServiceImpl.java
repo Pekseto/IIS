@@ -20,4 +20,9 @@ public class PlayerServiceImpl implements PlayerService {
 
         return mapper.map(playerRepository.save(playerToEdit), RegisteredUserDto.class);
     }
+
+    @Override
+    public Player getById(long id) {
+        return playerRepository.getReferenceById(id);
+    }
 }

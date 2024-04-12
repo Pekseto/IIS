@@ -11,9 +11,9 @@ public class TeamDto {
 
     private String name;
 
-    private String email;
-
     private String address;
+
+    private String email;
 
     private String phoneNumber;
 
