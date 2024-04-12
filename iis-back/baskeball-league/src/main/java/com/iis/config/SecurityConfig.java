@@ -35,6 +35,7 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger-ui.html",
             "http://localhost:4200/**",
+            "/api/record-keeper/**",
             "/api/users/**",
     };
 

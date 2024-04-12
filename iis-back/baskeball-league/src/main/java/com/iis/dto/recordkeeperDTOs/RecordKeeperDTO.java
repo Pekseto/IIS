@@ -1,5 +1,6 @@
 package com.iis.dto.recordkeeperDTOs;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,19 +9,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecordKeeperDTO {
-    @NotNull
-    @NotBlank
-    private String name;
-
-    @NotNull
-    @NotBlank
-    private String surname;
-
     @NotNull
     @NotBlank
     @Email
@@ -31,16 +26,21 @@ public class RecordKeeperDTO {
     private String password;
 
     @NotNull
-    @NotBlank
     private String confirmPassword;
 
     @NotNull
     @NotBlank
-    private String phoneNumber;
+    private String name;
 
     @NotNull
     @NotBlank
-    private String address;
+    private String surname;
+
+    @NotNull
+    private Date birthday;
+
+    @NotNull
+    private String phoneNumber;
 
     @NotNull
     @NotBlank
@@ -51,6 +51,5 @@ public class RecordKeeperDTO {
     private String country;
 
     @NotNull
-    @NotBlank
     private String jmbg;
 }

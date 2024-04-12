@@ -19,7 +19,7 @@ public class RecordKeeperController {
 
     @PostMapping("/register")
     @Operation(summary = "Register new record keeper")
-    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
     public ResponseEntity<RecordKeeperDTO> register(@RequestBody RecordKeeperDTO recordKeeperDTO){
         return ResponseEntity.ok(service.Register(recordKeeperDTO));
     }

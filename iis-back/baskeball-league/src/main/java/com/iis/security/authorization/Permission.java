@@ -16,7 +16,10 @@ public enum Permission {
     COACH_READ("coach:read"),
     COACH_UPDATE("coach:update"),
     TEAM_MANAGER_READ("teamManager:read"),
-    TEAM_MANAGER_UPDATE("teamManager:update")
+    TEAM_MANAGER_UPDATE("teamManager:update"),
+    RECORD_KEEPER_CREATE("recordKeeper:create"),
+    RECORD_KEEPER_READ("recordKeeper:read"),
+    RECORD_KEEPER_UPDATE("recordKeeper:update"),
     ;
 
     private final String permission;

@@ -9,6 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthenticationResponse } from "../responses/authentication-response.model";
 import { Injectable } from "@angular/core";
 import { Registration } from "../model/registration.model";
+import { RecordKeeper } from "../model/record-keeper.model";
 
 @Injectable({
     providedIn:'root'
@@ -40,6 +41,17 @@ export class AuthService {
             this.setUser();
           })
         );
+      }
+
+      registerRecordKeeper(registration: RecordKeeper): Observable<AuthenticationResponse>{
+        return this.http
+        .post<AuthenticationResponse>(environment.apiHost + 'record-keeper/register', registration)
+        .pipe(
+          tap((authenticationResponse) => {
+            this.tokenStorage.saveAccessToken(authenticationResponse.access_token);
+            this.setUser();
+          })
+        )
       }
 
       logout(): void {

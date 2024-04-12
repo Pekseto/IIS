@@ -9,8 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-
+            <ul *ngIf="user.role != 'LEAGUE_ADMIN'" class="navbar-nav">
                 <li class="nav-item me-3">
                     <a class="nav-link active" aria-current="page" [routerLink]="['gamecenter']"><i
                             class="bi bi-house-door"></i> Game center</a>
@@ -38,9 +37,61 @@
                     </a>
                     <ul class="dropdown-menu me-3">
                         <li><a class="dropdown-item" [routerLink]="['']">
-                                <i class="bi bi-search"></i> Dodati sta treba, ako ne treba nista onda brisati ovo</a></li>
+                                <i class="bi bi-search"></i> Dodati sta treba, ako ne treba nista onda brisati
+                                ovo</a></li>
                     </ul>
                 </li>
+            </ul>
+            <ul *ngIf="user.role == 'LEAGUE_ADMIN'" class="navbar-nav">
+
+                <li class="nav-item dropdown me-3">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-clipboard2-pulse"></i> Register
+                    </a>
+                    <ul class="dropdown-menu me-3">
+                        <li><a class="dropdown-item" [routerLink]="['team-registration']">
+                                <i class="bi bi-search"></i> Team
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" [routerLink]="['player-registration']">
+                                <i class="bi bi-search"></i> Player
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" [routerLink]="['referee-registration']">
+                                <i class="bi bi-search"></i> Referee
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" [routerLink]="['recordkeeper-registration']">
+                                <i class="bi bi-search"></i> Record keeper
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['schedule-management']"><i
+                            class="bi bi-house-door"></i> Schedule management</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['league-rules']"><i
+                            class="bi bi-house-door"></i> League rules</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['notifications']"><i
+                            class="bi bi-house-door"></i> Notifications</a>
+                </li>
+                <li class="nav-item dropdown me-3">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-clipboard2-pulse"></i> More
+                    </a>
+                    <ul class="dropdown-menu me-3">
+                        <li><a class="dropdown-item" [routerLink]="['']">
+                                <i class="bi bi-search"></i> Dodati sta treba, ako ne treba nista onda brisati
+                                ovo</a></li>
+                    </ul>
+                </li>
+
 
             </ul>
 

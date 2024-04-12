@@ -2,6 +2,7 @@ package com.iis.service.impl;
 
 import com.iis.dto.recordkeeperDTOs.RecordKeeperDTO;
 import com.iis.model.RecordKeeper;
+import com.iis.model.Role;
 import com.iis.repository.RecordKeeperRepository;
 import com.iis.service.RecordKeeperService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,9 @@ public class RecordKeeperServiceImpl implements RecordKeeperService {
 
     @Override
     public RecordKeeperDTO Register(RecordKeeperDTO recordKeeperDTO) {
-        var retVal = repo.save(modelMapper.map(recordKeeperDTO, RecordKeeper.class));
+        var recordKeeper = modelMapper.map(recordKeeperDTO, RecordKeeper.class);
+        recordKeeper.setRole(Role.RECORD_KEEPER);
+        var retVal = repo.save(recordKeeper);
         return modelMapper.map(retVal, RecordKeeperDTO.class);
     }
 
