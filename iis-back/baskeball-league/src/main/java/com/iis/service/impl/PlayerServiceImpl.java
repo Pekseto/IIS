@@ -50,11 +50,11 @@ public class PlayerServiceImpl implements PlayerService {
         playerToEdit.setJerseyNumber(Math.toIntExact(player.getJerseyNumber()));
         playerToEdit.setTeam(teamRepository.getById(player.getTeam()));
 
-        return mapper.map(playerRepository.save(playerToEdit), RegisteredUserDto.class);
+        return mapper.mapPlayerToDto(playerRepository.save(playerToEdit));
     }
 
     @Override
     public Player getById(long id) {
-        return playerRepository.getReferenceById(id);
+        return playerRepository.getById(id);
     }
 }

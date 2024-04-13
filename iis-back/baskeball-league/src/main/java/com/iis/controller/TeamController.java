@@ -19,6 +19,7 @@ import java.util.List;
 public class TeamController {
 
     private final TeamService teamService;
+    private final Mapper mapper;
 
     @PostMapping("/register")
     //@PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
@@ -31,9 +32,9 @@ public class TeamController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Team>> getAll(){
+    public ResponseEntity<List<TeamDto>> getAll(){
         try {
-            return ResponseEntity.ok(teamService.getAll());
+            return ResponseEntity.ok(mapper.mapList(teamService.getAll(),TeamDto.class));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

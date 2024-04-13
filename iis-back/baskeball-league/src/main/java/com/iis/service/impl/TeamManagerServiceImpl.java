@@ -46,11 +46,11 @@ public class TeamManagerServiceImpl implements TeamManagerService {
         managerToEdit.setName(manager.getName());
         managerToEdit.setTeam(teamRepository.getById(manager.getTeam()));
 
-        return mapper.map(teamManagerRepository.save(managerToEdit),RegisteredUserDto.class);
+        return mapper.mapTeamManagerToDto(teamManagerRepository.save(managerToEdit));
     }
 
     @Override
     public TeamManager getById(long id) {
-        return teamManagerRepository.getReferenceById(id);
+        return teamManagerRepository.getById(id);
     }
 }

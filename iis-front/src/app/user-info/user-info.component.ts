@@ -81,7 +81,7 @@ export class UserInfoComponent {
     }
 
     if (this.user.role === 'TEAM_MANAGER') {
-      this.administrationService.save(this.registeredUser).subscribe({
+      this.teamManagerService.save(this.registeredUser).subscribe({
         next: (response) => {
           this.router.navigate(['']);
         },
