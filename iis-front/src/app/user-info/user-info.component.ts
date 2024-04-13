@@ -20,7 +20,11 @@ export class UserInfoComponent {
   teams: Team[] = [];
   user!: User;
   registeredUser!: Registration;
-  usersTeam!: Team;
+  usersTeamId: number = -1;
+  showPassword: boolean = false;
+  password: string | undefined;
+  confirmPassword: string | undefined
+  isEditing = false;
 
   constructor(
     private playerService: PlayerService,
@@ -32,29 +36,50 @@ export class UserInfoComponent {
   ) {}
 
   ngOnInit(): void {
-    this.user = this.authService.user$.getValue();
+    // Prvo dobijamo korisnika
+    this.authService.getUser().subscribe(user => {
+      this.user = user;
+      // Nakon što dobijemo korisnika, u zavisnosti od njegove uloge, pozivamo odgovarajući servis
+      if (this.user) {
+        if (this.user.role === 'TEAM_MANAGER') {
+          this.teamManagerService.getManager(this.user.id).subscribe((data) => {
+            this.registeredUser = data;
+          });
+        } else if (this.user.role === 'PLAYER') {
+          this.playerService.getPlayer(this.user.id).subscribe((data) => {
+            this.registeredUser = data;
+          });
+        } else if (this.user.role === 'LEAGUE_ADMIN') {
+          this.administrationService.getAdmin(this.user.id).subscribe((data) => {
+            this.registeredUser = data;
+          });
+        }
+      }
+    });
 
+    // Nakon što dobijemo korisnika, možemo dohvatiti timove
     this.teamService.getAll().subscribe(data => {
       this.teams = data;
-    })
+    });
+  }
 
-    if (this.user.role === 'TEAM_MANAGER') {
-      this.teamManagerService.getManager(this.user.id).subscribe((data) => {
-        this.registeredUser = data;
-      });
-    } else if (this.user.role === 'PLAYER') {
-      this.playerService.getPlayer(this.user.id).subscribe((data) => {
-        this.registeredUser = data;
-      });
-    }
-    else if (this.user.role === 'LEAGUE_ADMIN') {
-      this.administrationService.getAdmin(this.user.id).subscribe((data) => {
-        this.registeredUser = data;
-      });
-    }
+  startEditing() {
+    this.isEditing = true; //izbaci
   }
 
   save(): void{
+
+    this.registeredUser.team = this.usersTeamId;
+
+    if (this.confirmPassword !== undefined && this.password !== undefined) {
+      if (this.password === this.confirmPassword) {
+          this.registeredUser.password = this.confirmPassword;
+      } else {
+          alert("Passwords do not match!");
+          return;
+      }
+    }
+
     if (this.user.role === 'TEAM_MANAGER') {
       this.administrationService.save(this.registeredUser).subscribe({
         next: (response) => {
@@ -76,4 +101,8 @@ export class UserInfoComponent {
       });
     }
   }
+
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword;
+}
 }

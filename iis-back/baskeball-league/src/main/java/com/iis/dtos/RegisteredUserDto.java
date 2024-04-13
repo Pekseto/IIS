@@ -37,6 +37,8 @@ public class RegisteredUserDto {
 
     private double weight;
 
+    private Long jerseyNumber;
+
     private String status;
 
     private Long team;

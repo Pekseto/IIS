@@ -39,6 +39,7 @@ export class JudgeRegistrationComponent {
       height: 0,
       weight: 0,
       status: '',
+      jerseyNumber: 0
     };
 
     if (this.registrationForm.valid) {

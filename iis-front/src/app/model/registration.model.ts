@@ -14,6 +14,7 @@ export interface Registration {
     role: string,
     height: number,
     weight: number,
+    jerseyNumber: number,
     status: string,
     team?: number,
 }

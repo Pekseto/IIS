@@ -13,7 +13,7 @@ import { Registration } from "../model/registration.model";
     constructor(private http: HttpClient) { }
   
     getAdmin(id: number): Observable<Registration> {
-        return this.http.get<Registration>(environment.apiHost + 'teams/getAdmin/' + id);
+        return this.http.get<Registration>(environment.apiHost + 'users/getAdmin/' + id);
     }
 
     save(user: Registration) : Observable<Registration>{

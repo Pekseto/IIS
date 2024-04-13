@@ -13,7 +13,7 @@ import { Registration } from "../model/registration.model";
     constructor(private http: HttpClient) { }
   
     getPlayer(id: number): Observable<Registration> {
-        return this.http.get<Registration>(environment.apiHost + 'teams/getPlayer/' + id);
+        return this.http.get<Registration>(environment.apiHost + 'players/getPlayer/' + id);
     }
 
     save(user: Registration) : Observable<Registration>{

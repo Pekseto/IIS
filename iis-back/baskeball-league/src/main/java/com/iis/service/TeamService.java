@@ -10,4 +10,5 @@ import java.util.List;
 public interface TeamService {
     Team register(TeamDto teamForRegistration);
     List<Team> getAll();
+    Team getById(Long id);
 }

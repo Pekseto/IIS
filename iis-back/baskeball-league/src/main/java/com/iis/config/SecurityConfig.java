@@ -35,8 +35,12 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger-ui.html",
             "http://localhost:4200/**",
+            "/api/record-keeper/**",
             "/api/users/**",
-            "/api/teams/**"
+            "/api/teams/**",
+            "/api/players/**",
+            "/api/managers/**",
+            "/api/coaches/**",
     };
 
     private final JwtAuthenticationFilter jwtAuthFilter;

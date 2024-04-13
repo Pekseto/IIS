@@ -31,6 +31,7 @@ export class TeamManagerRegistrationComponent {
     phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9 -]*')]),
     city: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
     country: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    team: new FormControl(undefined, [Validators.required])
   });
 
   ngOnInit(): void {
@@ -50,11 +51,12 @@ export class TeamManagerRegistrationComponent {
       phoneNumber: this.registrationForm.value.phoneNumber || "",
       city: this.registrationForm.value.city || "",
       country: this.registrationForm.value.country || "",
+      team: this.registrationForm.value.team ? this.registrationForm.value.team : undefined,
       role: "TEAM_MANAGER",
       height: 0,
       weight: 0,
       status: '',
-      team: this.selectedTeam ? this.selectedTeam.id : undefined,
+      jerseyNumber: 0
     };
 
     if (this.registrationForm.valid) {

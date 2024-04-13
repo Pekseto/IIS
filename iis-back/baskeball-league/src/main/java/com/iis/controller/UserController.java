@@ -7,6 +7,7 @@ import com.iis.model.TeamManager;
 import com.iis.security.authentication.AuthenticationRequest;
 import com.iis.security.authentication.AuthenticationResponse;
 import com.iis.service.AuthenticationService;
+import com.iis.service.TeamService;
 import com.iis.service.UserService;
 import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class UserController {
 
     private final AuthenticationService authenticationService;
     private final UserService userService;
+    private final TeamService teamService;
     private final Mapper mapper;
 
     @PostMapping("/login")
@@ -58,6 +60,7 @@ public class UserController {
     private RegisteredUserDto registerPlayer(RegisteredUserDto userForRegistration) {
         userForRegistration.setPassword("player");
         Player newPlayer = mapper.map(userForRegistration, Player.class);
+        newPlayer.setTeam(teamService.getById(userForRegistration.getTeam()));
         userService.registerPlayer(newPlayer);
 
         return userForRegistration;
@@ -66,6 +69,7 @@ public class UserController {
     private RegisteredUserDto registerCoach(RegisteredUserDto userForRegistration) {
         userForRegistration.setPassword("coach");
         Coach newCoach = mapper.map(userForRegistration, Coach.class);
+        newCoach.setTeam(teamService.getById(userForRegistration.getTeam()));
         userService.registerCoach(newCoach);
 
         return userForRegistration;
@@ -74,6 +78,7 @@ public class UserController {
     private RegisteredUserDto registerTeamManager(RegisteredUserDto userForRegistration) {
         userForRegistration.setPassword("manager");
         TeamManager newManager = mapper.map(userForRegistration, TeamManager.class);
+        newManager.setTeam(teamService.getById(userForRegistration.getTeam()));
         userService.registerTeamManager(newManager);
 
         return userForRegistration;

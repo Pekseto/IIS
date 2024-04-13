@@ -42,4 +42,17 @@ public class Team {
 
     @OneToOne(mappedBy = "team")
     private Coach coach;
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }

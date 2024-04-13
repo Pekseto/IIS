@@ -14,7 +14,6 @@ import { Team } from '../model/team.model';
 export class PlayerRegistrationComponent {
 
   teams: Team[] = [];
-  selectedTeam!: Team;
 
   constructor(
     private authService: AuthService,
@@ -32,9 +31,11 @@ export class PlayerRegistrationComponent {
     city: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
     country: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
     jmbg: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*')]),
-    height: new FormControl(-1, [Validators.required, Validators.min(0)]), // Minimalna vrednost visine
-    weight: new FormControl(-1, [Validators.required, Validators.min(0)]), // Minimalna vrednost težine
+    height: new FormControl(0, [Validators.required, Validators.min(0)]), // Minimalna vrednost visine
+    weight: new FormControl(0, [Validators.required, Validators.min(0)]), // Minimalna vrednost težine
     status: new FormControl('', [Validators.required]),
+    jerseyNumber: new FormControl(0, [Validators.required, Validators.min(0)]),
+    team: new FormControl(undefined, [Validators.required])
 });
 
 
@@ -58,8 +59,9 @@ export class PlayerRegistrationComponent {
       height: this.registrationForm.value.height || -1,
       weight: this.registrationForm.value.weight || -1,
       status: this.registrationForm.value.status || "",
-      team: this.selectedTeam ? this.selectedTeam.id : undefined,
-      jmbg: this.registrationForm.value.jmbg || ""
+      team: this.registrationForm.value.team ? this.registrationForm.value.team : undefined,
+      jmbg: this.registrationForm.value.jmbg || "",
+      jerseyNumber: this.registrationForm.value.jerseyNumber || 0
     };
 
     if (this.registrationForm.valid) {

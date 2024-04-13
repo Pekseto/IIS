@@ -31,7 +31,7 @@ public class TeamController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Team>> register(){
+    public ResponseEntity<List<Team>> getAll(){
         try {
             return ResponseEntity.ok(teamService.getAll());
         } catch (Exception e) {
