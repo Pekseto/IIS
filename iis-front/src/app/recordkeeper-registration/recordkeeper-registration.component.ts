@@ -17,13 +17,15 @@ export class RecordkeeperRegistrationComponent {
   ) { }
 
   registrationForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    jmbg: new FormControl('', [Validators.required]),
-    country: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    surname: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl(''),
+    birthday: new FormControl('', [Validators.required]),
+    jmbg: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*')]),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9 -]*')]),
+    city: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
+    country: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]),
   });
 
   register(): void {
@@ -32,19 +34,19 @@ export class RecordkeeperRegistrationComponent {
       surname: this.registrationForm.value.surname || "",
       email: this.registrationForm.value.email || "",
       password: this.registrationForm.value.password || "",
+      birthday: this.registrationForm.value.birthday || "",
+      jmbg: this.registrationForm.value.jmbg || "",
+      phoneNumber: this.registrationForm.value.phoneNumber || "",
       city: this.registrationForm.value.city || "",
       country: this.registrationForm.value.country || "",
       confirmPassword: "",
-      birthday: "",
-      phoneNumber: "",
-      jmbg: ""
     };
 
     if (this.registrationForm.valid) {
       console.log(registration);
       this.authService.registerRecordKeeper(registration).subscribe({
         next: (response) => {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         },
       });
     }
