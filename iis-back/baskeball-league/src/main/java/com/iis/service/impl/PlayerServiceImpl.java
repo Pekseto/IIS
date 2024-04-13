@@ -48,7 +48,7 @@ public class PlayerServiceImpl implements PlayerService {
         playerToEdit.setHeight(player.getHeight());
         playerToEdit.setWeight(player.getWeight());
         playerToEdit.setJerseyNumber(Math.toIntExact(player.getJerseyNumber()));
-        playerToEdit.setTeam(teamRepository.getById(player.getTeam()));
+        if(player.getTeam() != -1)  playerToEdit.setTeam(teamRepository.getById(player.getTeam()));
 
         return mapper.mapPlayerToDto(playerRepository.save(playerToEdit));
     }
