@@ -31,7 +31,14 @@ public class RecordKeeperServiceImpl implements RecordKeeperService {
 
     @Override
     public RecordKeeperDTO Update(RecordKeeperDTO recordKeeperDTO) {
-        var retVal = repo.save(modelMapper.map(recordKeeperDTO, RecordKeeper.class));
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        recordKeeperDTO.setPassword(encoder.encode(recordKeeperDTO.getPassword()));
+
+        var updatedRecordKeeper = modelMapper.map(recordKeeperDTO, RecordKeeper.class);
+        var recordKeeper = repo.getReferenceById(recordKeeperDTO.getId());
+        updatedRecordKeeper.setTokens(recordKeeper.getTokens());
+
+        var retVal = repo.save(updatedRecordKeeper);
         return modelMapper.map(retVal, RecordKeeperDTO.class);
     }
 
