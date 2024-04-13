@@ -32,7 +32,6 @@ public enum Role {
             Permission.TEAM_MANAGER_UPDATE
     )),
     RECORD_KEEPER(Set.of(
-            Permission.RECORD_KEEPER_CREATE,
             Permission.RECORD_KEEPER_READ,
             Permission.RECORD_KEEPER_UPDATE
     ))
