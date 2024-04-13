@@ -31,6 +31,6 @@ public class PlayerController {
     @GetMapping("/getPlayer/{id}")
     @PreAuthorize("hasRole('ROLE_PLAYER')")
     public ResponseEntity<RegisteredUserDto> getById(@PathVariable long id){
-        return ResponseEntity.ok(mapper.map(playerService.getById(id),RegisteredUserDto.class));
+        return ResponseEntity.ok(mapper.mapPlayerToDto(playerService.getById(id)));
     }
 }

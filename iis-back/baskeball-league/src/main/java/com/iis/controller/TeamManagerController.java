@@ -31,6 +31,6 @@ public class TeamManagerController {
     @GetMapping("/getManager/{id}")
     @PreAuthorize("hasRole('ROLE_TEAM_MANAGER')")
     public ResponseEntity<RegisteredUserDto> getById(@PathVariable long id){
-        return ResponseEntity.ok(mapper.map(teamManagerService.getById(id),RegisteredUserDto.class));
+        return ResponseEntity.ok(mapper.mapTeamManagerToDto(teamManagerService.getById(id)));
     }
 }

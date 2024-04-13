@@ -31,6 +31,6 @@ public class CoachController {
     @GetMapping("/getCoach/{id}")
     @PreAuthorize("hasRole('ROLE_COACH')")
     public ResponseEntity<RegisteredUserDto> getById(@PathVariable long id){
-        return ResponseEntity.ok(mapper.map(coachService.getById(id),RegisteredUserDto.class));
+        return ResponseEntity.ok(mapper.mapCoachToDto(coachService.getById(id)));
     }
 }

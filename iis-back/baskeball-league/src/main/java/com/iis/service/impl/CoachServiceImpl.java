@@ -47,11 +47,11 @@ public class CoachServiceImpl implements CoachService {
         coachToEdit.setName(coach.getName());
         coachToEdit.setTeam(teamRepository.getById(coach.getTeam()));
 
-        return mapper.map(coachRepository.save(coachToEdit), RegisteredUserDto.class);
+        return mapper.mapCoachToDto(coachRepository.save(coachToEdit));
     }
 
     @Override
     public Coach getById(long id) {
-        return coachRepository.getReferenceById(id);
+        return coachRepository.getById(id);
     }
 }
