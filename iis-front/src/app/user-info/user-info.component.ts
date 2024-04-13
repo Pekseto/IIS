@@ -9,6 +9,7 @@ import { Registration } from '../model/registration.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Team } from '../model/team.model';
 import { TeamService } from '../services/team.service';
+import { CoachService } from '../services/coach.service';
 import { RecordKeeperService } from '../services/record-keeper.service';
 
 @Component({
@@ -34,7 +35,8 @@ export class UserInfoComponent {
     private recordKeeperService: RecordKeeperService,
     private router: Router,
     private authService: AuthService,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private coachService: CoachService
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +62,11 @@ export class UserInfoComponent {
             this.registeredUser = data;
             console.log(this.registeredUser);
           })
+        }
+        else if (this.user.role === 'COACH') {
+          this.coachService.getCoach(this.user.id).subscribe((data) => {
+            this.registeredUser = data;
+          });
         }
       }
     });
@@ -107,6 +114,13 @@ export class UserInfoComponent {
         },
       });
     }
+    else if (this.user.role === 'COACH') {
+      this.coachService.save(this.registeredUser).subscribe({
+        next: (response) => {
+          this.router.navigate(['']);
+        },
+      });
+    }      
     else if (this.user.role === 'RECORD_KEEPER') {
       this.recordKeeperService.save(this.registeredUser).subscribe({
         next: (response) => {

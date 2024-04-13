@@ -44,7 +44,7 @@ public class TeamManagerServiceImpl implements TeamManagerService {
         managerToEdit.setPhoneNumber(manager.getPhoneNumber());
         managerToEdit.setSurname(manager.getSurname());
         managerToEdit.setName(manager.getName());
-        managerToEdit.setTeam(teamRepository.getById(manager.getTeam()));
+        if(manager.getTeam() != -1)  managerToEdit.setTeam(teamRepository.getById(manager.getTeam()));
 
         return mapper.mapTeamManagerToDto(teamManagerRepository.save(managerToEdit));
     }

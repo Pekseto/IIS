@@ -15,6 +15,7 @@ import { RecordkeeperRegistrationComponent } from './recordkeeper-registration/r
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HomeComponent } from './layout/home/home.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { CoachRegistrationComponent } from './coach-registration/coach-registration.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
     NavbarComponent,
     HomeComponent,
     UserInfoComponent,
+    CoachRegistrationComponent,
   ],
   imports: [
     BrowserModule,

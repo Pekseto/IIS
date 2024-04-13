@@ -45,7 +45,7 @@ public class CoachServiceImpl implements CoachService {
         coachToEdit.setPhoneNumber(coach.getPhoneNumber());
         coachToEdit.setSurname(coach.getSurname());
         coachToEdit.setName(coach.getName());
-        coachToEdit.setTeam(teamRepository.getById(coach.getTeam()));
+        if(coach.getTeam() != -1)  coachToEdit.setTeam(teamRepository.getById(coach.getTeam()));
 
         return mapper.mapCoachToDto(coachRepository.save(coachToEdit));
     }

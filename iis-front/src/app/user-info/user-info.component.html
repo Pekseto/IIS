@@ -37,11 +37,15 @@
                 </div>
                 <div *ngIf="user.role === 'PLAYER'" class="form-group mb-3">
                     <label>Height</label>
-                    <input class="form-control" [(ngModel)]="registeredUser.height" name="height" type="text" [readonly]="!isEditing"/>
+                    <input class="form-control" [(ngModel)]="registeredUser.height" name="height" type="number" [readonly]="!isEditing"/>
                 </div>
                 <div *ngIf="user.role === 'PLAYER'" class="form-group mb-3">
                     <label>Weight</label>
-                    <input class="form-control" [(ngModel)]="registeredUser.weight" name="weight" type="text" [readonly]="!isEditing"/>
+                    <input class="form-control" [(ngModel)]="registeredUser.weight" name="weight" type="number" [readonly]="!isEditing"/>
+                </div>
+                <div *ngIf="user.role === 'PLAYER'" class="form-group mb-3">
+                    <label>Jersey number</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.jerseyNumber" name="jerseyNumber" type="number" [readonly]="!isEditing"/>
                 </div>
                 <div *ngIf="user.role === 'PLAYER'" class="form-group mb-3">
                     <label>Status</label>
