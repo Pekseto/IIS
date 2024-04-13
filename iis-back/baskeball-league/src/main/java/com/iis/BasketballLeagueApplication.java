@@ -14,6 +14,6 @@ public class BasketballLeagueApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BasketballLeagueApplication.class, args);
-        System.out.println("Hello world!");
+        System.out.println("Welcome to basketball league application!");
     }
 }

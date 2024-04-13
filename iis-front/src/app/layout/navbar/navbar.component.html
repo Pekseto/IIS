@@ -39,6 +39,8 @@
                         <li><a class="dropdown-item" [routerLink]="['']">
                                 <i class="bi bi-search"></i> Dodati sta treba, ako ne treba nista onda brisati
                                 ovo</a></li>
+                        <li><a *ngIf="user.role == 'PLAYER' || user.role == 'TEAM_MANAGER' || user.role == 'COACH'" class="dropdown-item" [routerLink]="['user-info']">
+                            <i class="bi bi-search"></i> My profile</a></li>
                     </ul>
                 </li>
             </ul>
@@ -56,6 +58,10 @@
                         </li>
                         <li><a class="dropdown-item" [routerLink]="['player-registration']">
                                 <i class="bi bi-search"></i> Player
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" [routerLink]="['team-manager-registration']">
+                            <i class="bi bi-search"></i> Team manager
                             </a>
                         </li>
                         <li><a class="dropdown-item" [routerLink]="['referee-registration']">
@@ -89,11 +95,14 @@
                         <li><a class="dropdown-item" [routerLink]="['']">
                                 <i class="bi bi-search"></i> Dodati sta treba, ako ne treba nista onda brisati
                                 ovo</a></li>
+                             
+                        <li><a class="dropdown-item" [routerLink]="['user-info']">
+                              <i class="bi bi-search"></i> My profile</a></li>
                     </ul>
                 </li>
-
-
             </ul>
+
+            
 
             <!-- LOGIN / LOGOUT -->
             <ul class="navbar-nav ms-auto">

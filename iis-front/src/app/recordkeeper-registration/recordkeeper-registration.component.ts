@@ -21,6 +21,7 @@ export class RecordkeeperRegistrationComponent {
     surname: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
+    jmbg: new FormControl('', [Validators.required]),
     country: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
   });
@@ -41,7 +42,7 @@ export class RecordkeeperRegistrationComponent {
 
     if (this.registrationForm.valid) {
       console.log(registration);
-      this.authService.register(registration).subscribe({
+      this.authService.registerRecordKeeper(registration).subscribe({
         next: (response) => {
           this.router.navigate(['home']);
         },

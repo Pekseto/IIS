@@ -1,0 +1,87 @@
+<div class="container" *ngIf="registeredUser">
+    <div class="login-form ">
+        <form (ngSubmit)="save()">
+            <h2 class="align-middle title">Player registration</h2>
+            <div class="row d-flex">
+                <div class="form-group mb-3">
+                    <label>Name</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.name" name="name" type="text" [readonly]="!isEditing"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Surname</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.surname" name="surname" type="text" [readonly]="!isEditing"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Email</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.email" name="email" type="text" [readonly]="!isEditing"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Date of birth</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.birthday" name="birthday" type="datetime" [readonly]="!isEditing"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>JMBG</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.jmbg" name="jmbg" type="text" [readonly]="!isEditing"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Phone number</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.phoneNumber" name="phoneNumber" type="text" [readonly]="!isEditing"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>City</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.city" name="city" type="text" [readonly]="!isEditing"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Country</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.country" name="country" type="text" [readonly]="!isEditing" />
+                </div>
+                <div *ngIf="user.role === 'PLAYER'" class="form-group mb-3">
+                    <label>Height</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.height" name="height" type="text" [readonly]="!isEditing"/>
+                </div>
+                <div *ngIf="user.role === 'PLAYER'" class="form-group mb-3">
+                    <label>Weight</label>
+                    <input class="form-control" [(ngModel)]="registeredUser.weight" name="weight" type="text" [readonly]="!isEditing"/>
+                </div>
+                <div *ngIf="user.role === 'PLAYER'" class="form-group mb-3">
+                    <label>Status</label>
+                    <select [(ngModel)]="registeredUser.status" name="status">
+                        <option value="ACTIVE">Active</option>
+                        <option value="INACTIVE">Inactive</option>
+                        <option value="INJURED">Injured</option>
+                    </select>
+                </div>
+                <div *ngIf="user.role === 'PLAYER' || user.role === 'COACH' || user.role === 'TEAM_MANAGER'" class="form-group mb-3">
+                    <label>Team</label>
+                    <select class="form-control" [(ngModel)]="usersTeamId" name="team">
+                        <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3" *ngIf="isEditing">
+                    <label>Password</label>
+                    <div class="input-group">
+                        <input class="form-control" [(ngModel)]="password" name="password" [type]="showPassword ? 'text' : 'password'" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" (click)="toggleShowPassword()">
+                                <span [ngClass]="{'bi-eye': !showPassword, 'bi-eye-slash': showPassword}" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>    
+                <div class="form-group mb-3" *ngIf="isEditing">
+                    <label>Confirm password</label>
+                    <div class="input-group">
+                        <input class="form-control" [(ngModel)]="confirmPassword" name="password" [type]="showPassword ? 'text' : 'password'" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" (click)="toggleShowPassword()">
+                                <span [ngClass]="{'bi-eye': !showPassword, 'bi-eye-slash': showPassword}" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>                            
+                <button *ngIf="isEditing" color="primary" type="submit" class="btn btn-primary btn-block">Save</button>
+                <button class="button" *ngIf="!isEditing" color="primary" (click)="startEditing()">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>

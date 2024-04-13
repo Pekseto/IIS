@@ -21,6 +21,7 @@ export class JudgeRegistrationComponent {
     email: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
+    jmbg: new FormControl('', [Validators.required]),
   });
 
   register(): void {
@@ -29,6 +30,16 @@ export class JudgeRegistrationComponent {
       surname: this.registrationForm.value.surname || "",
       email: this.registrationForm.value.email || "",
       password: this.registrationForm.value.password || "",
+      birthday: '',
+      jmbg: this.registrationForm.value.jmbg || "",
+      phoneNumber: '',
+      city: '',
+      country: '',
+      role: '',
+      height: 0,
+      weight: 0,
+      status: '',
+      jerseyNumber: 0
     };
 
     if (this.registrationForm.valid) {

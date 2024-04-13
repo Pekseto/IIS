@@ -37,6 +37,10 @@ public class SecurityConfig {
             "http://localhost:4200/**",
             "/api/record-keeper/**",
             "/api/users/**",
+            "/api/teams/**",
+            "/api/players/**",
+            "/api/managers/**",
+            "/api/coaches/**",
     };
 
     private final JwtAuthenticationFilter jwtAuthFilter;

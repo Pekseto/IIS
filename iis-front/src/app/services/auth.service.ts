@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, tap } from "rxjs";
+import { BehaviorSubject, Observable, tap, of } from "rxjs";
 import { User } from "../model/user.model";
 import { HttpClient } from "@angular/common/http";
 import { TokenStorage } from "../jwt/token.service";
@@ -10,6 +10,7 @@ import { AuthenticationResponse } from "../responses/authentication-response.mod
 import { Injectable } from "@angular/core";
 import { Registration } from "../model/registration.model";
 import { RecordKeeper } from "../model/record-keeper.model";
+
 
 @Injectable({
     providedIn:'root'
@@ -34,7 +35,7 @@ export class AuthService {
 
       register(registration: Registration): Observable<AuthenticationResponse> {
         return this.http
-        .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
+        .post<AuthenticationResponse>(environment.apiHost + 'users/register', registration)
         .pipe(
           tap((authenticationResponse) => {
             this.tokenStorage.saveAccessToken(authenticationResponse.access_token);
@@ -72,4 +73,20 @@ export class AuthService {
         };
         this.user$.next(user);
       }
+
+      getUser(): Observable<User> {
+        const jwtHelperService = new JwtHelperService();
+        const accessToken = this.tokenStorage.getAccessToken() || '';
+        
+        const decodedToken = jwtHelperService.decodeToken(accessToken);
+          const user: User = {
+            id: +decodedToken.id,
+            role: decodedToken.role,
+            email: decodedToken.sub,
+          };
+          return of(user);
+         
+      }
+    
+    
 }

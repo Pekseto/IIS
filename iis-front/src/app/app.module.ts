@@ -8,18 +8,26 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './jwt/jwt.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JudgeRegistrationComponent } from './judge-registration/judge-registration.component';
+import { PlayerRegistrationComponent } from './player-registration/player-registration.component';
+import { TeamManagerRegistrationComponent } from './team-manager-registration/team-manager-registration.component';
+import { TeamRegistrationComponent } from './team-registration/team-registration.component';
 import { RecordkeeperRegistrationComponent } from './recordkeeper-registration/recordkeeper-registration.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HomeComponent } from './layout/home/home.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     JudgeRegistrationComponent,
+    PlayerRegistrationComponent,
+    TeamManagerRegistrationComponent,
+    TeamRegistrationComponent,
     RecordkeeperRegistrationComponent,
     NavbarComponent,
     HomeComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,
