@@ -19,8 +19,20 @@ public class RecordKeeperController {
 
     @PostMapping("/register")
     @Operation(summary = "Register new record keeper")
-    //@PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
     public ResponseEntity<RecordKeeperDTO> register(@RequestBody RecordKeeperDTO recordKeeperDTO){
         return ResponseEntity.ok(service.Register(recordKeeperDTO));
+    }
+
+    @GetMapping("/get/{id}")
+    @Operation(summary = "Get record keeper by ID")
+    public ResponseEntity<RecordKeeperDTO> get(@PathVariable long id){
+        return ResponseEntity.ok(service.GetById(id));
+    }
+
+    @PutMapping("/edit")
+    @Operation(summary =  "Edit record keeper")
+    public ResponseEntity<RecordKeeperDTO> edit(@RequestBody RecordKeeperDTO recordKeeperDTO){
+        return ResponseEntity.ok(service.Update(recordKeeperDTO));
     }
 }

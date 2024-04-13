@@ -6,39 +6,61 @@
                 <div class="form-group mb-3">
                     <label>Name</label>
                     <input class="form-control" formControlName="name" type="text" />
+                    <small *ngIf="registrationForm.get('name')?.hasError('pattern')" class="text-danger">
+                        Name should start with an uppercase letter
+                    </small>
                 </div>
                 <div class="form-group mb-3">
                     <label>Surname</label>
                     <input class="form-control" formControlName="surname" type="text" />
+                    <small *ngIf="registrationForm.get('surname')?.hasError('pattern')" class="text-danger">
+                        Surname should start with an uppercase letter
+                    </small>
                 </div>
                 <div class="form-group mb-3">
                     <label>Email</label>
                     <input class="form-control" formControlName="email" type="text" />
+                    <small *ngIf="registrationForm.get('email')?.hasError('pattern')" class="text-danger">
+                        Invalid email format
+                    </small>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Date of birth</label>
+                    <input class="form-control" formControlName="birthday" type="date" />
                 </div>
                 <div class="form-group mb-3">
                     <label>JMBG</label>
                     <input class="form-control" formControlName="jmbg" type="text" />
+                    <small *ngIf="registrationForm.get('jmbg')?.hasError('pattern')" class="text-danger">
+                        Invalid jmbg format
+                    </small>
                 </div>
                 <div class="form-group mb-3">
-                    <label>Password</label>
-                    <label>Initial password</label>
-                    <input class="form-control" formControlName="password" type="password" />
+                    <label>Phone number</label>
+                    <input class="form-control" formControlName="phoneNumber" type="text" />
+                    <small *ngIf="registrationForm.get('phoneNumber')?.hasError('pattern')" class="text-danger">
+                        Phone num format: 06*******
+                    </small>
                 </div>
-                <div class="form-group mb-4 row">
-                    <div class="col-6">
-                        <label>Country</label>
-                        <select class="form-select" formControlName="country" type="text">
-                            <option value="Serbia">Serbia</option>
-                            <option value="Montenegro">Montenegro</option>
-                            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-                            <option value="Croatia">Croatia</option>
-                            <option value="Macedonia">Macedonia</option>
-                        </select>
-                    </div>
-                    <div class="col-6">
-                        <label>City</label>
-                        <input class="form-control" formControlName="city" type="text" />
-                    </div>
+                <div class="form-group mb-3">
+                    <label>Country</label>
+                    <select class="form-select" formControlName="country" type="text">
+                        <option value="Serbia">Serbia</option>
+                        <option value="Montenegro">Montenegro</option>
+                        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                        <option value="Croatia">Croatia</option>
+                        <option value="Macedonia">Macedonia</option>
+                    </select>
+                    <small *ngIf="registrationForm.get('country')?.hasError('pattern')" class="text-danger">
+                        Country should start with an uppercase letter
+                    </small>
+                </div>
+                <div class="form-group mb-3">
+                    <label>City</label>
+                    <input class="form-control" formControlName="city" type="text" />
+                    <small *ngIf="registrationForm.get('city')?.hasError('pattern')" class="text-danger">
+                        City should start with an uppercase letter
+                    </small>
                 </div>
                 <button color="primary" type="submit" class="btn btn-primary btn-block">Create account</button>
             </div>

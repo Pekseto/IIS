@@ -7,6 +7,7 @@ import com.iis.repository.RecordKeeperRepository;
 import com.iis.service.RecordKeeperService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,15 +18,27 @@ public class RecordKeeperServiceImpl implements RecordKeeperService {
 
     @Override
     public RecordKeeperDTO Register(RecordKeeperDTO recordKeeperDTO) {
+        recordKeeperDTO.setPassword("recordkeeper");
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        recordKeeperDTO.setPassword(encoder.encode(recordKeeperDTO.getPassword()));
+
         var recordKeeper = modelMapper.map(recordKeeperDTO, RecordKeeper.class);
         recordKeeper.setRole(Role.RECORD_KEEPER);
+        
         var retVal = repo.save(recordKeeper);
         return modelMapper.map(retVal, RecordKeeperDTO.class);
     }
 
     @Override
     public RecordKeeperDTO Update(RecordKeeperDTO recordKeeperDTO) {
-        var retVal = repo.save(modelMapper.map(recordKeeperDTO, RecordKeeper.class));
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        recordKeeperDTO.setPassword(encoder.encode(recordKeeperDTO.getPassword()));
+
+        var updatedRecordKeeper = modelMapper.map(recordKeeperDTO, RecordKeeper.class);
+        var recordKeeper = repo.getReferenceById(recordKeeperDTO.getId());
+        updatedRecordKeeper.setTokens(recordKeeper.getTokens());
+
+        var retVal = repo.save(updatedRecordKeeper);
         return modelMapper.map(retVal, RecordKeeperDTO.class);
     }
 

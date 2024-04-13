@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Team } from '../model/team.model';
 import { TeamService } from '../services/team.service';
 import { CoachService } from '../services/coach.service';
+import { RecordKeeperService } from '../services/record-keeper.service';
 
 @Component({
   selector: 'app-user-info',
@@ -31,6 +32,7 @@ export class UserInfoComponent {
     private playerService: PlayerService,
     private teamManagerService: TeamManagerService,
     private administrationService: AdministrationService,
+    private recordKeeperService: RecordKeeperService,
     private router: Router,
     private authService: AuthService,
     private teamService: TeamService,
@@ -55,6 +57,11 @@ export class UserInfoComponent {
           this.administrationService.getAdmin(this.user.id).subscribe((data) => {
             this.registeredUser = data;
           });
+        } else if (this.user.role == 'RECORD_KEEPER') {
+          this.recordKeeperService.getRecordKeeper(this.user.id).subscribe((data) => {
+            this.registeredUser = data;
+            console.log(this.registeredUser);
+          })
         }
         else if (this.user.role === 'COACH') {
           this.coachService.getCoach(this.user.id).subscribe((data) => {
@@ -80,10 +87,10 @@ export class UserInfoComponent {
 
     if (this.confirmPassword !== undefined && this.password !== undefined) {
       if (this.password === this.confirmPassword) {
-          this.registeredUser.password = this.confirmPassword;
+        this.registeredUser.password = this.confirmPassword;
       } else {
-          alert("Passwords do not match!");
-          return;
+        alert("Passwords do not match!");
+        return;
       }
     }
 
@@ -113,10 +120,17 @@ export class UserInfoComponent {
           this.router.navigate(['']);
         },
       });
+    }      
+    else if (this.user.role === 'RECORD_KEEPER') {
+      this.recordKeeperService.save(this.registeredUser).subscribe({
+        next: (response) => {
+          this.router.navigate(['']);
+        },
+      });
     }
   }
 
   toggleShowPassword(): void {
     this.showPassword = !this.showPassword;
-}
+  }
 }

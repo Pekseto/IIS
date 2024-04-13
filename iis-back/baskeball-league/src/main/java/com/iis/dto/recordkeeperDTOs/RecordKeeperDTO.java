@@ -16,6 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecordKeeperDTO {
+    private long id;
+
     @NotNull
     @NotBlank
     @Email
@@ -37,7 +39,7 @@ public class RecordKeeperDTO {
     private String surname;
 
     @NotNull
-    private Date birthday;
+    private String birthday;
 
     @NotNull
     private String phoneNumber;
@@ -52,4 +54,6 @@ public class RecordKeeperDTO {
 
     @NotNull
     private String jmbg;
+
+    private String role;
 }

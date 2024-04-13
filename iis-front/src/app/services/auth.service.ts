@@ -39,14 +39,7 @@ export class AuthService {
       }
 
       registerRecordKeeper(registration: RecordKeeper): Observable<AuthenticationResponse>{
-        return this.http
-        .post<AuthenticationResponse>(environment.apiHost + 'record-keeper/register', registration)
-        .pipe(
-          tap((authenticationResponse) => {
-            this.tokenStorage.saveAccessToken(authenticationResponse.access_token);
-            this.setUser();
-          })
-        )
+        return this.http.post<AuthenticationResponse>(environment.apiHost + 'record-keeper/register', registration);
       }
 
       logout(): void {
