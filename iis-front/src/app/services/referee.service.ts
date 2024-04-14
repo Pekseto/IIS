@@ -13,15 +13,15 @@ import { Referee } from "../model/referee.model";
 
     constructor(private http: HttpClient,) {}
 
-    register(user: Referee) : Observable<any> {
-        return this.http.post(environment.apiHost + 'referee/register', user);
+    register(referee: Registration) : Observable<any> {
+        return this.http.post(environment.apiHost + 'users/registerReferee', referee);
     } 
 
-    updae(user: Referee) : Observable<any> {
-        return this.http.put(environment.apiHost + this.apiController + '/update', user);
+    updae(user: Registration) : Observable<any> {
+        return this.http.put(environment.apiHost +'users/updateReferee', user);
     }
 
     getReferee(id: number) : Observable<any> {
-        return this.http.get(environment.apiHost + this.apiController + '/getReferee' + id);
+        return this.http.get(environment.apiHost  + 'users/getReferee/' + id);
     }
   }

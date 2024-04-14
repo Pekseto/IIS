@@ -12,6 +12,8 @@ import { RefereeService } from '../services/referee.service';
   styleUrls: ['./judge-registration.component.css']
 })
 export class JudgeRegistrationComponent {
+  data: any
+
   constructor(
     private authService: AuthService,
     private refereeService: RefereeService,
@@ -32,42 +34,42 @@ export class JudgeRegistrationComponent {
   });
 
   register(): void {
-    const registration: Referee = {
-      id: 0,
-      name: this.registrationForm.value.name || "",
-      surname: this.registrationForm.value.surname || "",
-      birthday: this.registrationForm.value.birthday || "",
-      jmbg: this.registrationForm.value.jmbg || "",
-      // address: this.registrationForm.value.address || "",
-      city: this.registrationForm.value.city || "",
-      country: this.registrationForm.value.country || "",
-      phoneNumber: this.registrationForm.value.phoneNumber || "",
-      email: this.registrationForm.value.email || "",
-      password: this.registrationForm.value.password || "",
-      role: '',
-    };
-    // const registration: Registration = {
+    // const registration: Referee = {
+    //   id: 0,
     //   name: this.registrationForm.value.name || "",
     //   surname: this.registrationForm.value.surname || "",
-    //   email: this.registrationForm.value.email || "",
-    //   password: this.registrationForm.value.password || "",
     //   birthday: this.registrationForm.value.birthday || "",
     //   jmbg: this.registrationForm.value.jmbg || "",
-    //   phoneNumber: this.registrationForm.value.phoneNumber || "",
+    //   // address: this.registrationForm.value.address || "",
     //   city: this.registrationForm.value.city || "",
     //   country: this.registrationForm.value.country || "",
-    //   team: undefined,
-    //   role: "REFEREE",
-    //   height: 0,
-    //   weight: 0,
-    //   status: '',
-    //   jerseyNumber: 0
+    //   phoneNumber: this.registrationForm.value.phoneNumber || "",
+    //   email: this.registrationForm.value.email || "",
+    //   password: this.registrationForm.value.password || "",
+    //   role: '',
     // };
+    const registration: Registration = {
+      name: this.registrationForm.value.name || "",
+      surname: this.registrationForm.value.surname || "",
+      email: this.registrationForm.value.email || "",
+      password: this.registrationForm.value.password || "",
+      birthday: this.registrationForm.value.birthday || "",
+      jmbg: this.registrationForm.value.jmbg || "",
+      phoneNumber: this.registrationForm.value.phoneNumber || "",
+      city: this.registrationForm.value.city || "",
+      country: this.registrationForm.value.country || "",
+      team: undefined,
+      role: "REFEREE",
+      height: 0,
+      weight: 0,
+      status: '',
+      jerseyNumber: 0
+    };
 
     if (this.registrationForm.valid) {
-      this.authService.registerReferee(registration).subscribe({
+      this.refereeService.register(registration).subscribe({
         next: (response) => {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         },
       });
     }

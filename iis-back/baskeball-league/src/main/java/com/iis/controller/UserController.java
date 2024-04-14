@@ -10,6 +10,7 @@ import com.iis.security.authentication.AuthenticationRequest;
 import com.iis.security.authentication.AuthenticationResponse;
 import com.iis.service.*;
 import com.iis.util.Mapper;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,5 +84,25 @@ public class UserController {
         userService.registerTeamManager(newManager);
 
         return userForRegistration;
+    }
+
+    @GetMapping("/getReferee/{id}")
+    @Operation(summary = "Get referee data by id")
+    public ResponseEntity<RefereeDTO> getJudge(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(refereeService.GetById(id));
+    }
+
+    @PostMapping("/registerReferee")
+    @Operation(summary = "Register new referee")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
+    public ResponseEntity<RefereeDTO> regiterReferee(@RequestBody RefereeDTO referee) {
+        return ResponseEntity.ok(refereeService.Register(referee));
+    }
+
+    @PutMapping("/updateReferee")
+    @Operation(summary = "Update data about referee")
+
+    public ResponseEntity<RefereeDTO> updateReferee(@RequestBody RefereeDTO judge) {
+        return ResponseEntity.ok(refereeService.Update(judge));
     }
 }

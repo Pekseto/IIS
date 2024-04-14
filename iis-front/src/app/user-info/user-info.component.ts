@@ -11,6 +11,7 @@ import { Team } from '../model/team.model';
 import { TeamService } from '../services/team.service';
 import { CoachService } from '../services/coach.service';
 import { RecordKeeperService } from '../services/record-keeper.service';
+import { RefereeService } from '../services/referee.service';
 
 @Component({
   selector: 'app-user-info',
@@ -33,6 +34,7 @@ export class UserInfoComponent {
     private teamManagerService: TeamManagerService,
     private administrationService: AdministrationService,
     private recordKeeperService: RecordKeeperService,
+    private refereeService: RefereeService,
     private router: Router,
     private authService: AuthService,
     private teamService: TeamService,
@@ -67,6 +69,11 @@ export class UserInfoComponent {
           this.coachService.getCoach(this.user.id).subscribe((data) => {
             this.registeredUser = data;
           });
+        }
+        else if(this.user.role === 'REFEREE') {
+          this.refereeService.getReferee(this.user.id).subscribe((data) => {
+            this.registeredUser = data;
+          })
         }
       }
     });
@@ -127,6 +134,13 @@ export class UserInfoComponent {
           this.router.navigate(['']);
         },
       });
+    }
+    else if (this.user.role === 'REFEREE') {
+      this.refereeService.updae(this.registeredUser).subscribe({
+        next: (response) => {
+          this.router.navigate([''])
+        }
+      })
     }
   }
 
