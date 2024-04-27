@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
     private final TeamManagerRepository teamManagerRepository;
     private final UserRepository userRepository;
     private final Mapper mapper;
+    private final EmailSender emailSender;
     @Override
     public Player registerPlayer(Player player) {
 
@@ -37,7 +38,11 @@ public class UserServiceImpl implements UserService {
 
         player.setPassword(encoder.encode(player.getPassword()));
 
-        return playerRepository.save(player);
+        var ret = playerRepository.save(player);
+
+        emailSender.sendHtmlEmail(player,"Registration status notification", "player");
+
+        return ret;
     }
 
     @Override
@@ -46,7 +51,11 @@ public class UserServiceImpl implements UserService {
 
         coach.setPassword(encoder.encode(coach.getPassword()));
 
-        return coachRepository.save(coach);
+        var ret = coachRepository.save(coach);
+
+        emailSender.sendHtmlEmail(coach,"Registration status notification", "coach");
+
+        return ret;
     }
 
     @Override
@@ -55,7 +64,11 @@ public class UserServiceImpl implements UserService {
 
         teamManager.setPassword(encoder.encode(teamManager.getPassword()));
 
-        return teamManagerRepository.save(teamManager);
+        var ret = teamManagerRepository.save(teamManager);
+
+        emailSender.sendHtmlEmail(teamManager,"Registration status notification", "manager");
+
+        return ret;
     }
 
     @Override
