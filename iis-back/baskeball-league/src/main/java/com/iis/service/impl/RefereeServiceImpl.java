@@ -1,12 +1,15 @@
 package com.iis.service.impl;
 
 import com.iis.dto.judgeDTOs.RefereeDTO;
+import com.iis.helpers.SearchIn;
 import com.iis.model.Referee;
 import com.iis.model.Role;
 import com.iis.repository.RefereeRepository;
 import com.iis.service.RefereeService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RefereeServiceImpl implements RefereeService {
 
-    private final RefereeRepository judgeRepository;
+    private final RefereeRepository refereeRepository;
     ModelMapper modelMapper = new ModelMapper();
 
     @Override
@@ -26,7 +29,7 @@ public class RefereeServiceImpl implements RefereeService {
         var model = modelMapper.map(judgeDTO, Referee.class);
         model.setRole(Role.REFEREE);
         model.setPassword(encoder.encode(judgeDTO.getPassword()));
-        var retVal = judgeRepository.save(model);
+        var retVal = refereeRepository.save(model);
         return modelMapper.map(retVal, RefereeDTO.class);
     }
 
@@ -34,7 +37,7 @@ public class RefereeServiceImpl implements RefereeService {
     public RefereeDTO Update(RefereeDTO judgeDTO) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        var refereeFromDb = judgeRepository.getById(judgeDTO.getId());
+        var refereeFromDb = refereeRepository.getById(judgeDTO.getId());
 
         refereeFromDb.setName(judgeDTO.getName());
         refereeFromDb.setSurname(judgeDTO.getSurname());
@@ -47,13 +50,29 @@ public class RefereeServiceImpl implements RefereeService {
         refereeFromDb.setPassword(encoder.encode(judgeDTO.getPassword()));
         refereeFromDb.setRole(judgeDTO.getRole());
 
-        var retVal = judgeRepository.save(refereeFromDb);
+        var retVal = refereeRepository.save(refereeFromDb);
         return modelMapper.map(retVal, RefereeDTO.class);
     }
 
     @Override
     public RefereeDTO GetById(long id) {
-        var retVal = judgeRepository.getById(id);
+        var retVal = refereeRepository.getById(id);
         return modelMapper.map(retVal, RefereeDTO.class);
     }
+
+    @Override
+    public Page<RefereeDTO> GetAll(SearchIn dataIn) {
+        PageRequest page = PageRequest.of(dataIn.getPage(), dataIn.getSize());
+
+        if(dataIn.getSearch() != null && !dataIn.getSearch().isEmpty()) {
+            return null;
+        }
+        else {
+            var retVal = refereeRepository.findAll(page);
+            return null;
+            //return modelMapper.map(retVal, RefereeDTO.class);
+        }
+    }
+
+
 }

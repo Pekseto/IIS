@@ -1,0 +1,40 @@
+package com.iis.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.time.LocalDate;
+
+@EqualsAndHashCode(callSuper=false)
+@Data
+@Entity
+@Table(name="matches")
+public class Match {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", unique = true, nullable = false)
+    private Long id;
+
+    @Column(name="homeTeamId", nullable = false)
+    private Long homeTeamId;
+
+    @Column(name="awayTeamId", nullable = false)
+    private Long awayTeamId;
+
+    @Column(name="mainRefereeId", nullable = true)
+    private Long mainRefereeId;
+
+    @Column(name="mainRefereeId", nullable = true)
+    private Long secondRefereeId;
+
+    @Column(name="mainRefereeId", nullable = true)
+    private Long thirdRefereeId;
+
+    @Column(name="mainRefereeId", nullable = true)
+    private Long fourthRefereeId;
+
+    @Column(name="matchDay", nullable = true)
+    private LocalDate matchDay;
+}
