@@ -16,6 +16,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HomeComponent } from './layout/home/home.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { CoachRegistrationComponent } from './coach-registration/coach-registration.component';
+import { UpcomingGamesComponent } from './upcoming-games/upcoming-games.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CoachRegistrationComponent } from './coach-registration/coach-registrat
     HomeComponent,
     UserInfoComponent,
     CoachRegistrationComponent,
+    UpcomingGamesComponent,
   ],
   imports: [
     BrowserModule,

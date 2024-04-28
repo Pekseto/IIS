@@ -2,6 +2,7 @@ package com.iis.controller;
 
 import com.iis.dto.judgeDTOs.RefereeDTO;
 import com.iis.helpers.SearchIn;
+import com.iis.model.Referee;
 import com.iis.service.RefereeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,8 +43,8 @@ public class RefereeController {
 
     @PostMapping("/getAll")
     @Operation(summary = "Get all referees with pagination")
-    @PreAuthorize("hasRole('ROLE_REFEREE')")
-    public ResponseEntity<Page<RefereeDTO>> getAll(@RequestBody SearchIn dataIn) {
+    @PreAuthorize("hasAnyRole('ROLE_LEAGUE_ADMIN', 'ROLE_REFEREE')")
+    public ResponseEntity<Page<Referee>> getAll(@RequestBody SearchIn dataIn) {
         return ResponseEntity.ok(refereeService.GetAll(dataIn));
     }
 }

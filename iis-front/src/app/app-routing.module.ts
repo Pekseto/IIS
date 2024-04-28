@@ -9,6 +9,7 @@ import { RecordkeeperRegistrationComponent } from "./recordkeeper-registration/r
 import { HomeComponent } from "./layout/home/home.component";
 import { UserInfoComponent } from "./user-info/user-info.component";
 import { CoachRegistrationComponent } from "./coach-registration/coach-registration.component";
+import { UpcomingGamesComponent } from "./upcoming-games/upcoming-games.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
     { path: 'team-registration', component: TeamRegistrationComponent},
     { path: 'recordkeeper-registration', component: RecordkeeperRegistrationComponent },
     { path: 'user-info', component: UserInfoComponent},
-    { path: 'coach-registration', component: CoachRegistrationComponent}
+    { path: 'coach-registration', component: CoachRegistrationComponent},
+    { path: 'upcoming-matches', component: UpcomingGamesComponent },
 ];
 
 @NgModule({

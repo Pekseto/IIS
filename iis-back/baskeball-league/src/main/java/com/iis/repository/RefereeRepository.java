@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RefereeRepository extends JpaRepository<Referee, Long> {
 
-    Page<Referee> findBySomeFieldContaining(String searchText, Pageable pageable);
+    Page<Referee> findBySurnameContaining(String searchText, Pageable pageable);
 }

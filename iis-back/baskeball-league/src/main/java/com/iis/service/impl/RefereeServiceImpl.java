@@ -61,15 +61,14 @@ public class RefereeServiceImpl implements RefereeService {
     }
 
     @Override
-    public Page<RefereeDTO> GetAll(SearchIn dataIn) {
+    public Page<Referee> GetAll(SearchIn dataIn) {
         PageRequest page = PageRequest.of(dataIn.getPage(), dataIn.getSize());
 
         if(dataIn.getSearch() != null && !dataIn.getSearch().isEmpty()) {
             return null;
         }
         else {
-            var retVal = refereeRepository.findAll(page);
-            return null;
+            return refereeRepository.findAll(page);
             //return modelMapper.map(retVal, RefereeDTO.class);
         }
     }

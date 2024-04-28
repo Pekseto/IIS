@@ -1,0 +1,49 @@
+.title {
+    margin-bottom: 1rem;
+}
+
+.match-card {
+    display: flex;
+    border: solid 1px black;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background-color: #FBF2F2;
+}
+
+.teams-part {
+    display: flex;
+    width: 40%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.date-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.city-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.button-part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+
+    .set-referee {
+        background-color: #3A86FF;
+        border: 1px solid black;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        color: white;
+    }
+}

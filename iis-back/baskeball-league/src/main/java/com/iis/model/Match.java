@@ -26,15 +26,18 @@ public class Match {
     @Column(name="mainRefereeId", nullable = true)
     private Long mainRefereeId;
 
-    @Column(name="mainRefereeId", nullable = true)
+    @Column(name="secondRefereeId", nullable = true)
     private Long secondRefereeId;
 
-    @Column(name="mainRefereeId", nullable = true)
+    @Column(name="thirdRefereeId", nullable = true)
     private Long thirdRefereeId;
 
-    @Column(name="mainRefereeId", nullable = true)
+    @Column(name="fourthRefereeId", nullable = true)
     private Long fourthRefereeId;
 
     @Column(name="matchDay", nullable = true)
     private LocalDate matchDay;
+
+    @Column(name="city", nullable = true)
+    private String city;
 }
