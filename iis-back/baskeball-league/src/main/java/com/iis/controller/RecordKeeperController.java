@@ -1,6 +1,6 @@
 package com.iis.controller;
 
-import com.iis.dto.recordkeeperDTOs.RecordKeeperDTO;
+import com.iis.dtos.RecordKeeperDto;
 import com.iis.service.RecordKeeperService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,19 +20,19 @@ public class RecordKeeperController {
     @PostMapping("/register")
     @Operation(summary = "Register new record keeper")
     @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
-    public ResponseEntity<RecordKeeperDTO> register(@RequestBody RecordKeeperDTO recordKeeperDTO){
+    public ResponseEntity<RecordKeeperDto> register(@RequestBody RecordKeeperDto recordKeeperDTO){
         return ResponseEntity.ok(service.Register(recordKeeperDTO));
     }
 
     @GetMapping("/get/{id}")
     @Operation(summary = "Get record keeper by ID")
-    public ResponseEntity<RecordKeeperDTO> get(@PathVariable long id){
+    public ResponseEntity<RecordKeeperDto> get(@PathVariable long id){
         return ResponseEntity.ok(service.GetById(id));
     }
 
     @PutMapping("/edit")
     @Operation(summary =  "Edit record keeper")
-    public ResponseEntity<RecordKeeperDTO> edit(@RequestBody RecordKeeperDTO recordKeeperDTO){
+    public ResponseEntity<RecordKeeperDto> edit(@RequestBody RecordKeeperDto recordKeeperDTO){
         return ResponseEntity.ok(service.Update(recordKeeperDTO));
     }
 }

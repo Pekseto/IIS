@@ -1,5 +1,6 @@
 package com.iis.controller;
 
+import com.iis.dtos.RecordKeeperDto;
 import com.iis.dtos.MatchDto;
 import com.iis.dtos.RefereeTeamDto;
 import com.iis.service.MatchService;
@@ -28,5 +29,10 @@ public class MatchController {
     public ResponseEntity<List<MatchDto>> GetAll()
     {
         return ResponseEntity.ok(matchService.GetAll());
+    }
+
+    @PutMapping("/delegateRecordKeeper/{matchId}")
+    public ResponseEntity<MatchDto> DelegateRecordKeeper(@PathVariable long matchId, @RequestBody RecordKeeperDto recordKeeperDto){
+        return ResponseEntity.ok(matchService.DelegateRecordKeeper(recordKeeperDto, matchId));
     }
 }

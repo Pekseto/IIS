@@ -40,4 +40,8 @@ public class Match {
 
     @Column(name="city", nullable = true)
     private String city;
+
+    @ManyToOne
+    @JoinColumn(name = "record_keeper_id", nullable = true)
+    private RecordKeeper recordKeeper;
 }

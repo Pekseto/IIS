@@ -1,10 +1,12 @@
 package com.iis.service.impl;
 
+import com.iis.dtos.RecordKeeperDto;
 import com.iis.dtos.MatchDto;
 import com.iis.dtos.RefereeTeamDto;
 import com.iis.helpers.SearchIn;
 import com.iis.model.Match;
 import com.iis.repository.MatchRepository;
+import com.iis.repository.RecordKeeperRepository;
 import com.iis.service.MatchService;
 import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class MatchServiceImpl implements MatchService {
 
     private final MatchRepository matchRepository;
+    private final RecordKeeperRepository recordKeeperRepository;
     private final Mapper mapper;
 
     @Override
@@ -43,6 +46,17 @@ public class MatchServiceImpl implements MatchService {
         return matchesFromDb.stream()
                 .map(match -> mapper.map(match, MatchDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public MatchDto DelegateRecordKeeper(RecordKeeperDto recordKeeperDTO, long matchId) {
+        var match = matchRepository.getReferenceById(matchId);
+        var recordKeeper = recordKeeperRepository.getReferenceById(recordKeeperDTO.getId());
+
+        match.setRecordKeeper(recordKeeper);
+        matchRepository.save(match);
+
+        return mapper.map(match, MatchDto.class);
     }
 
 }

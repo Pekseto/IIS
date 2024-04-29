@@ -1,6 +1,6 @@
 package com.iis.service.impl;
 
-import com.iis.dto.recordkeeperDTOs.RecordKeeperDTO;
+import com.iis.dtos.RecordKeeperDto;
 import com.iis.model.RecordKeeper;
 import com.iis.model.Role;
 import com.iis.repository.RecordKeeperRepository;
@@ -17,7 +17,7 @@ public class RecordKeeperServiceImpl implements RecordKeeperService {
     ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public RecordKeeperDTO Register(RecordKeeperDTO recordKeeperDTO) {
+    public RecordKeeperDto Register(RecordKeeperDto recordKeeperDTO) {
         recordKeeperDTO.setPassword("recordkeeper");
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         recordKeeperDTO.setPassword(encoder.encode(recordKeeperDTO.getPassword()));
@@ -26,11 +26,11 @@ public class RecordKeeperServiceImpl implements RecordKeeperService {
         recordKeeper.setRole(Role.RECORD_KEEPER);
         
         var retVal = repo.save(recordKeeper);
-        return modelMapper.map(retVal, RecordKeeperDTO.class);
+        return modelMapper.map(retVal, RecordKeeperDto.class);
     }
 
     @Override
-    public RecordKeeperDTO Update(RecordKeeperDTO recordKeeperDTO) {
+    public RecordKeeperDto Update(RecordKeeperDto recordKeeperDTO) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         recordKeeperDTO.setPassword(encoder.encode(recordKeeperDTO.getPassword()));
 
@@ -39,12 +39,12 @@ public class RecordKeeperServiceImpl implements RecordKeeperService {
         updatedRecordKeeper.setTokens(recordKeeper.getTokens());
 
         var retVal = repo.save(updatedRecordKeeper);
-        return modelMapper.map(retVal, RecordKeeperDTO.class);
+        return modelMapper.map(retVal, RecordKeeperDto.class);
     }
 
     @Override
-    public RecordKeeperDTO GetById(long id) {
+    public RecordKeeperDto GetById(long id) {
         var retVal = repo.findById(id);
-        return modelMapper.map(retVal, RecordKeeperDTO.class);
+        return modelMapper.map(retVal, RecordKeeperDto.class);
     }
 }
