@@ -1,7 +1,6 @@
 package com.iis.service.impl;
 
 import com.iis.dtos.MatchRosterDto;
-import com.iis.model.MatchRoster;
 import com.iis.repository.MatchRosterRepository;
 import com.iis.repository.PlayerRepository;
 import com.iis.service.MatchRosterService;
@@ -14,14 +13,71 @@ import org.springframework.stereotype.Service;
 public class MatchRosterServiceImpl implements MatchRosterService {
     private final MatchRosterRepository repo;
     private final PlayerRepository playerRepository;
-    ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     @Override
-    public MatchRosterDto SetBenchPlayer() {
-        var player = playerRepository.getReferenceById((long)2);
-        var matchRoster = repo.getReferenceById((long)1);
+    public MatchRosterDto AddToBench(long id, long playerId) {
+        var matchRoster = repo.getReferenceById(id);
+        var player = playerRepository.getReferenceById(playerId);
 
-        matchRoster.AddBenchPlayer(player);
+        matchRoster.AddToBench(player);
+
+        repo.save(matchRoster);
+
+        return modelMapper.map(matchRoster, MatchRosterDto.class);
+    }
+
+    @Override
+    public MatchRosterDto RemoveFromBench(long id, long playerId) {
+        var matchRoster = repo.getReferenceById(id);
+        var player = playerRepository.getReferenceById(playerId);
+
+        matchRoster.RemoveFromBench(player);
+
+        repo.save(matchRoster);
+
+        return modelMapper.map(matchRoster, MatchRosterDto.class);
+    }
+
+    @Override
+    public MatchRosterDto AddToStartingFive(long id, long playerId) {
+        var matchRoster = repo.getReferenceById(id);
+        var player = playerRepository.getReferenceById(playerId);
+
+        matchRoster.RemoveFromBench(player);
+        matchRoster.AddToStartingFive(player);
+        matchRoster.AddToActiveFive(player);
+
+        repo.save(matchRoster);
+
+        return modelMapper.map(matchRoster, MatchRosterDto.class);
+    }
+
+    @Override
+    public MatchRosterDto RemoveFromStartingFive(long id, long playerId) {
+        var matchRoster = repo.getReferenceById(id);
+        var player = playerRepository.getReferenceById(playerId);
+
+        matchRoster.AddToBench(player);
+        matchRoster.RemoveFromStartingFive(player);
+        matchRoster.RemoveFromActiveFive(player);
+
+        repo.save(matchRoster);
+
+        return modelMapper.map(matchRoster, MatchRosterDto.class);
+    }
+
+    @Override
+    public MatchRosterDto Substitute(long id, long inId, long outId) {
+        var matchRoster = repo.getReferenceById(id);
+        var playerIn = playerRepository.getReferenceById(inId);
+        var playerOut = playerRepository.getReferenceById(outId);
+
+        matchRoster.AddToActiveFive(playerIn);
+        matchRoster.AddToBench(playerOut);
+        matchRoster.RemoveFromActiveFive(playerOut);
+        matchRoster.RemoveFromBench(playerIn);
+
         repo.save(matchRoster);
 
         return modelMapper.map(matchRoster, MatchRosterDto.class);

@@ -8,8 +8,8 @@ import java.util.List;
 public class MatchRosterDto {
     private int id;
 
-    private List<RegisteredUserDto> benchPlayers;
-    private List<RegisteredUserDto> startingFive;
-    private List<RegisteredUserDto> activeFive;
+    private List<PlayerDto> benchPlayers;
+    private List<PlayerDto> startingFive;
+    private List<PlayerDto> activeFive;
 
 }

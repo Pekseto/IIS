@@ -44,4 +44,12 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "record_keeper_id", nullable = true)
     private RecordKeeper recordKeeper;
+
+    @ManyToOne
+    @JoinColumn(name = "home_roster_id", nullable = true)
+    private MatchRoster homeRoster;
+
+    @ManyToOne
+    @JoinColumn(name = "away_roster_id", nullable = true)
+    private MatchRoster awayRoster;
 }

@@ -21,6 +21,8 @@ public class TeamDto {
 
     private String country;
 
+    private List<PlayerDto> players;
+
     private List<Long> playerIds = new ArrayList<>();
 
     private Long teamManagerId;

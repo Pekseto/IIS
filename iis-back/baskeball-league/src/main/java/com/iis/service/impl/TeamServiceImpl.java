@@ -59,4 +59,10 @@ public class TeamServiceImpl implements TeamService {
     public Team getById(Long id) {
         return teamRepository.getById(id);
     }
+
+    @Override
+    public TeamDto getTeamById(Long id){
+        var team = teamRepository.getReferenceById(id);
+        return mapper.map(team, TeamDto.class);
+    }
 }

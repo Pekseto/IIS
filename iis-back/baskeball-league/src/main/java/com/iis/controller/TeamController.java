@@ -39,4 +39,15 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
+    @GetMapping("/getById/{id}")
+    //@PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN', 'ROLE_RECORD_KEEPER', 'ROLE_TEAM_MANAGER')")
+    public ResponseEntity<TeamDto> getById(@PathVariable long id){
+        try {
+            return ResponseEntity.ok(teamService.getTeamById(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

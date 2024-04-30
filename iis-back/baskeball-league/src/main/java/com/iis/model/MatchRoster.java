@@ -40,7 +40,27 @@ public class MatchRoster {
     )
     private List<Player> startingFive;
 
-    public void AddBenchPlayer(Player player){
+    public void AddToBench(Player player){
         benchPlayers.add(player);
+    }
+
+    public void RemoveFromBench(Player player){
+        benchPlayers.remove(player);
+    }
+
+    public void AddToStartingFive(Player player){
+        startingFive.add(player);
+    }
+
+    public void RemoveFromStartingFive(Player player){
+        startingFive.remove(player);
+    }
+
+    public void AddToActiveFive(Player player){
+        activeFive.add(player);
+    }
+
+    public void RemoveFromActiveFive(Player player){
+        activeFive.remove(player);
     }
 }

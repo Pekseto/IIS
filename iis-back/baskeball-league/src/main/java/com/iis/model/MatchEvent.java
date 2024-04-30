@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.sql.Timestamp;
+import java.time.LocalTime;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
@@ -20,10 +20,10 @@ public class MatchEvent {
     @Getter
     @Enumerated(EnumType.STRING)
     @Column(name="event_type", nullable = false)
-    private EventType role;
+    private EventType type;
 
-    @Column(name="timestamp", nullable = false)
-    private Timestamp timestamp; //potencijalno ce trebati drugi import
+    @Column(name="time", nullable = false)
+    private LocalTime time;
 
     @Column(name="playerId", nullable = false)
     private Long playerId;
