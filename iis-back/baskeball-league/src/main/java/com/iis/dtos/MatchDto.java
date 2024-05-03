@@ -8,10 +8,8 @@ import java.time.LocalDateTime;
 public class MatchDto {
 
     private int id;
-    private int homeTeamId;
-    private String homeTeamName;
-    private int awayTeamId;
-    private String awayTeamName;
+    private TeamDto homeTeam;
+    private TeamDto awayTeam;
     private int mainRefereeId;
     private int secondRefereeId;
     private int thirdRefereeId;

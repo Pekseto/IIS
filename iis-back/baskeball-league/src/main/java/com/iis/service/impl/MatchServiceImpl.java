@@ -49,9 +49,9 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public MatchDto DelegateRecordKeeper(RecordKeeperDto recordKeeperDTO, long matchId) {
+    public MatchDto DelegateRecordKeeper(long matchId, long recordKeeperId) {
         var match = matchRepository.getReferenceById(matchId);
-        var recordKeeper = recordKeeperRepository.getReferenceById(recordKeeperDTO.getId());
+        var recordKeeper = recordKeeperRepository.getReferenceById(recordKeeperId);
 
         match.setRecordKeeper(recordKeeper);
         matchRepository.save(match);

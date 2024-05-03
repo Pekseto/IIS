@@ -25,14 +25,14 @@ public class MatchController {
         return ResponseEntity.ok(matchService.SetRefereeTeam(refereeTeam));
     }
 
-    @PostMapping("/getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<List<MatchDto>> GetAll()
     {
         return ResponseEntity.ok(matchService.GetAll());
     }
 
-    @PutMapping("/delegateRecordKeeper/{matchId}")
-    public ResponseEntity<MatchDto> DelegateRecordKeeper(@PathVariable long matchId, @RequestBody RecordKeeperDto recordKeeperDto){
-        return ResponseEntity.ok(matchService.DelegateRecordKeeper(recordKeeperDto, matchId));
+    @GetMapping("/delegateRecordKeeper/{matchId}/{recordKeeperId}")
+    public ResponseEntity<MatchDto> DelegateRecordKeeper(@PathVariable long matchId, @PathVariable long recordKeeperId){
+        return ResponseEntity.ok(matchService.DelegateRecordKeeper(matchId, recordKeeperId));
     }
 }

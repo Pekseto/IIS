@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -28,6 +30,12 @@ public class RecordKeeperController {
     @Operation(summary = "Get record keeper by ID")
     public ResponseEntity<RecordKeeperDto> get(@PathVariable long id){
         return ResponseEntity.ok(service.GetById(id));
+    }
+
+    @GetMapping("/getAll")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
+    public ResponseEntity<List<RecordKeeperDto>> getAll(){
+        return ResponseEntity.ok(service.GetAll());
     }
 
     @PutMapping("/edit")

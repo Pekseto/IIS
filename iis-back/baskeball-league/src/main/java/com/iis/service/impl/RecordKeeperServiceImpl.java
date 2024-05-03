@@ -10,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class RecordKeeperServiceImpl implements RecordKeeperService {
@@ -46,5 +49,13 @@ public class RecordKeeperServiceImpl implements RecordKeeperService {
     public RecordKeeperDto GetById(long id) {
         var retVal = repo.findById(id);
         return modelMapper.map(retVal, RecordKeeperDto.class);
+    }
+
+    @Override
+    public List<RecordKeeperDto> GetAll() {
+        var recordKeepers = repo.findAll();
+        return recordKeepers.stream()
+                .map(recordKeeper -> modelMapper.map(recordKeeper, RecordKeeperDto.class))
+                .collect(Collectors.toList());
     }
 }

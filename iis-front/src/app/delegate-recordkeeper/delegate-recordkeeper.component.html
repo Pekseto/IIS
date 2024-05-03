@@ -1,0 +1,28 @@
+<div class="container">
+    <form class="delegation-form" [formGroup]="delegationForm" (ngSubmit)="delegate()">
+        <h2 class="align-middle title">DELEGATE RECORDKEEPER</h2>
+        <span class="align-middle title">Round 23</span>
+
+        <div class="row mt-5 w-75">
+            <div class="col-5">
+                <span>Match:</span>
+                <select class="form-select" formControlName="matchId">
+                    <option *ngFor="let match of matches" [value]="match.id">{{match.homeTeam.name + ' vs. ' +
+                        match.awayTeam.name}}</option>
+                </select>
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-5">
+                <span>Record Keeper:</span>
+                <select class="form-select" formControlName="recordKeeperId">
+                    <option *ngFor="let rk of recordKeepers" [value]="rk.id">{{rk.name + ' ' + rk.surname}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="delegate-button-container mt-5">
+            <button class="btn btn-primary" type="submit">Delegate</button>
+        </div>
+    </form>
+</div>

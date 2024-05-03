@@ -17,11 +17,13 @@ public class Match {
     @Column(name="id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name="homeTeamId", nullable = false)
-    private Long homeTeamId;
+    @ManyToOne
+    @JoinColumn(name = "home_team_id", nullable = false)
+    private Team homeTeam;
 
-    @Column(name="awayTeamId", nullable = false)
-    private Long awayTeamId;
+    @ManyToOne
+    @JoinColumn(name = "away_team_id", nullable = false)
+    private Team awayTeam;
 
     @Column(name="mainRefereeId", nullable = true)
     private Long mainRefereeId;

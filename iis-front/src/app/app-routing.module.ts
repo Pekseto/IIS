@@ -10,6 +10,7 @@ import { HomeComponent } from "./layout/home/home.component";
 import { UserInfoComponent } from "./user-info/user-info.component";
 import { CoachRegistrationComponent } from "./coach-registration/coach-registration.component";
 import { UpcomingGamesComponent } from "./upcoming-games/upcoming-games.component";
+import { DelegateRecordkeeperComponent } from "./delegate-recordkeeper/delegate-recordkeeper.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'user-info', component: UserInfoComponent},
     { path: 'coach-registration', component: CoachRegistrationComponent},
     { path: 'upcoming-matches', component: UpcomingGamesComponent },
+    { path: 'delegate-recordkeeper', component: DelegateRecordkeeperComponent},
 ];
 
 @NgModule({
