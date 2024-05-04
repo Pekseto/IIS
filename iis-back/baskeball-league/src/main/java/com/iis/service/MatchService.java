@@ -12,4 +12,5 @@ public interface MatchService {
     RefereeTeamDto SetRefereeTeam(RefereeTeamDto refereeTeam);
     List<MatchDto> GetAll();
     MatchDto DelegateRecordKeeper(long matchId, long recordKeeperId);
+    MatchDto GetById(long matchId);
 }

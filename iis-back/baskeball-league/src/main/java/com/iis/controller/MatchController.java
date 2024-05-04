@@ -31,6 +31,11 @@ public class MatchController {
         return ResponseEntity.ok(matchService.GetAll());
     }
 
+    @GetMapping("/getById/{matchId}")
+    public ResponseEntity<MatchDto> GetById(@PathVariable long matchId){
+        return ResponseEntity.ok(matchService.GetById(matchId));
+    }
+
     @GetMapping("/delegateRecordKeeper/{matchId}/{recordKeeperId}")
     public ResponseEntity<MatchDto> DelegateRecordKeeper(@PathVariable long matchId, @PathVariable long recordKeeperId){
         return ResponseEntity.ok(matchService.DelegateRecordKeeper(matchId, recordKeeperId));

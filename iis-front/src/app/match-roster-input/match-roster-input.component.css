@@ -1,0 +1,39 @@
+.roster-input-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.teams-container {
+    display: flex;
+    height: 35rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.team-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+}
+
+.roster-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-right: 3rem;
+    width: 70%;
+}
+
+.table-responsive {
+    height: 12rem;
+}
+
+.delegate-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

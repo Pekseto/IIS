@@ -1,4 +1,4 @@
-export interface RecordKeeper {
+export interface Player {
     id?: number,
     email: string,
     password: string,
@@ -9,5 +9,11 @@ export interface RecordKeeper {
     city: string,
     country: string,
     jmbg: string,
-    role?: string,
+    role: string,
+    
+    height: number,
+    weight: number,
+    status: string,
+    jerseyNumber: number,
+    teamId: number
 }

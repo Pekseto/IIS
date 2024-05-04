@@ -18,6 +18,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { CoachRegistrationComponent } from './coach-registration/coach-registration.component';
 import { UpcomingGamesComponent } from './upcoming-games/upcoming-games.component';
 import { DelegateRecordkeeperComponent } from './delegate-recordkeeper/delegate-recordkeeper.component';
+import { MatchRosterInputComponent } from './match-roster-input/match-roster-input.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DelegateRecordkeeperComponent } from './delegate-recordkeeper/delegate-
     CoachRegistrationComponent,
     UpcomingGamesComponent,
     DelegateRecordkeeperComponent,
+    MatchRosterInputComponent,
   ],
   imports: [
     BrowserModule,

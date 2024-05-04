@@ -59,4 +59,10 @@ public class MatchServiceImpl implements MatchService {
         return mapper.map(match, MatchDto.class);
     }
 
+    @Override
+    public MatchDto GetById(long matchId) {
+        var match = matchRepository.getReferenceById(matchId);
+        return mapper.map(match, MatchDto.class);
+    }
+
 }
