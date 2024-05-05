@@ -19,6 +19,7 @@ import { CoachRegistrationComponent } from './coach-registration/coach-registrat
 import { UpcomingGamesComponent } from './upcoming-games/upcoming-games.component';
 import { DelegateRecordkeeperComponent } from './delegate-recordkeeper/delegate-recordkeeper.component';
 import { MatchRosterInputComponent } from './match-roster-input/match-roster-input.component';
+import { SemaphoreComponent } from './semaphore/semaphore.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatchRosterInputComponent } from './match-roster-input/match-roster-inp
     UpcomingGamesComponent,
     DelegateRecordkeeperComponent,
     MatchRosterInputComponent,
+    SemaphoreComponent,
   ],
   imports: [
     BrowserModule,
