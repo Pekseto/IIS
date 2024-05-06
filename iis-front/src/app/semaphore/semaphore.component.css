@@ -3,8 +3,8 @@
 }
 
 .semaphore-container {
-    height: 20rem;
-    width: 30rem;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,15 +54,15 @@
 }
 
 .score-size {
-    font-size: 2rem;
-}
-
-.clock-size {
     font-size: 1.5rem;
 }
 
+.clock-size {
+    font-size: 1.25rem;
+}
+
 .period-size {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .clocks-container {

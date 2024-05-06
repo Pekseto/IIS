@@ -20,6 +20,7 @@ import { UpcomingGamesComponent } from './upcoming-games/upcoming-games.componen
 import { DelegateRecordkeeperComponent } from './delegate-recordkeeper/delegate-recordkeeper.component';
 import { MatchRosterInputComponent } from './match-roster-input/match-roster-input.component';
 import { SemaphoreComponent } from './semaphore/semaphore.component';
+import { MatchRecordkeepingComponent } from './match-recordkeeping/match-recordkeeping.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { SemaphoreComponent } from './semaphore/semaphore.component';
     DelegateRecordkeeperComponent,
     MatchRosterInputComponent,
     SemaphoreComponent,
+    MatchRecordkeepingComponent,
   ],
   imports: [
     BrowserModule,

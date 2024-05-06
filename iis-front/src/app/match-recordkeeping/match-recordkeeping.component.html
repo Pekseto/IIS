@@ -1,0 +1,187 @@
+<div class="main-container">
+    <div class="first-row-container">
+        <div class="semaphore-container">
+            <app-semaphore (timeUpdated)="updateTime($event)" (quarterUpdated)="updateQuarter($event)" [matchStateInput]="matchState"></app-semaphore>
+        </div>
+        <div class="active-roster-container">
+            <div class="active-roster-table-container">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Fouls</th>
+                            <th scope="col">Substitute</th>
+                            <th scope="col">Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let player of homeRoster?.activeFive">
+                            <th scope="row">{{player.jerseyNumber}}</th>
+                            <td>{{player.name + ' ' + player.surname}}</td>
+                            <td>3</td>
+                            <td>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#808080"
+                                    class="bi bi-arrow-repeat me-2 mouse-hover" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
+                                    <path fill-rule="evenodd"
+                                        d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
+                                </svg>
+                            </td>
+                            <td>
+                                <button *ngIf="player.id != selectedPlayer?.id" class="btn btn-outline-primary btn-sm w-100"
+                                    (click)="selectPlayer(player)">Select</button>
+                                <button *ngIf="player.id == selectedPlayer?.id" class="btn btn-outline-secondary btn-sm w-100"
+                                    (click)="unselectPlayer()">Unselect</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="active-roster-container">
+            <div class="active-roster-table-container">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Fouls</th>
+                            <th scope="col">Substitute</th>
+                            <th scope="col">Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let player of awayRoster?.activeFive">
+                            <th scope="row">{{player.jerseyNumber}}</th>
+                            <td>{{player.name + ' ' + player.surname}}</td>
+                            <td>3</td>
+                            <td>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#808080"
+                                    class="bi bi-arrow-repeat me-2 mouse-hover" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
+                                    <path fill-rule="evenodd"
+                                        d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
+                                </svg>
+                            </td>
+                            <td>
+                                <button *ngIf="player.id != selectedPlayer?.id" class="btn btn-outline-primary btn-sm w-100"
+                                    (click)="selectPlayer(player)">Select</button>
+                                <button *ngIf="player.id == selectedPlayer?.id" class="btn btn-outline-secondary btn-sm w-100"
+                                    (click)="unselectPlayer()">Unselect</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="second-row-container">
+        <div class="left-column">
+            <div class="time-out-container">
+                <div class="to-button">
+                    <button class="btn btn-secondary mt-3" (click)="timeOut(true)">Home TO</button>
+                </div>
+                <div class="to-button">
+                    <button class="btn btn-secondary mt-3" (click)="timeOut(false)">Away TO</button>
+                </div>
+            </div>
+
+            <!-- <div class="play-by-play-container"> -->
+
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Event</th>
+                            <th scope="col">Period</th>
+                            <th scope="col">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="event-row-height" *ngFor="let event of events">
+                            <td>{{event.perpetratorName}}</td>
+                            <td>{{event.type}}</td>
+                            <td>{{event.period}}</td>
+                            <td>{{event.minute}}:{{event.second < 10 ? '0' + event.second : event.second}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- </div> -->
+
+        </div>
+
+        <div class="right-column">
+            <div class="buttons-container">
+                <div class="buttons-row-container">
+                    <div class="button-container">
+                        <button class="btn btn-success w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('FREE_THROW_IN')">FT Made</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-success w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('TWO_POINTER')">2PT Made</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-success w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('THREE_POINTER')">3PT Made</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-danger w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('MISSED_FREE_THROW')">FT Miss</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-danger w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('MISSED_TWO_POINTER')">2PT Miss</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-danger w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('MISSED_THREE_POINTER')">3PT Miss</button>
+                    </div>
+                </div>
+                <div class="buttons-row-container">
+                    <div class="button-container">
+                        <button class="btn btn-primary w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('DEF_REBOUND')">DEF Reb</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-primary w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('OFF_REBOUND')">OFF Reb</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-primary w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('ASSIST')">Assist</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-primary w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('STEAL')">Steal</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-primary w-75" [disabled]="selectedPlayer == undefined" (click)="addEvent('TURNOVER')">Turnover</button>
+                    </div>
+                </div>
+                <div class="buttons-row-container">
+                    <div class="button-container">
+                        <button class="btn btn-warning w-75 text-white"
+                            [disabled]="selectedPlayer == undefined" (click)="addEvent('FOUL')">Foul</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-warning w-75 text-white" [disabled]="selectedPlayer == undefined" (click)="addEvent('TECHNICAL_FOUL')">Tech.
+                            Foul</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-warning w-75 text-white" [disabled]="selectedPlayer == undefined" (click)="addEvent('UNSPORTSMANLIKE_FOUL')">Unsp.
+                            Foul</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-warning w-75 text-white"
+                            [disabled]="selectedPlayer == undefined" (click)="addEvent('FOUL_DRAWN')">Fouled</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-warning w-75 text-white"
+                            [disabled]="selectedPlayer == undefined" (click)="addEvent('BLOCK')">Block</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-warning w-75 text-white"
+                            [disabled]="selectedPlayer == undefined" (click)="addEvent('SHOT_REJECTED')">Blocked</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

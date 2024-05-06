@@ -4,6 +4,7 @@ import { AdministrationService } from '../services/administration.service';
 import { RecordKeeperService } from '../services/record-keeper.service';
 import { Match, MatchRoster } from '../model/match.model';
 import { Player } from '../model/player.model';
+import { MatchState } from '../model/match-state.model';
 
 @Component({
   selector: 'app-match-roster-input',
@@ -30,7 +31,8 @@ export class MatchRosterInputComponent implements OnInit {
       const matchId = params['matchId']
 
       this.service.getMatch(matchId).subscribe({
-        next: (response) => {
+        next: (response: Match) => {
+          if (response.homeRoster != null) this.router.navigate([`/match-recordkeeping/${matchId}`])
           this.match = response
           this.homePlayers = this.match?.homeTeam.players!
           this.awayPlayers = this.match?.awayTeam.players!
@@ -112,14 +114,44 @@ export class MatchRosterInputComponent implements OnInit {
       this.match!.homeRoster = this.homeRoster!
       this.match!.awayRoster = this.awayRoster!
 
+      const matchState = this.createStartingMatchState();
+
       console.log(this.match)
 
       this.service.createMatchRostersForMatch(this.match).subscribe({
         next: (response) => {
-          this.router.navigate([`/match-recordkeeping/${this.match.id}`])
+          this.service.createMatchStateForMatch(matchState).subscribe({
+            next: (response) => {
+              this.router.navigate([`/match-recordkeeping/${this.match.id}`])
+            }
+          })
         }
       })
     }
+  }
+
+  createStartingMatchState(): MatchState{
+    const matchState: MatchState = {
+      matchId: this.match.id,
+      homePoints: 0,
+      awayPoints: 0,
+      firstHalfTimeoutsHome: 2,
+      secondHalfTimeoutsHome: 3,
+      firstHalfTimeoutsAway: 2,
+      secondHalfTimeoutsAway: 3,
+      firstQuarterFoulsHome: 0,
+      secondQuarterFoulsHome: 0,
+      thirdQuarterFoulsHome: 0,
+      fourthQuarterFoulsHome: 0,
+      firstQuarterFoulsAway: 0,
+      secondQuarterFoulsAway: 0,
+      thirdQuarterFoulsAway: 0,
+      fourthQuarterFoulsAway: 0,
+      minute: 10,
+      second: 0,
+      quarter: 1,
+    }
+    return matchState;
   }
 
 }

@@ -1,7 +1,9 @@
 package com.iis.util;
 
+import com.iis.dtos.MatchEventDto;
 import com.iis.dtos.RegisteredUserDto;
 import com.iis.model.Coach;
+import com.iis.model.MatchEvent;
 import com.iis.model.Player;
 import com.iis.model.TeamManager;
 import org.springframework.data.domain.Page;
@@ -22,4 +24,5 @@ public interface Mapper {
     public Player mapDtoToPlayer(RegisteredUserDto dto);
     public TeamManager mapDtoToTeamManager(RegisteredUserDto dto);
     public Coach mapDtoToCoach(RegisteredUserDto dto);
+    public MatchEventDto mapMatchEventToDto(MatchEvent matchEvent);
 }

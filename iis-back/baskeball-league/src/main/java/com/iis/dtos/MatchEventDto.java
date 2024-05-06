@@ -8,8 +8,10 @@ import java.time.LocalTime;
 public class MatchEventDto {
     private Long id;
     private String type;
-    private LocalTime time;
-    private long playerId;
+    private int minute;
+    private int second;
+    private String perpetratorName;
+    private Long perpetratorId;
     private long matchId;
     private int period;
 }
