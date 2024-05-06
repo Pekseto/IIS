@@ -54,4 +54,11 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "away_roster_id", nullable = true)
     private MatchRoster awayRoster;
+
+    @OneToOne(mappedBy = "match")
+    private MatchResult result;
+
+    @ManyToOne
+    @JoinColumn(name = "regular_season_schedule_id", nullable = false)
+    private RegularSeasonSchedule regularSeasonSchedule;
 }

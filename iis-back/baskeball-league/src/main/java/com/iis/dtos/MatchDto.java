@@ -1,5 +1,6 @@
 package com.iis.dtos;
 
+import com.iis.model.Team;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,4 +18,9 @@ public class MatchDto {
     private LocalDateTime matchDay;
     private String city;
     private boolean isHighRisk;
+
+    public MatchDto(TeamDto homeTeam, TeamDto awayTeam) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+    }
 }
