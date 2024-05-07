@@ -59,6 +59,6 @@ public class Match {
     private MatchResult result;
 
     @ManyToOne
-    @JoinColumn(name = "regular_season_schedule_id", nullable = false)
+    @JoinColumn(name = "regular_season_schedule_id", nullable = true)
     private RegularSeasonSchedule regularSeasonSchedule;
 }

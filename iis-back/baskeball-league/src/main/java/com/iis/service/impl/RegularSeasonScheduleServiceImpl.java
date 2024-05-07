@@ -13,10 +13,7 @@ import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -71,53 +68,105 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
 
     private List<LocalDateTime> selectMatchDates(List<Team> teams) {
         List<LocalDateTime> matchDates = new ArrayList<>();
-        LocalDateTime currentDateTime = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY)); // Sledeća sreda
+        LocalDateTime currentYearStart = Year.now().atMonth(Month.NOVEMBER).atDay(1).with(TemporalAdjusters.firstInMonth(DayOfWeek.WEDNESDAY)).atStartOfDay(); // Prva sreda u novembru ove godine
 
-        // Vremena odigravanja utakmica u toku dana
+
         LocalTime[] matchTimes = {
                 LocalTime.of(18, 45),
                 LocalTime.of(20, 0),
                 LocalTime.of(20, 30),
                 LocalTime.of(20, 45)
         };
-        int index = 0;
 
-        // Odabir datuma i vremena odigravanja utakmica za narednih nekoliko nedelja
+
         for (int i = 0; i < (teams.size() - 1) * 2; i++) {
-            matchDates.add(currentDateTime.with(matchTimes[index]));
-            index = (index + 1) % matchTimes.length;
-            currentDateTime = currentDateTime.plusDays(1);
-            if (index == 0) {
-                currentDateTime = currentDateTime.plusWeeks(1);
+            LocalDateTime currentDateTime = currentYearStart;
+            for (int j = 0; j < 4; j++) { // Prvih 4 utakmice u sredu
+                matchDates.add(currentDateTime.with(matchTimes[j]));
             }
+            for (int j = 0; j < 3; j++) {
+                matchDates.add(currentDateTime.plusDays(1).with(matchTimes[j]));
+            }
+            currentYearStart = currentYearStart.plusWeeks(1);
         }
 
         return matchDates;
     }
 
+
     private List<MatchDto> scheduleMatches(List<Team> teams, List<LocalDateTime> matchDates) {
         List<MatchDto> matches = new ArrayList<>();
+        List<MatchDto> allPossibleMatches = generateAllMatches(teams); // Generišemo sve moguće parove utakmica
 
-        // Raspoređivanje utakmica na odabrane datume
-        int matchIndex = 0;
-        for (LocalDateTime matchDate : matchDates) {
-            for (int i = 0; i < teams.size() - 1; i++) {
-                for (int j = i + 1; j < teams.size(); j++) {
-                    Team homeTeam = teams.get(i);
-                    Team awayTeam = teams.get(j);
-                    MatchDto match = new MatchDto(mapper.map(homeTeam, TeamDto.class), mapper.map(awayTeam, TeamDto.class));
+        // Proveravamo da li imamo dovoljno termina za sve utakmice
+        if (allPossibleMatches.size() > matchDates.size()) {
+            throw new IllegalArgumentException("Nedovoljno termina za raspored svih utakmica.");
+        }
 
-                    // Postavljanje datuma odigravanja utakmice
-                    match.setMatchDay(matchDate);
-                    matches.add(match);
-
-                    matchIndex++;
-                }
-            }
+        // Raspoređujemo utakmice na datume
+        for (int i = 0; i < allPossibleMatches.size(); i++) {
+            MatchDto match = allPossibleMatches.get(i);
+            match.setMatchDay(matchDates.get(i)); // Postavljamo datum za utakmicu
+            matches.add(match); // Dodajemo utakmicu u listu
         }
 
         return matches;
     }
+
+    private List<MatchDto> generateAllMatches(List<Team> teams) {
+        List<MatchDto> allMatches = new ArrayList<>();
+
+        // Pozivamo generateMatchesForOneWeek metodu za sve nedelje u sezoni
+        for (int i = 0; i < (teams.size() - 1) * 2; i++) {
+            allMatches.addAll(generateMatchesForOneWeek(teams,allMatches));
+            Collections.rotate(teams, 1);
+        }
+
+        return allMatches;
+    }
+    private List<MatchDto> generateMatchesForOneWeek(List<Team> teams, List<MatchDto> existingMatches) {
+        List<MatchDto> matches = new ArrayList<>();
+        List<Team> shuffledTeams = new ArrayList<>(teams); // Kopiramo listu timova i nasumično je mešamo
+        Collections.shuffle(shuffledTeams);
+
+        // Razdeljujemo timove na domaće i gostujuće
+        List<Team> homeTeams = shuffledTeams.subList(0, shuffledTeams.size() / 2);
+        List<Team> awayTeams = shuffledTeams.subList(shuffledTeams.size() / 2, shuffledTeams.size());
+
+        // Kreiramo utakmice za svaki par domaćin-gost
+        for (int i = 0; i < homeTeams.size(); i++) {
+            Team homeTeam = homeTeams.get(i);
+            Team awayTeam = awayTeams.get(i);
+            MatchDto match = new MatchDto(mapper.map(homeTeam, TeamDto.class), mapper.map(awayTeam, TeamDto.class));
+
+            // Proveravamo da li je ova utakmica već kreirana u okviru nedelje ili cele sezone
+            while (isMatchDuplicate(match, matches) || isMatchDuplicate(match, existingMatches)) {
+                // Ponovo mešamo timove kako bismo generisali novi par utakmica
+                Collections.shuffle(shuffledTeams);
+                homeTeams = shuffledTeams.subList(0, shuffledTeams.size() / 2);
+                awayTeams = shuffledTeams.subList(shuffledTeams.size() / 2, shuffledTeams.size());
+                homeTeam = homeTeams.get(i);
+                awayTeam = awayTeams.get(i);
+                match = new MatchDto(mapper.map(homeTeam, TeamDto.class), mapper.map(awayTeam, TeamDto.class));
+            }
+
+            // Dodajemo utakmicu u listu
+            matches.add(match);
+        }
+
+        return matches;
+    }
+
+    // Funkcija koja proverava da li se utakmica nalazi u listi postojećih utakmica
+    private boolean isMatchDuplicate(MatchDto match, List<MatchDto> existingMatches) {
+        for (MatchDto existingMatch : existingMatches) {
+            if (existingMatch.equals(match)) {
+                return true; // Pronađena duplikat utakmica
+            }
+        }
+        return false; // Utakmica nije pronađena u listi
+    }
+
 
     public static RegularSeasonScheduleDto adjustScheduleToMinimizeTravel(RegularSeasonScheduleDto basicSchedule, List<TeamDto> teams) {
         RegularSeasonScheduleDto adjustedSchedule = new RegularSeasonScheduleDto();

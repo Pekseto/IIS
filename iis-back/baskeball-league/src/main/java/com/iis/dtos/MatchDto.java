@@ -23,4 +23,9 @@ public class MatchDto {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
     }
+
+    @Override
+    public String toString() {
+        return "Home Team: " + homeTeam.getName() + ", Away Team: " + awayTeam.getName() + ", Match day: " + matchDay;
+    }
 }

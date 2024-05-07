@@ -24,4 +24,13 @@ public class MatchResult {
 
     @Column(name="away_team_score", nullable = false)
     private int awayTeamScore;
+
+    @Override
+    public String toString() {
+        return "MatchResult{" +
+                "id=" + id +
+                ", homeTeamScore=" + homeTeamScore +
+                ", awayTeamScore=" + awayTeamScore +
+                '}';
+    }
 }
