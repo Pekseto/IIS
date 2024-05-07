@@ -7,16 +7,13 @@ import { MatchState } from '../model/match-state.model';
   styleUrls: ['./semaphore.component.css']
 })
 export class SemaphoreComponent implements OnInit, OnChanges {
-  @Output() quarterUpdated = new EventEmitter<number>();
-  @Output() timeUpdated = new EventEmitter<number[]>();
+  @Output() matchStateUpdated = new EventEmitter<MatchState>();
+  @Output() saveMatchState = new EventEmitter<null>();
   @Input() matchStateInput?: MatchState;
   matchState?: MatchState;
-  countdownMinutes: number = 10;
-  countdownSeconds: number = 0;
   countdownInterval: any;
   shotClockSeconds: number = 24;
   isPaused: boolean = true;
-  selectedQuarter: number = 1;
 
   constructor() { }
 
@@ -31,20 +28,29 @@ export class SemaphoreComponent implements OnInit, OnChanges {
   startCountdown() {
     this.countdownInterval = setInterval(() => {
       if (!this.isPaused) {
-        if (this.countdownSeconds === 0) {
-          if (this.countdownMinutes === 0) {
-            clearInterval(this.countdownInterval);
+        if (this.matchState?.second === 0) {
+          if (this.matchState?.minute === 0) {
             // Timer has reached 0
+            if (this.matchState?.quarter < 4) {
+              this.isPaused = true
+              this.shotClockSeconds = 24
+              this.matchState!.minute = 10
+              this.matchState!.second = 0
+              this.matchState!.quarter++
+              this.matchStateUpdated.emit(this.matchState)
+              this.saveMatchState.emit()
+            }
+            else this.isPaused = true
           } else {
             if (this.shotClockSeconds > 0) this.shotClockSeconds--
-            this.countdownMinutes--;
-            this.countdownSeconds = 59;
-            this.timeUpdated.emit([this.countdownMinutes, this.countdownSeconds])
+            this.matchState!.minute--;
+            this.matchState!.second = 59;
+            this.matchStateUpdated.emit(this.matchState)
           }
         } else {
           if (this.shotClockSeconds > 0) this.shotClockSeconds--
-          this.countdownSeconds--;
-          this.timeUpdated.emit([this.countdownMinutes, this.countdownSeconds])
+          this.matchState!.second--;
+          this.matchStateUpdated.emit(this.matchState)
         }
       }
     }, 1000);
@@ -53,13 +59,14 @@ export class SemaphoreComponent implements OnInit, OnChanges {
 
   changeCountdownState() {
     this.isPaused = !this.isPaused
+    if(this.isPaused) this.saveMatchState.emit()
   }
 
-  resetShotClock(){
+  resetShotClock() {
     this.shotClockSeconds = 24;
   }
 
-  onQuarterChange(){
-    this.quarterUpdated.emit(this.selectedQuarter)
+  onQuarterChange() {
+    this.matchStateUpdated.emit(this.matchState)
   }
 }

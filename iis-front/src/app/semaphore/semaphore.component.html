@@ -23,7 +23,9 @@
                 </div>
                 <div class="clock-border-container">
                     <div class="minutes-border">
-                        <span class="clock-size white-font-color">{{ countdownMinutes }}:{{ countdownSeconds < 10 ? '0' + countdownSeconds : countdownSeconds }}</span>
+                        <div *ngIf="matchState != undefined">
+                            <span class="clock-size white-font-color">{{ matchState.minute }}:{{ matchState.second < 10 ? '0' + matchState.second : matchState.second }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -57,10 +59,10 @@
         <div class="team-score">
             <h6 class="white-font-color">Fouls</h6>
             <div class="fouls-container">
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 1">{{matchState?.firstQuarterFoulsHome}}</span>
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 2">{{matchState?.secondQuarterFoulsHome}}</span>
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 3">{{matchState?.thirdQuarterFoulsHome}}</span>
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 4">{{matchState?.fourthQuarterFoulsHome}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 1">{{matchState?.firstQuarterFoulsHome}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 2">{{matchState?.secondQuarterFoulsHome}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 3">{{matchState?.thirdQuarterFoulsHome}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 4">{{matchState?.fourthQuarterFoulsHome}}</span>
             </div>
         </div>
 
@@ -71,10 +73,10 @@
         <div class="team-score">
             <h6 class="white-font-color">Fouls</h6>
             <div class="fouls-container">
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 1">{{matchState?.firstQuarterFoulsAway}}</span>
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 2">{{matchState?.secondQuarterFoulsAway}}</span>
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 3">{{matchState?.thirdQuarterFoulsAway}}</span>
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 4">{{matchState?.fourthQuarterFoulsAway}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 1">{{matchState?.firstQuarterFoulsAway}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 2">{{matchState?.secondQuarterFoulsAway}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 3">{{matchState?.thirdQuarterFoulsAway}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 4">{{matchState?.fourthQuarterFoulsAway}}</span>
             </div>
         </div>
     </div>
@@ -82,8 +84,8 @@
     <div class="other-row">
         <div class="team-score">
             <div class="fouls-container">
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 1 || selectedQuarter == 2">{{matchState?.firstHalfTimeoutsHome}}</span>
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 3 || selectedQuarter == 4">{{matchState?.secondHalfTimeoutsHome}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 1 || matchState?.quarter == 2">{{matchState?.firstHalfTimeoutsHome}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 3 || matchState?.quarter == 4">{{matchState?.secondHalfTimeoutsHome}}</span>
             </div>
             <h6 class="white-font-color">TOL</h6>
         </div>
@@ -96,25 +98,25 @@
                 <div class="quarter-container"><button class="quarter-button">3</button></div>
                 <div class="quarter-container"><button class="quarter-button">4</button></div>
             </div> -->
-            <div class="btn-group btn-group-sm btn-group-toggle w-75" data-toggle="buttons">
-                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" [(ngModel)]="selectedQuarter" [value]="1" (ngModelChange)="onQuarterChange()">
+            <div class="btn-group btn-group-sm btn-group-toggle w-75" data-toggle="buttons" *ngIf="matchState != undefined">
+                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" [(ngModel)]="matchState.quarter" [value]="1" (ngModelChange)="onQuarterChange()">
                 <label class="btn btn-secondary" for="option1">1</label>
 
-                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" [(ngModel)]="selectedQuarter" [value]="2" (ngModelChange)="onQuarterChange()">
+                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" [(ngModel)]="matchState.quarter" [value]="2" (ngModelChange)="onQuarterChange()">
                 <label class="btn btn-secondary" for="option2">2</label>
 
-                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" [(ngModel)]="selectedQuarter" [value]="3" (ngModelChange)="onQuarterChange()">
+                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" [(ngModel)]="matchState.quarter" [value]="3" (ngModelChange)="onQuarterChange()">
                 <label class="btn btn-secondary" for="option3">3</label>
 
-                <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" [(ngModel)]="selectedQuarter" [value]="4" (ngModelChange)="onQuarterChange()">
+                <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" [(ngModel)]="matchState.quarter" [value]="4" (ngModelChange)="onQuarterChange()">
                 <label class="btn btn-secondary" for="option4">4</label>
             </div>
         </div>
 
         <div class="team-score">
             <div class="fouls-container">
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 1 || selectedQuarter == 2">{{matchState?.firstHalfTimeoutsAway}}</span>
-                <span class="clock-size white-font-color" *ngIf="selectedQuarter == 3 || selectedQuarter == 4">{{matchState?.secondHalfTimeoutsAway}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 1 || matchState?.quarter == 2">{{matchState?.firstHalfTimeoutsAway}}</span>
+                <span class="clock-size white-font-color" *ngIf="matchState?.quarter == 3 || matchState?.quarter == 4">{{matchState?.secondHalfTimeoutsAway}}</span>
             </div>
             <h6 class="white-font-color">TOL</h6>
         </div>

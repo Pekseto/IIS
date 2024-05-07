@@ -1,7 +1,8 @@
 <div class="main-container">
     <div class="first-row-container">
         <div class="semaphore-container">
-            <app-semaphore (timeUpdated)="updateTime($event)" (quarterUpdated)="updateQuarter($event)" [matchStateInput]="matchState"></app-semaphore>
+            <app-semaphore (matchStateUpdated)="updateMatchState($event)" (saveMatchState)="saveMatchState()"
+                [matchStateInput]="matchState"></app-semaphore>
         </div>
         <div class="active-roster-container">
             <div class="active-roster-table-container">
@@ -82,10 +83,16 @@
         <div class="left-column">
             <div class="time-out-container">
                 <div class="to-button">
-                    <button class="btn btn-secondary mt-3" (click)="timeOut(true)">Home TO</button>
+                    <button class="btn btn-secondary mt-3" *ngIf="matchState?.quarter == 1 || matchState?.quarter == 2"
+                        (click)="timeOut(true)" [disabled]="matchState!.firstHalfTimeoutsHome == 0">Home TO</button>
+                    <button class="btn btn-secondary mt-3" *ngIf="matchState?.quarter == 3 || matchState?.quarter == 4"
+                        (click)="timeOut(true)" [disabled]="matchState!.secondHalfTimeoutsHome == 0">Home TO</button>
                 </div>
                 <div class="to-button">
-                    <button class="btn btn-secondary mt-3" (click)="timeOut(false)">Away TO</button>
+                    <button class="btn btn-secondary mt-3" *ngIf="matchState?.quarter == 1 || matchState?.quarter == 2"
+                        (click)="timeOut(false)" [disabled]="matchState!.firstHalfTimeoutsAway == 0">Away TO</button>
+                    <button class="btn btn-secondary mt-3" *ngIf="matchState?.quarter == 3 || matchState?.quarter == 4"
+                        (click)="timeOut(false)" [disabled]="matchState!.secondHalfTimeoutsAway == 0">Away TO</button>
                 </div>
             </div>
 

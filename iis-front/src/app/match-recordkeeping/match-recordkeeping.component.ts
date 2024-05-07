@@ -19,10 +19,6 @@ export class MatchRecordkeepingComponent implements OnInit {
   selectedPlayer?: Player;
   events: MatchEvent[] = [];
 
-  private quarter: number = 1;
-  private minute: number = 10;
-  private second: number = 0;
-
   constructor(
     private route: ActivatedRoute,
     private service: RecordKeeperService,
@@ -60,17 +56,16 @@ export class MatchRecordkeepingComponent implements OnInit {
     this.selectedPlayer = undefined;
   }
 
-  updateTime(time: number[]) {
-    this.minute = time[0]
-    this.second = time[1]
+  updateMatchState(matchState: MatchState) {
+    this.matchState! = matchState
   }
 
-  updateQuarter(quarter: number) {
-    this.quarter = quarter
+  saveMatchState() {
+    this.service.updateMatchStateForMatch(this.matchState!).subscribe()
   }
 
   timeOut(isHomeTeam: boolean) {
-    if (this.quarter == 1 || this.quarter == 2){
+    if (this.matchState?.quarter == 1 || this.matchState?.quarter == 2){
       if(isHomeTeam) this.matchState!.firstHalfTimeoutsHome -= 1
       else this.matchState!.firstHalfTimeoutsAway -= 1
     }
@@ -81,12 +76,12 @@ export class MatchRecordkeepingComponent implements OnInit {
 
     const matchEvent: MatchEvent = {
       type: "TIME_OUT",
-      minute: this.minute,
-      second: this.second,
+      minute: this.matchState!.minute,
+      second: this.matchState!.second,
       perpetratorName: isHomeTeam ? this.match.homeTeam.name : this.match.awayTeam.name,
       perpetratorId: isHomeTeam ? this.match.homeTeam.id : this.match.awayTeam.id,
       matchId: this.match.id,
-      period: this.quarter,
+      period: this.matchState!.quarter,
     }
     this.service.addEvent(matchEvent).subscribe({
       next: response => {
@@ -99,12 +94,12 @@ export class MatchRecordkeepingComponent implements OnInit {
   addEvent(eventType: string) {
     const matchEvent: MatchEvent = {
       type: eventType,
-      minute: this.minute,
-      second: this.second,
+      minute: this.matchState!.minute,
+      second: this.matchState!.second,
       perpetratorName: this.selectedPlayer?.name! + ' ' + this.selectedPlayer?.surname,
       perpetratorId: this.selectedPlayer?.id!,
       matchId: this.match.id,
-      period: this.quarter,
+      period: this.matchState!.quarter,
     }
 
     switch (eventType) {
@@ -122,7 +117,7 @@ export class MatchRecordkeepingComponent implements OnInit {
         break;
       case "UNSPORTSMANLIKE_FOUL":
       case "FOUL":
-        switch (this.quarter) {
+        switch (this.matchState?.quarter) {
           case 1:
             if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.firstQuarterFoulsHome += 1
             else this.matchState!.firstQuarterFoulsAway += 1

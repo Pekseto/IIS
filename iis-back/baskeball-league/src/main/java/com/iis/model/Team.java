@@ -34,8 +34,8 @@ public class Team {
     @Column(name="phone_number", nullable = false)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private List<Player> players = new ArrayList<>();
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    private List<Player> players;
 
     @OneToOne(mappedBy = "team")
     private TeamManager teamManager;
