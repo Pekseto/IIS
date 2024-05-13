@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/referee")
@@ -41,10 +43,24 @@ public class RefereeController {
         return ResponseEntity.ok(refereeService.Update(judge));
     }
 
-    @PostMapping("/getAll")
+    @PostMapping("/getAllPag")
     @Operation(summary = "Get all referees with pagination")
     @PreAuthorize("hasAnyRole('ROLE_LEAGUE_ADMIN', 'ROLE_REFEREE')")
-    public ResponseEntity<Page<Referee>> getAll(@RequestBody SearchIn dataIn) {
+    public ResponseEntity<Page<Referee>> getAllPag(@RequestBody SearchIn dataIn) {
         return ResponseEntity.ok(refereeService.GetAll(dataIn));
+    }
+
+    @GetMapping("/getAll")
+    @Operation(summary = "Get all referees")
+    @PreAuthorize("hasAnyRole('ROLE_LEAGUE_ADMIN')")
+    public ResponseEntity<List<RefereeDTO>> getAll() {
+        return ResponseEntity.ok(refereeService.GetAll());
+    }
+
+    @GetMapping("getRecommendation")
+    @Operation(summary = "Get three referee recommendation for match")
+    @PreAuthorize("hasRole('ROLE_LEAGUE_ADMIN')")
+    public ResponseEntity<List<RefereeDTO>> getRecommendation() {
+        return ResponseEntity.ok(refereeService.GetRecommendation());
     }
 }

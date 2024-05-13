@@ -3,15 +3,13 @@ package com.iis.service.impl;
 import com.iis.dtos.RecordKeeperDto;
 import com.iis.dtos.MatchDto;
 import com.iis.dtos.RefereeTeamDto;
-import com.iis.helpers.SearchIn;
-import com.iis.model.Match;
 import com.iis.repository.MatchRepository;
 import com.iis.repository.RecordKeeperRepository;
+import com.iis.repository.TeamRepository;
 import com.iis.service.MatchService;
 import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +22,8 @@ public class MatchServiceImpl implements MatchService {
     private final MatchRepository matchRepository;
     private final RecordKeeperRepository recordKeeperRepository;
     private final Mapper mapper;
+    private final TeamRepository teamRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public RefereeTeamDto SetRefereeTeam(RefereeTeamDto refereeTeam) {
@@ -43,9 +43,37 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public List<MatchDto> GetAll() {
         var matchesFromDb = matchRepository.findAll();
-        return matchesFromDb.stream()
+        var matchesDto = matchesFromDb.stream()
                 .map(match -> mapper.map(match, MatchDto.class))
                 .collect(Collectors.toList());
+
+        matchesDto.forEach(match -> {
+            long id = match.getHomeTeamId();
+            var teamFromDb = teamRepository.findById(id);
+            match.setHomeTeamName(teamFromDb.get().getName());
+
+            id = match.getAwayTeamId();
+            teamFromDb = teamRepository.findById(id);
+            match.setAwayTeamName(teamFromDb.get().getName());
+        } );
+
+        return matchesDto;
+    }
+
+    @Override
+    public MatchDto GetMatch(long id) {
+        var matchFromDb = matchRepository.findById(id);
+        var retVal = modelMapper.map(matchFromDb, MatchDto.class);
+
+        long teamId = matchFromDb.get().getHomeTeamId();
+        var team = teamRepository.findById(teamId);
+
+        retVal.setHomeTeamName(team.get().getName());
+        teamId = matchFromDb.get().getAwayTeamId();
+        team = teamRepository.findById(teamId);
+        retVal.setAwayTeamName(team.get().getName());
+
+        return retVal;
     }
 
     @Override
