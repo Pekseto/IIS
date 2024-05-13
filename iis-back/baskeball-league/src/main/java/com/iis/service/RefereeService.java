@@ -6,6 +6,8 @@ import com.iis.model.Referee;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface RefereeService {
 
@@ -13,4 +15,6 @@ public interface RefereeService {
     RefereeDTO Update(RefereeDTO judgeDTO);
     RefereeDTO GetById(long id);
     Page<Referee> GetAll(SearchIn dataIn);
+    List<RefereeDTO> GetAll();
+    List<RefereeDTO> GetRecommendation();
 }

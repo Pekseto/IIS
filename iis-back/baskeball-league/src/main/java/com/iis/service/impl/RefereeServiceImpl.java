@@ -10,10 +10,13 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -73,5 +76,17 @@ public class RefereeServiceImpl implements RefereeService {
         }
     }
 
+    @Override
+    public List<RefereeDTO> GetAll() {
+        var refereesFromDb = refereeRepository.findAll();
+        return refereesFromDb.stream().map(referee -> modelMapper.map(referee, RefereeDTO.class)).collect(Collectors.toList());
+    }
 
+    @Override
+    public List<RefereeDTO> GetRecommendation() {
+        PageRequest page = PageRequest.of(1, 3, Sort.Direction.DESC, "point");
+        var refereesFromDb = refereeRepository.findAll(page);
+        var retVal = refereesFromDb.getContent();
+        return retVal.stream().map(referee -> modelMapper.map(referee, RefereeDTO.class)).collect(Collectors.toList());
+    }
 }

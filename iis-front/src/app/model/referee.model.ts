@@ -10,4 +10,6 @@ export interface Referee {
     jmbg: string,
     birthday: string,
     role: string,
+    distanceWarning: boolean,
+    matchWarning: boolean,
 }

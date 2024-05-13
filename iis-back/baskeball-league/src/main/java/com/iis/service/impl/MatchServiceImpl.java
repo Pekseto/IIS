@@ -5,6 +5,7 @@ import com.iis.dtos.RefereeTeamDto;
 import com.iis.helpers.SearchIn;
 import com.iis.model.Match;
 import com.iis.repository.MatchRepository;
+import com.iis.repository.TeamRepository;
 import com.iis.service.MatchService;
 import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,8 @@ import java.util.stream.Collectors;
 public class MatchServiceImpl implements MatchService {
 
     private final MatchRepository matchRepository;
-    private final Mapper mapper;
+    private final Mapper modelMapper;
+    private final TeamRepository teamRepository;
 
     @Override
     public RefereeTeamDto SetRefereeTeam(RefereeTeamDto refereeTeam) {
@@ -40,9 +42,36 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public List<MatchDto> GetAll() {
         var matchesFromDb = matchRepository.findAll();
-        return matchesFromDb.stream()
-                .map(match -> mapper.map(match, MatchDto.class))
+        var matchesDto = matchesFromDb.stream()
+                .map(match -> modelMapper.map(match, MatchDto.class))
                 .collect(Collectors.toList());
+
+        matchesDto.forEach(match -> {
+            long id = match.getHomeTeamId();
+            var teamFromDb = teamRepository.findById(id);
+            match.setHomeTeamName(teamFromDb.get().getName());
+
+            id = match.getAwayTeamId();
+            teamFromDb = teamRepository.findById(id);
+            match.setAwayTeamName(teamFromDb.get().getName());
+        } );
+
+        return matchesDto;
     }
 
+    @Override
+    public MatchDto GetMatch(long id) {
+        var matchFromDb = matchRepository.findById(id);
+        var retVal = modelMapper.map(matchFromDb, MatchDto.class);
+
+        long teamId = matchFromDb.get().getHomeTeamId();
+        var team = teamRepository.findById(teamId);
+
+        retVal.setHomeTeamName(team.get().getName());
+        teamId = matchFromDb.get().getAwayTeamId();
+        team = teamRepository.findById(teamId);
+        retVal.setAwayTeamName(team.get().getName());
+
+        return retVal;
+    }
 }
