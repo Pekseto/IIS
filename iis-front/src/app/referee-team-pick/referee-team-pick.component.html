@@ -15,7 +15,7 @@
     </div>
     <div class="referee-table">
         <div class="recommendation-card" *ngFor="let referee of referees">
-            <div class="recommendation-name">Luka Todorovic</div>
+            <div class="recommendation-name">{{referee.surname}}</div>
             <div class="recommendation-warning-wrapper">
                 <div class="warning-referee">Already two games</div>
                 <div class="warning-referee">More than 600km</div>
@@ -33,13 +33,13 @@
         </div>
         <div class="recommendation-wrapper">
             <div class="recommendation-card" *ngFor="let recommendation of recommendedReferees">
-                <div class="recommendation-name">Luka Todorovic</div>
+                <div class="recommendation-name">{{recommendation.name}}</div>
                 <div class="recommendation-warning-wrapper">
-                    <div class="warning-referee">Already two games</div>
-                    <div class="warning-referee">More than 600km</div>
+                    <div class="warning-referee" *ngIf="false">Already two games</div>
+                    <div class="warning-referee" *ngIf="false">More than 600km</div>
                 </div>
                 <div class="recommendation-button-wrapper">
-                    <button class="delegate-button" (click)="delegate(recommendation)" *ngIf="!delegatedReferees.includes(recommendation)">Delegate</button>
+                    <button class="delegate-button" (click)="delegate(recommendation)">Delegate</button>
                 </div>
             </div>
         </div>
@@ -90,5 +90,6 @@
                 </div>
             </div>
         </div>
+        <button class="btn btn-primary" (click)="setRefereeTeam()">Set referee team</button>
     </div>
 </div>

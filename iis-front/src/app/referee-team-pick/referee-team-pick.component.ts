@@ -14,6 +14,7 @@ export class RefereeTeamPickComponent implements OnInit {
   delegatedReferees: Referee[] = [];
   referees: Referee[] = [];
   recommendedReferees: Referee[] = [];
+  referee!: Referee;
   match!: Match;
   matchId!: number;
 
@@ -53,13 +54,32 @@ export class RefereeTeamPickComponent implements OnInit {
   }
 
   delegate(referee: Referee) {
-    this.delegatedReferees.push(referee);
+    let index = 0;
+    if(this.delegatedReferees.length == 0)
+      {
+        this.delegatedReferees[0] = referee;
+        return;
+      }
+    this.delegatedReferees.forEach(element => {
+      if(element.id == 0 || element == null){
+        this.delegatedReferees[index] = referee;
+      }
+      index++;
+    });
+    if(index < 4)
+      {
+        this.delegatedReferees[index] = referee
+      }
   }
 
   cancel(id: number) {
-    let index = this.delegatedReferees.findIndex(referee => referee.id === id);
-
-    this.delegatedReferees.splice(index, 1);
+    let index = 0;
+    this.delegatedReferees.forEach(element => {
+      if(element.id == id) {
+        this.delegatedReferees[index] = this.referee;
+      }
+      index++
+    });
   }
 
   setRefereeTeam() {
