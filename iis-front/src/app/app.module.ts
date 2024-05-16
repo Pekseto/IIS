@@ -18,6 +18,10 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { CoachRegistrationComponent } from './coach-registration/coach-registration.component';
 import { UpcomingGamesComponent } from './upcoming-games/upcoming-games.component';
 import { DelegateRecordkeeperComponent } from './delegate-recordkeeper/delegate-recordkeeper.component';
+import { MatchRosterInputComponent } from './match-roster-input/match-roster-input.component';
+import { SemaphoreComponent } from './semaphore/semaphore.component';
+import { MatchRecordkeepingComponent } from './match-recordkeeping/match-recordkeeping.component';
+import { RefereeTeamPickComponent } from './referee-team-pick/referee-team-pick.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,10 @@ import { DelegateRecordkeeperComponent } from './delegate-recordkeeper/delegate-
     CoachRegistrationComponent,
     UpcomingGamesComponent,
     DelegateRecordkeeperComponent,
+    MatchRosterInputComponent,
+    SemaphoreComponent,
+    MatchRecordkeepingComponent,
+    RefereeTeamPickComponent,
   ],
   imports: [
     BrowserModule,

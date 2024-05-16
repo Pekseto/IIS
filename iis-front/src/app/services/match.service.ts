@@ -18,4 +18,8 @@ export class MatchService {
     getAll() : Observable<any> {
         return this.http.get(environment.apiHost + this.apiController + 'getAll');
     }
+
+    getMatch(id: number) : Observable<any> {
+        return this.http.get(environment.apiHost + this.apiController + 'getMatch/' + id)
+    }
 }

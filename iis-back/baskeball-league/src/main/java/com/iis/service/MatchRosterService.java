@@ -1,5 +1,6 @@
 package com.iis.service;
 
+import com.iis.dtos.MatchDto;
 import com.iis.dtos.MatchRosterDto;
 
 public interface MatchRosterService {
@@ -10,4 +11,5 @@ public interface MatchRosterService {
     MatchRosterDto RemoveFromStartingFive(long id, long playerId);
     MatchRosterDto Substitute(long id, long inId, long outId);
     MatchRosterDto GetMatchRoster(long id);
+    MatchDto CreateMatchRostersForMatch(MatchDto matchDto);
 }

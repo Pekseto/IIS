@@ -1,0 +1,117 @@
+.main-container {
+    width: 100%;
+    height: 50rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.first-row-container {
+    width: 100%;
+    height: 30%;
+    display: flex;
+}
+
+.second-row-container {
+    width: 100%;
+    height: 65%;
+    display: flex;
+}
+
+.semaphore-container {
+    width: 30%;
+    height: 100%;
+}
+
+.active-roster-container {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.active-roster-table-container {
+    height: 100%;
+    width: 85%;
+}
+
+.mouse-hover:hover{
+    cursor: pointer;
+}
+
+/* .player-row-height {
+    line-height: 2.3rem;
+    min-height: 2.3rem;
+    height: 2.3rem;
+} */
+
+.left-column {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-out-container {
+    height: 20%;
+    width: 100%;
+    display: flex;
+}
+
+.to-button{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.play-by-play-container {
+    width: 90%;
+}
+
+.table-responsive {
+    width: 100%;
+    height: 80%;
+}
+
+.event-row-height {
+    line-height: 2.3rem;
+    min-height: 2.3rem;
+    height: 2.3rem;
+}
+
+.right-column {
+    height: 100%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    /* align-items: flex-end; */
+}
+
+.buttons-container{
+    width: 90%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-row-container{
+    width: 100%;
+    height: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-container{
+    height: 100%;
+    width: 16.6%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

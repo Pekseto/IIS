@@ -40,7 +40,7 @@ export class DelegateRecordkeeperComponent implements OnInit{
       const recordKeeperId = this.delegationForm.value.recordKeeperId!;
       this.adminService.delegateRecordKeeper(matchId, recordKeeperId).subscribe({
         next: (response: any) => {
-          console.log('Uspesno delegirao zapisnicara')
+          this.delegationForm.reset();
         }
       })
     }

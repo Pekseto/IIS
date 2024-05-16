@@ -39,7 +39,6 @@ export class RecordkeeperRegistrationComponent {
       phoneNumber: this.registrationForm.value.phoneNumber || "",
       city: this.registrationForm.value.city || "",
       country: this.registrationForm.value.country || "",
-      confirmPassword: "",
     };
 
     if (this.registrationForm.valid) {

@@ -1,0 +1,118 @@
+<div class="roster-input-container">
+    <h2>ROSTER INPUT</h2>
+
+    <div class="teams-container">
+        <div class="team-container">
+            <h5>{{match.homeTeam.name}}</h5>
+            <div class="roster-container">
+                <span>Select roster:</span>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of homePlayers">
+                                <th scope="row">{{player.jerseyNumber}}</th>
+                                <td>{{player.name + ' ' + player.surname}}</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-sm" (click)="addToBench(player)">+</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="roster-container">
+                <span>Select starting five:</span>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Select</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of homeAddedPlayers">
+                                <th scope="row">{{player.jerseyNumber}}</th>
+                                <td>{{player.name + ' ' + player.surname}}</td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm" (click)="removeFromBench(player)">-</button>
+                                </td>
+                                <td>
+                                    <button *ngIf="!homeRoster?.startingFive?.includes(player)" class="btn btn-outline-primary btn-sm" (click)="addToStartingFive(player)" [disabled]="homeRoster?.startingFive?.length == 5">Select</button>
+                                    <button *ngIf="homeRoster?.startingFive?.includes(player)" class="btn btn-outline-secondary btn-sm" (click)="removeFromStartingFive(player)">Unselect</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="team-container">
+            <h5>{{match.awayTeam.name}}</h5>
+            <div class="roster-container">
+                <span>Select roster:</span>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of awayPlayers">
+                                <th scope="row">{{player.jerseyNumber}}</th>
+                                <td>{{player.name + ' ' + player.surname}}</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-sm" (click)="addToBench(player)">+</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="roster-container">
+                <span>Select starting five:</span>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Select</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of awayAddedPlayers">
+                                <th scope="row">{{player.jerseyNumber}}</th>
+                                <td>{{player.name + ' ' + player.surname}}</td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm" (click)="removeFromBench(player)">-</button>
+                                </td>
+                                <td>
+                                    <button *ngIf="!awayRoster?.startingFive?.includes(player)" class="btn btn-outline-primary btn-sm" (click)="addToStartingFive(player)"  [disabled]="awayRoster?.startingFive?.length == 5">Select</button>
+                                    <button *ngIf="awayRoster?.startingFive?.includes(player)" class="btn btn-outline-secondary btn-sm" (click)="removeFromStartingFive(player)">Unselect</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="delegate-button-container mt-5">
+        <button class="btn btn-primary" (click)="startMatch()" [disabled]="homeRoster?.startingFive?.length != 5 || awayRoster?.startingFive?.length != 5">Start match</button>
+    </div>
+</div>

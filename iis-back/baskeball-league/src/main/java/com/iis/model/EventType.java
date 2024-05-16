@@ -1,50 +1,35 @@
 package com.iis.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@Getter
+@RequiredArgsConstructor
 public enum EventType {
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    TWO_POINTER,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    THREE_POINTER,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    FREE_THROW_IN,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    MISSED_TWO_POINTER,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    MISSED_THREE_POINTER,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    MISSED_FREE_THROW,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    DEF_REBOUND,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    OFF_REBOUND,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    ASSIST,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    TURNOVER,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    STEAL,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    BLOCK,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    SHOT_REJECTED,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    FOUL,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    FOUL_DRAWN,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    TECHNICAL_FOUL,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    UNSPORTSMANLIKE_FOUL,
+    TWO_POINTER("Two Pointer"),
+    THREE_POINTER("Three Pointer"),
+    FREE_THROW_IN("Free Throw In"),
+    MISSED_TWO_POINTER("Missed Two Pointer"),
+    MISSED_THREE_POINTER("Missed Three Pointer"),
+    MISSED_FREE_THROW("Missed Free Throw"),
+    DEF_REBOUND("Defensive Rebound"),
+    OFF_REBOUND("Offensive Rebound"),
+    ASSIST("Assist"),
+    TURNOVER("Turnover"),
+    STEAL("Steal"),
+    BLOCK("Block"),
+    SHOT_REJECTED("Shot Rejected"),
+    FOUL("Foul"),
+    FOUL_DRAWN("Foul Drawn"),
+    TECHNICAL_FOUL("Technical Foul"),
+    UNSPORTSMANLIKE_FOUL("Unsportsmanlike Foul"),
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    TIME_OUT,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    OUT,
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    IN,
-    ;
+    TIME_OUT("Time Out"),
+    OUT("Out"),
+    IN("In");
+
+    private final String eventName;
 
 }
