@@ -18,7 +18,7 @@ public class RegularSeasonSchedule {
     @Column(name="id", unique = true, nullable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "regularSeasonSchedule", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "regularSeasonSchedule")
     private List<Match> matches;
 
     @Column(name="season_start", nullable = true)

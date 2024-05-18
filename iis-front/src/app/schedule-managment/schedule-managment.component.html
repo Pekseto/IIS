@@ -1,0 +1,29 @@
+<div class="button-container">
+    <button class="button regular-season">Regular Season</button>
+    <button class="button playoffs">Playoffs</button>
+    <button class="button cup">Cup</button>
+    <button class="button generate-schedule" (click)="generateSchedule()">Generate Schedule</button>
+    <button class="button update-schedule">Update Schedule</button>
+    <button class="button save-schedule" (click)="saveSchedule()">Save Schedule</button>
+</div>
+
+<div *ngIf="showSchedule" class="match-container">
+    <div *ngFor="let match of regularSeasonSchedule.matches" class="match-card">
+        <div class="teams-part">
+            <div>{{match.homeTeam.name}}</div>
+            <div>VS</div>
+            <div>{{match.awayTeam.name}}</div>
+        </div>
+        <div class="date-part">
+            <div>DATE</div>
+            <div>{{match.matchDay | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+        </div>
+        <div class="city-part">
+            <div>CITY</div>
+            <div>{{match.homeTeam.city}}</div>
+        </div>
+        <div class="city-part">
+            <div>ABA league</div>
+        </div>
+    </div>
+</div>

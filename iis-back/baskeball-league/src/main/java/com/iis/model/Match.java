@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
@@ -38,7 +39,7 @@ public class Match {
     private Long fourthRefereeId;
 
     @Column(name="matchDay", nullable = true)
-    private LocalDate matchDay;
+    private LocalDateTime matchDay;
 
     @Column(name="city", nullable = true)
     private String city;
@@ -61,4 +62,9 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "regular_season_schedule_id", nullable = true)
     private RegularSeasonSchedule regularSeasonSchedule;
+
+    @Override
+    public String toString() {
+        return "Home Team: " + homeTeam.getName() + ", Away Team: " + awayTeam.getName() + ", Match day: " + matchDay;
+    }
 }

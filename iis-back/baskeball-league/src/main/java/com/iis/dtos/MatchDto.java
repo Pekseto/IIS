@@ -24,6 +24,10 @@ public class MatchDto {
         this.awayTeam = awayTeam;
     }
 
+    public MatchDto() {
+        // Konstruktor bez argumenata
+    }
+
     @Override
     public String toString() {
         return "Home Team: " + homeTeam.getName() + ", Away Team: " + awayTeam.getName() + ", Match day: " + matchDay;

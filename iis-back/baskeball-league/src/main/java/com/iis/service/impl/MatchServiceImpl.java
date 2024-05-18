@@ -5,6 +5,7 @@ import com.iis.dtos.MatchDto;
 import com.iis.dtos.RefereeTeamDto;
 import com.iis.helpers.SearchIn;
 import com.iis.model.Match;
+import com.iis.model.RegularSeasonSchedule;
 import com.iis.repository.MatchRepository;
 import com.iis.repository.RecordKeeperRepository;
 import com.iis.service.MatchService;
@@ -58,5 +59,12 @@ public class MatchServiceImpl implements MatchService {
 
         return mapper.map(match, MatchDto.class);
     }
+
+    @Override
+    public MatchDto Save(MatchDto matchDto) {
+        matchRepository.save(mapper.map(matchDto, Match.class));
+        return matchDto;
+    }
+
 
 }

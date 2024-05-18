@@ -3,15 +3,21 @@ package com.iis.service.impl;
 import com.iis.dtos.MatchDto;
 import com.iis.dtos.RegularSeasonScheduleDto;
 import com.iis.dtos.TeamDto;
+import com.iis.model.Match;
 import com.iis.model.MatchResult;
+import com.iis.model.RegularSeasonSchedule;
 import com.iis.model.Team;
+import com.iis.repository.MatchRepository;
 import com.iis.repository.MatchResultRepository;
 import com.iis.repository.RegularSeasonScheduleRepository;
 import com.iis.repository.TeamRepository;
 import com.iis.service.RegularSeasonScheduleService;
 import com.iis.util.Mapper;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.boot.MappingException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.*;
 import java.time.temporal.TemporalAdjusters;
@@ -25,6 +31,7 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
     private final RegularSeasonScheduleRepository scheduleRepository;
     private final TeamRepository teamRepository;
     private final MatchResultRepository matchResultRepository;
+    private final MatchRepository matchRepository;
     private final Mapper mapper;
     @Override
     public RegularSeasonScheduleDto generateSchedule() {
@@ -40,16 +47,54 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
         if (!validateSchedule(schedule)) {
             throw new IllegalStateException("Raspored nije validan.");
         }
-        schedule = adjustScheduleToMinimizeTravel(schedule,mapper.mapList(teams, TeamDto.class));
+        /*schedule = adjustScheduleToMinimizeTravel(schedule,mapper.mapList(teams, TeamDto.class));
         if (!validateSchedule(schedule)) {
             throw new IllegalStateException("Raspored nije validan.");
         }
         schedule = adjustScheduleBasedOnPreviousResults(schedule,results,mapper.mapList(teams, TeamDto.class));
         if (!validateSchedule(schedule)) {
             throw new IllegalStateException("Raspored nije validan.");
-        }
+        }*/
 
         return schedule;
+    }
+
+    @Transactional
+    public RegularSeasonScheduleDto save(RegularSeasonScheduleDto schedule) {
+        try {
+            RegularSeasonSchedule scheduleToSave = mapper.map(schedule, RegularSeasonSchedule.class);
+            RegularSeasonSchedule savedSchedule = scheduleRepository.saveAndFlush(scheduleToSave);
+
+            for (Match match : scheduleToSave.getMatches()) {
+                match.setRegularSeasonSchedule(savedSchedule);
+            }
+
+            matchRepository.saveAll(scheduleToSave.getMatches());
+            return mapper.map(savedSchedule, RegularSeasonScheduleDto.class);
+        } catch (MappingException e) {
+            // Obrada greške mapiranja
+            System.err.println("Greška prilikom mapiranja: " + e.getMessage());
+            throw new RuntimeException("Mapiranje nije uspelo", e);
+        } catch (DataAccessException e) {
+            // Obrada greške pristupa podacima (bilo koja greška prilikom rada sa bazom podataka)
+            System.err.println("Greška pristupa podacima: " + e.getMessage());
+            throw new RuntimeException("Neuspelo čuvanje podataka u bazu", e);
+        } catch (Exception e) {
+            // Obrada svih ostalih nepredviđenih grešaka
+            System.err.println("Nepredviđena greška: " + e.getMessage());
+            throw new RuntimeException("Došlo je do nepredviđene greške", e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean checkIfScheduleAlreadyExists(int year) {
+        return scheduleRepository.checkIfScheduleAlreadyExists(year);
+    }
+
+    @Override
+    public RegularSeasonScheduleDto getThisYearSchedule(int year) {
+        return mapper.map(scheduleRepository.getThisYearSchedule(year),RegularSeasonScheduleDto.class);
     }
 
     private RegularSeasonScheduleDto generateBasicSchedule(List<Team> teams) {
@@ -62,6 +107,13 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
         // Kreiranje DTO objekta rasporeda i postavljanje parova mečeva
         RegularSeasonScheduleDto scheduleDto = new RegularSeasonScheduleDto();
         scheduleDto.setMatches(schedule);
+        LocalDateTime localDateTime = scheduleDto.getMatches().get(0).getMatchDay();
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        scheduleDto.setSeasonStart(date);
+
+        localDateTime = scheduleDto.getMatches().get(matchDates.size()-1).getMatchDay();
+        date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        scheduleDto.setSeasonEnd(date);
 
         return scheduleDto;
     }

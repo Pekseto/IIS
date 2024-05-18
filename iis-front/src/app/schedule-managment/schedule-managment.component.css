@@ -1,0 +1,97 @@
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.regular-season {
+    background-color: #28a745; /* zelena */
+}
+
+.playoffs {
+    background-color: #dc3545; /* crvena */
+}
+
+.cup {
+    background-color: #ffc107; /* zuta */
+}
+
+.generate-schedule {
+    background-color: #007bff; /* plava */
+}
+
+.update-schedule {
+    background-color: #17a2b8; /* cyan */
+}
+
+.save-schedule {
+    background-color: #6c757d; /* siva */
+}
+
+.title {
+    margin-bottom: 1rem;
+}
+
+.match-card {
+    display: flex;
+    border: solid 1px black;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background-color: #FBF2F2;
+    margin-bottom: 10px; 
+}
+
+.teams-part {
+    display: flex;
+    width: 40%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.date-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.city-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.button-part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+
+    .set-referee {
+        background-color: #3A86FF;
+        border: 1px solid black;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        color: white;
+    }
+}
