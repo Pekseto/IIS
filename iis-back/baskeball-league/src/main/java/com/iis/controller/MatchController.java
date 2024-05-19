@@ -28,7 +28,7 @@ public class MatchController {
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAnyRole('ROLE_LEAGUE_ADMIN', 'ROLE_REFEREE')")
+    @PreAuthorize("hasAnyRole('ROLE_LEAGUE_ADMIN', 'ROLE_REFEREE', 'ROLE_RECORD_KEEPER')")
     public ResponseEntity<List<MatchDto>> GetAll()
     {
         return ResponseEntity.ok(matchService.GetAll());
@@ -46,7 +46,7 @@ public class MatchController {
     
     @GetMapping("/getMatch/{id}")
     @Operation(summary = "Get match data")
-    @PreAuthorize("hasAnyRole('ROLE_LEAGUE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_LEAGUE_ADMIN', 'ROLE_RECORD_KEEPER')")
     public ResponseEntity<MatchDto> GetMatch(@PathVariable long id)
     {
         return ResponseEntity.ok(matchService.GetMatch(id));

@@ -15,7 +15,7 @@ public class MatchDto {
     private int secondRefereeId;
     private int thirdRefereeId;
     private int fourthRefereeId;
-    private LocalDate matchDay;
+    private LocalDateTime matchDay;
     private String city;
     private boolean isHighRisk;
     private RecordKeeperDto recordKeeper;

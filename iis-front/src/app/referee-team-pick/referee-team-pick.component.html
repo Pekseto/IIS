@@ -1,16 +1,16 @@
 <div class="upper-wrapper">
     <div class="match-details">
         <div class="team-prefs">
-            <div class="team-circle">{{match.homeTeamName.substring(0,3)}}</div>
+            <div class="team-circle">{{match.homeTeam.name.substring(0,3)}}</div>
             <div>VS</div>
-            <div class="team-circle">{{match.awayTeamName.substring(0,3)}}</div>
+            <div class="team-circle">{{match.awayTeam.name.substring(0,3)}}</div>
         </div>
         <div class="team-names">
-            <div>{{match.homeTeamName}}</div>
-            <div>{{match.awayTeamName}}</div>
+            <div>{{match.homeTeam.name}}</div>
+            <div>{{match.awayTeam.name}}</div>
         </div>
         <div class="location-date">{{match.city}}</div>
-        <div class="location-date">{{match.matchDay}}</div>
+        <div class="location-date">{{match.matchDay | date: 'medium'}}</div>
         <div class="warning-risk" *ngIf="match.isHighRisk">HIGH RISK</div>
     </div>
     <div class="referee-table">

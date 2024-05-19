@@ -22,7 +22,11 @@ export class UpcomingGamesComponent implements OnInit {
   reload() {
     this.matchService.getAll().subscribe({
       next: (response) => {
-        this.matches = response;
+        response.forEach(element => {
+          const match = element
+          match.matchDay = new Date(match.matchDay[0], match.matchDay[1] - 1, match.matchDay[2], match.matchDay[3], match.matchDay[4])
+          this.matches.push(match)
+        });
       }
     })
   }

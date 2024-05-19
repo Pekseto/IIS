@@ -26,12 +26,13 @@ export class HomeComponent implements OnInit {
     })
     this.matchService.getAll().subscribe({
       next: (response) => {
-        this.matches = response
-
         //Kenja datum i vreme sa beka pa mora ovako
-        this.matches.forEach(match => {
-          const matchDay: any = match.matchDay
-          match.matchDay = new Date(matchDay[0], matchDay[1], matchDay[2], matchDay[3], matchDay[4])
+        response.forEach(element => {
+
+          const match = element
+          match.matchDay = new Date(match.matchDay[0], match.matchDay[1] - 1, match.matchDay[2], match.matchDay[3], match.matchDay[4])
+          this.matches.push(match)
+
         });
       }
     })

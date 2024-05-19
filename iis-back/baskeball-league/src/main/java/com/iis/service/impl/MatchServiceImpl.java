@@ -47,15 +47,15 @@ public class MatchServiceImpl implements MatchService {
                 .map(match -> mapper.map(match, MatchDto.class))
                 .collect(Collectors.toList());
 
-        matchesDto.forEach(match -> {
-            long id = match.getHomeTeamId();
-            var teamFromDb = teamRepository.findById(id);
-            match.setHomeTeamName(teamFromDb.get().getName());
-
-            id = match.getAwayTeamId();
-            teamFromDb = teamRepository.findById(id);
-            match.setAwayTeamName(teamFromDb.get().getName());
-        } );
+//        matchesDto.forEach(match -> {
+//            long id = match.getHomeTeamId();
+//            var teamFromDb = teamRepository.findById(id);
+//            match.setHomeTeamName(teamFromDb.get().getName());
+//
+//            id = match.getAwayTeamId();
+//            teamFromDb = teamRepository.findById(id);
+//            match.setAwayTeamName(teamFromDb.get().getName());
+//        } );
 
         return matchesDto;
     }
@@ -65,13 +65,13 @@ public class MatchServiceImpl implements MatchService {
         var matchFromDb = matchRepository.findById(id);
         var retVal = modelMapper.map(matchFromDb, MatchDto.class);
 
-        long teamId = matchFromDb.get().getHomeTeamId();
-        var team = teamRepository.findById(teamId);
-
-        retVal.setHomeTeamName(team.get().getName());
-        teamId = matchFromDb.get().getAwayTeamId();
-        team = teamRepository.findById(teamId);
-        retVal.setAwayTeamName(team.get().getName());
+//        long teamId = matchFromDb.get().getHomeTeamId();
+//        var team = teamRepository.findById(teamId);
+//
+//        retVal.setHomeTeamName(team.get().getName());
+//        teamId = matchFromDb.get().getAwayTeamId();
+//        team = teamRepository.findById(teamId);
+//        retVal.setAwayTeamName(team.get().getName());
 
         return retVal;
     }

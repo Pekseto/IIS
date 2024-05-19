@@ -32,6 +32,7 @@ export class RefereeTeamPickComponent implements OnInit {
     this.matchService.getMatch(this.matchId).subscribe({
       next: (response) => {
         this.match = response;
+        this.match.matchDay = new Date(response.matchDay[0], response.matchDay[1] - 1, response.matchDay[2], response.matchDay[3], response.matchDay[4])
       }
     });
   }

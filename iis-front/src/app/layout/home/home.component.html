@@ -4,7 +4,9 @@
         <div class="card-body">
             <h5 class="card-title">{{match.homeTeam.name}} vs. {{match.awayTeam.name}}</h5>
             <h6 class="card-subtitle mt-1 text-muted">{{match.matchDay | date:'medium'}}, {{match.city}}</h6>
-            <button class="btn btn-outline-primary btn-sm mt-2" *ngIf="match.recordKeeper.id == user?.id" (click)="beginMatch(match)">Begin</button>
+            <div *ngIf="match.recordKeeper != undefined">
+                <button class="btn btn-outline-primary btn-sm mt-2" *ngIf="match.recordKeeper.id == user?.id" (click)="beginMatch(match)">Begin</button> 
+            </div>
         </div>
     </div>
 </div>

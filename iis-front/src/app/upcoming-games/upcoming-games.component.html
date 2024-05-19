@@ -1,13 +1,13 @@
 <h2 class="title">MATCHES IN UPCOMING DAYS</h2>
 <div class="match-card" *ngFor="let match of matches">
     <div class="teams-part">
-        <div>{{match.homeTeamName}}</div>
+        <div>{{match.homeTeam.name}}</div>
         <div>VS</div>
-        <div>{{match.awayTeamName}}</div>
+        <div>{{match.awayTeam.name}}</div>
     </div>
     <div class="date-part">
         <div>DATE</div>
-        <div>{{match.matchDay}}</div>
+        <div>{{match.matchDay | date:'medium'}}</div>
     </div>
     <div class="city-part">
         <div>CITY</div>
