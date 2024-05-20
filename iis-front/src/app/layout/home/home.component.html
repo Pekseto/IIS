@@ -1,13 +1,12 @@
 <h3 class="header mt-5">Upcoming games</h3>
 <div class="mt-3">
-    <div class="card" style="width: 18rem;">
+    <div *ngFor="let match of matches" class="card mt-3" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <h5 class="card-title">{{match.homeTeam.name}} vs. {{match.awayTeam.name}}</h5>
+            <h6 class="card-subtitle mt-1 text-muted">{{match.matchDay | date:'medium'}}, {{match.city}}</h6>
+            <div *ngIf="match.recordKeeper != undefined">
+                <button class="btn btn-outline-primary btn-sm mt-2" *ngIf="match.recordKeeper.id == user?.id" (click)="beginMatch(match)">Begin</button> 
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,94 @@
+<div class="upper-wrapper">
+    <div class="match-details">
+        <div class="team-prefs">
+            <div class="team-circle">{{match.homeTeam.name.substring(0,3)}}</div>
+            <div>VS</div>
+            <div class="team-circle">{{match.awayTeam.name.substring(0,3)}}</div>
+        </div>
+        <div class="team-names">
+            <div>{{match.homeTeam.name}}</div>
+            <div>{{match.awayTeam.name}}</div>
+        </div>
+        <div class="location-date">{{match.city}}</div>
+        <div class="location-date">{{match.matchDay | date: 'medium'}}</div>
+        <div class="warning-risk" *ngIf="match.isHighRisk">HIGH RISK</div>
+    </div>
+    <div class="referee-table">
+        <div class="recommendation-card" *ngFor="let referee of referees">
+            <div class="recommendation-name">Luka Todorovic</div>
+            <div class="recommendation-warning-wrapper">
+                <div class="warning-referee">Already two games</div>
+                <div class="warning-referee">More than 600km</div>
+            </div>
+            <div class="recommendation-button-wrapper">
+                <button class="delegate-button" (click)="delegate(referee)">Delegate</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="down-wrapper">
+    <div class="down-left-wrapper">
+        <div class="recommendation-title">
+            Recommnedation for main referee
+        </div>
+        <div class="recommendation-wrapper">
+            <div class="recommendation-card" *ngFor="let recommendation of recommendedReferees">
+                <div class="recommendation-name">Luka Todorovic</div>
+                <div class="recommendation-warning-wrapper">
+                    <div class="warning-referee">Already two games</div>
+                    <div class="warning-referee">More than 600km</div>
+                </div>
+                <div class="recommendation-button-wrapper">
+                    <button class="delegate-button" (click)="delegate(recommendation)" *ngIf="!delegatedReferees.includes(recommendation)">Delegate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="referee-team-wrapper">
+        <div class="referee-team-title">Selected referees</div>
+        <div class="referee-team-part">
+            <div class="recommendation-card">
+                <div class="recommendation-name">{{delegatedReferees[0].name}} {{delegatedReferees[0].surname}}</div>
+                <div class="recommendation-warning-wrapper">
+                    <div class="warning-referee" *ngIf="delegatedReferees[0].matchWarning">Already two games</div>
+                    <div class="warning-referee" *ngIf="delegatedReferees[0].distanceWarning">More than 600km</div>
+                </div>
+                <div class="recommendation-button-wrapper">
+                    <button class="cancel-button" *ngIf="delegatedReferees[0]" (click)="cancel(delegatedReferees[0].id)">Cancel</button>
+                </div>
+            </div>
+            <div class="recommendation-card">
+                <div class="recommendation-name">{{delegatedReferees[1].name}} {{delegatedReferees[1].surname}}</div>
+                <div class="recommendation-warning-wrapper">
+                    <div class="warning-referee" *ngIf="delegatedReferees[1].matchWarning">Already two games</div>
+                    <div class="warning-referee" *ngIf="delegatedReferees[1].distanceWarning">More than 600km</div>
+                </div>
+                <div class="recommendation-button-wrapper">
+                    <button class="cancel-button" *ngIf="delegatedReferees[1]" (click)="cancel(delegatedReferees[1].id)">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="referee-team-part">
+            <div class="recommendation-card">
+                <div class="recommendation-name">{{delegatedReferees[2].name}} {{delegatedReferees[2].surname}}</div>
+                <div class="recommendation-warning-wrapper">
+                    <div class="warning-referee" *ngIf="delegatedReferees[2].matchWarning">Already two games</div>
+                    <div class="warning-referee" *ngIf="delegatedReferees[2].distanceWarning">More than 600km</div>
+                </div>
+                <div class="recommendation-button-wrapper">
+                    <button class="cancel-button" *ngIf="delegatedReferees[2]" (click)="cancel(delegatedReferees[2].id)">Cancel</button>
+                </div>
+            </div>
+            <div class="recommendation-card">
+                <div class="recommendation-name">{{delegatedReferees[3].name}} {{delegatedReferees[3].surname}}</div>
+                <div class="recommendation-warning-wrapper">
+                    <div class="warning-referee" *ngIf="delegatedReferees[3].matchWarning">Already two games</div>
+                    <div class="warning-referee" *ngIf="delegatedReferees[3].distanceWarning">More than 600km</div>
+                </div>
+                <div class="recommendation-button-wrapper">
+                    <button class="cancel-button" *ngIf="delegatedReferees[3]" (click)="cancel(delegatedReferees[3].id)">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

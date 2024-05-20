@@ -12,6 +12,10 @@ import { CoachRegistrationComponent } from "./coach-registration/coach-registrat
 import { UpcomingGamesComponent } from "./upcoming-games/upcoming-games.component";
 import { DelegateRecordkeeperComponent } from "./delegate-recordkeeper/delegate-recordkeeper.component";
 import { ScheduleManagmentComponent } from "./schedule-managment/schedule-managment.component";
+import { MatchRosterInputComponent } from "./match-roster-input/match-roster-input.component";
+import { SemaphoreComponent } from "./semaphore/semaphore.component";
+import { MatchRecordkeepingComponent } from "./match-recordkeeping/match-recordkeeping.component";
+import { RefereeTeamPickComponent } from "./referee-team-pick/referee-team-pick.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -25,7 +29,11 @@ const routes: Routes = [
     { path: 'coach-registration', component: CoachRegistrationComponent},
     { path: 'upcoming-matches', component: UpcomingGamesComponent },
     { path: 'delegate-recordkeeper', component: DelegateRecordkeeperComponent},
-    { path: 'schedule-managment', component: ScheduleManagmentComponent}
+    { path: 'schedule-managment', component: ScheduleManagmentComponent},
+    { path: 'match-roster-input/:matchId', component: MatchRosterInputComponent},
+    { path: 'semaphore', component: SemaphoreComponent},
+    { path: 'match-recordkeeping/:matchId', component: MatchRecordkeepingComponent},
+    { path: 'referee-pick/:id', component: RefereeTeamPickComponent}
 ];
 
 @NgModule({

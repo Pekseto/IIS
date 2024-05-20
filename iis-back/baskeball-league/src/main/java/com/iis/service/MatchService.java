@@ -13,4 +13,6 @@ public interface MatchService {
     List<MatchDto> GetAll();
     MatchDto DelegateRecordKeeper(long matchId, long recordKeeperId);
     MatchDto Save(MatchDto matchDto);
+    MatchDto GetById(long matchId);
+    MatchDto GetMatch(long id);
 }

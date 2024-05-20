@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -20,5 +22,10 @@ public class MatchEventController {
     @PermitAll
     public ResponseEntity<MatchEventDto> addEvent(@RequestBody MatchEventDto eventDto){
         return ResponseEntity.ok(service.AddEvent(eventDto));
+    }
+
+    @GetMapping("/getAllByMatchId/{matchId}")
+    public ResponseEntity<List<MatchEventDto>> getAllByMatchId(@PathVariable long matchId){
+        return ResponseEntity.ok(service.GetAllByMatchId(matchId));
     }
 }

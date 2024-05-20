@@ -22,11 +22,17 @@ public class MatchEvent {
     @Column(name="event_type", nullable = false)
     private EventType type;
 
-    @Column(name="time", nullable = false)
-    private LocalTime time;
+    @Column(name="minute", nullable = false)
+    private int minute;
 
-    @Column(name="playerId", nullable = false)
-    private Long playerId;
+    @Column(name="second", nullable = false)
+    private int second;
+
+    @Column(name="perpetratorName", nullable = false)
+    private String perpetratorName;
+
+    @Column(name="perpetratorId", nullable = false)
+    private Long perpetratorId;
 
     @Column(name="matchId", nullable = false)
     private Long matchId;

@@ -1,19 +1,19 @@
 <h2 class="title">MATCHES IN UPCOMING DAYS</h2>
-<div class="match-card">
+<div class="match-card" *ngFor="let match of matches">
     <div class="teams-part">
-        <div>PARTIZAN</div>
+        <div>{{match.homeTeam.name}}</div>
         <div>VS</div>
-        <div>CRVENA ZVEZDA</div>
+        <div>{{match.awayTeam.name}}</div>
     </div>
     <div class="date-part">
         <div>DATE</div>
-        <div>29.04.2024.</div>
+        <div>{{match.matchDay | date:'medium'}}</div>
     </div>
     <div class="city-part">
         <div>CITY</div>
-        <div>Belgrade</div>
+        <div>{{match.city}}</div>
     </div>
     <div class="button-part">
-        <button class="set-referee">SET REFEREE</button>
+        <button class="set-referee" (click)="goToMatchPage(match.id)">SET REFEREE</button>
     </div>
 </div>

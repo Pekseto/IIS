@@ -1,5 +1,6 @@
 package com.iis.util;
 
+import com.iis.dtos.MatchEventDto;
 import com.iis.dtos.RegisteredUserDto;
 import com.iis.model.*;
 import com.iis.repository.TeamRepository;
@@ -117,6 +118,13 @@ public class MapperImpl implements Mapper {
         coach.setTeam(team);
         coach.setPhoneNumber(dto.getPhoneNumber());
         return coach;
+    }
+
+    @Override
+    public MatchEventDto mapMatchEventToDto(MatchEvent matchEvent) {
+        var matchEventDto = modelMapper.map(matchEvent, MatchEventDto.class);
+        matchEventDto.setType(matchEvent.getType().getEventName());
+        return matchEventDto;
     }
 
     public RegisteredUserDto mapPlayerToDto(Player player) {

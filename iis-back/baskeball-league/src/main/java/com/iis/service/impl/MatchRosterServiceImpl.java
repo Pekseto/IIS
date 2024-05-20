@@ -1,6 +1,10 @@
 package com.iis.service.impl;
 
+import com.iis.dtos.MatchDto;
 import com.iis.dtos.MatchRosterDto;
+import com.iis.model.Match;
+import com.iis.model.MatchRoster;
+import com.iis.repository.MatchRepository;
 import com.iis.repository.MatchRosterRepository;
 import com.iis.repository.PlayerRepository;
 import com.iis.service.MatchRosterService;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class MatchRosterServiceImpl implements MatchRosterService {
     private final MatchRosterRepository repo;
     private final PlayerRepository playerRepository;
+    private final MatchRepository matchRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -87,5 +92,23 @@ public class MatchRosterServiceImpl implements MatchRosterService {
     public MatchRosterDto GetMatchRoster(long id) {
         var matchRoster = repo.getReferenceById(id);
         return modelMapper.map(matchRoster, MatchRosterDto.class);
+    }
+
+    @Override
+    public MatchDto CreateMatchRostersForMatch(MatchDto matchDto) {
+        var match = modelMapper.map(matchDto, Match.class);
+
+        var homeRoster = match.getHomeRoster();
+        var awayRoster = match.getAwayRoster();
+
+        homeRoster = repo.save(homeRoster);
+        awayRoster = repo.save(awayRoster);
+
+        match.setHomeRoster(homeRoster);
+        match.setAwayRoster(awayRoster);
+
+        matchRepository.save(match);
+
+        return modelMapper.map(match, MatchDto.class);
     }
 }

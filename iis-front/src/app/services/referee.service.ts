@@ -9,7 +9,7 @@ import { Referee } from "../model/referee.model";
     providedIn:'root'
   })
   export class RefereeService {
-    private apiController: String = 'referee';
+    private apiController: String = 'referee/';
 
     constructor(private http: HttpClient,) {}
 
@@ -23,5 +23,13 @@ import { Referee } from "../model/referee.model";
 
     getReferee(id: number) : Observable<any> {
         return this.http.get(environment.apiHost  + 'users/getReferee/' + id);
+    }
+
+    getAll() : Observable<any> {
+        return this.http.get(environment.apiHost + this.apiController + 'getAll');
+    }
+
+    getRecommendation() : Observable<any> {
+        return this.http.get(environment.apiHost + this.apiController + 'getRecommendation');
     }
   }

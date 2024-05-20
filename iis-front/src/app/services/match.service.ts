@@ -15,7 +15,11 @@ export class MatchService {
         return this.http.post(environment.apiHost + this.apiController + 'setRefereeTeam', refereeTeam);
     }
 
-    getAll() : Observable<any> {
-        return this.http.get(environment.apiHost + this.apiController + 'getAll');
+    getAll() : Observable<any[]> {
+        return this.http.get<any[]>(environment.apiHost + this.apiController + 'getAll');
+    }
+
+    getMatch(id: number) : Observable<any> {
+        return this.http.get(environment.apiHost + this.apiController + 'getMatch/' + id)
     }
 }
