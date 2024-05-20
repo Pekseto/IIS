@@ -98,13 +98,13 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
     }
 
     private RegularSeasonScheduleDto generateBasicSchedule(List<Team> teams) {
-        // Odabir datuma odigravanja utakmica (npr. svake srede i četvrtka)
+
         List<LocalDateTime> matchDates = selectMatchDates(teams);
 
-        // Raspoređivanje utakmica na odabrane datume
+
         List<MatchDto> schedule = scheduleMatches(teams, matchDates);
 
-        // Kreiranje DTO objekta rasporeda i postavljanje parova mečeva
+
         RegularSeasonScheduleDto scheduleDto = new RegularSeasonScheduleDto();
         scheduleDto.setMatches(schedule);
         LocalDateTime localDateTime = scheduleDto.getMatches().get(0).getMatchDay();
@@ -133,7 +133,7 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
 
         for (int i = 0; i < (teams.size() - 1) * 2; i++) {
             LocalDateTime currentDateTime = currentYearStart;
-            for (int j = 0; j < 4; j++) { // Prvih 4 utakmice u sredu
+            for (int j = 0; j < 4; j++) {
                 matchDates.add(currentDateTime.with(matchTimes[j]));
             }
             for (int j = 0; j < 3; j++) {
@@ -148,18 +148,18 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
 
     private List<MatchDto> scheduleMatches(List<Team> teams, List<LocalDateTime> matchDates) {
         List<MatchDto> matches = new ArrayList<>();
-        List<MatchDto> allPossibleMatches = generateAllMatches(teams); // Generišemo sve moguće parove utakmica
+        List<MatchDto> allPossibleMatches = generateAllMatches(teams);
 
-        // Proveravamo da li imamo dovoljno termina za sve utakmice
+
         if (allPossibleMatches.size() > matchDates.size()) {
             throw new IllegalArgumentException("Nedovoljno termina za raspored svih utakmica.");
         }
 
-        // Raspoređujemo utakmice na datume
+
         for (int i = 0; i < allPossibleMatches.size(); i++) {
             MatchDto match = allPossibleMatches.get(i);
-            match.setMatchDay(matchDates.get(i)); // Postavljamo datum za utakmicu
-            matches.add(match); // Dodajemo utakmicu u listu
+            match.setMatchDay(matchDates.get(i));
+            matches.add(match);
         }
 
         return matches;

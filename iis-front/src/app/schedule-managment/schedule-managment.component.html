@@ -8,22 +8,55 @@
 </div>
 
 <div *ngIf="showSchedule" class="match-container">
-    <div *ngFor="let match of regularSeasonSchedule.matches" class="match-card">
-        <div class="teams-part">
-            <div>{{match.homeTeam.name}}</div>
-            <div>VS</div>
-            <div>{{match.awayTeam.name}}</div>
-        </div>
-        <div class="date-part">
-            <div>DATE</div>
-            <div>{{match.matchDay | date:'yyyy-MM-dd HH:mm:ss'}}</div>
-        </div>
-        <div class="city-part">
-            <div>CITY</div>
-            <div>{{match.homeTeam.city}}</div>
-        </div>
-        <div class="city-part">
-            <div>ABA league</div>
+    <div *ngFor="let match of regularSeasonSchedule.matches; let i = index" class="match-card">
+      <div class="teams-part">
+        <div (click)="onTeamClick($event, i, 'homeTeam')">{{match.homeTeam.name}}</div>
+        <div>VS</div>
+        <div (click)="onTeamClick($event, i, 'awayTeam')">{{match.awayTeam.name}}</div>
+      </div>
+      <div class="date-part">
+        <div>DATE</div>
+        <div (click)="onDateClick($event, i)">{{match.matchDay | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+      </div>
+      <div class="city-part">
+        <div>CITY</div>
+        <div (click)="onCityClick($event, i)">{{match.homeTeam.city}}</div>
+      </div>
+      <div class="city-part">
+        <div>ABA league</div>
+      </div>
+    </div>
+    <div 
+      #dropdown 
+      *ngIf="activeMatchIndex !== null && activeTeamType !== null" 
+      class="dropdown" 
+      [ngStyle]="{'top': dropdownPosition.top, 'left': dropdownPosition.left}">
+      <div *ngFor="let team of teams" (click)="onTeamSelect(team)">
+        {{team.name}}
+      </div>
+    </div>
+    <div 
+      #cityDropdown 
+      *ngIf="activeCityIndex !== null" 
+      class="dropdown" 
+      [ngStyle]="{'top': cityDropdownPosition.top, 'left': cityDropdownPosition.left}">
+      <div>
+        <input [(ngModel)]="newCity" placeholder="Enter city" />
+        <button (click)="addNewCity()">Add</button>
+      </div>
+      <div *ngFor="let city of cities" (click)="onCitySelect(city)">
+        {{city}}
+      </div>
+    </div>
+    <div *ngIf="activeDateIndex !== null" class="dropdown"
+        [ngStyle]="{ 'top': dateDropdownPosition.top, 'left': dateDropdownPosition.left }">
+        <div>
+            <input type="datetime-local" [(ngModel)]="newDate" />
+            <button (click)="addNewDate()">Add</button>
         </div>
     </div>
 </div>
+  
+
+  
+  

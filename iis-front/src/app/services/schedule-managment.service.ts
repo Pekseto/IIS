@@ -27,4 +27,8 @@ import { RegularSeasonSchedule } from "../model/regular-season-schedule.model";
     getThisYearSchedule(year: Number): Observable<RegularSeasonSchedule> {
       return this.http.get<RegularSeasonSchedule>(environment.apiHost + 'schedule/get-this-year-schedule/' + year);
     }
+
+    update(schedule: RegularSeasonSchedule): Observable<RegularSeasonSchedule> {
+      return this.http.post<RegularSeasonSchedule>(environment.apiHost + 'schedule/update',schedule);
+    }
 }
