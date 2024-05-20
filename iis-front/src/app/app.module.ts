@@ -18,6 +18,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { CoachRegistrationComponent } from './coach-registration/coach-registration.component';
 import { UpcomingGamesComponent } from './upcoming-games/upcoming-games.component';
 import { DelegateRecordkeeperComponent } from './delegate-recordkeeper/delegate-recordkeeper.component';
+import { ScheduleManagmentComponent } from './schedule-managment/schedule-managment.component';
 import { MatchRosterInputComponent } from './match-roster-input/match-roster-input.component';
 import { SemaphoreComponent } from './semaphore/semaphore.component';
 import { MatchRecordkeepingComponent } from './match-recordkeeping/match-recordkeeping.component';
@@ -38,6 +39,7 @@ import { RefereeTeamPickComponent } from './referee-team-pick/referee-team-pick.
     CoachRegistrationComponent,
     UpcomingGamesComponent,
     DelegateRecordkeeperComponent,
+    ScheduleManagmentComponent,
     MatchRosterInputComponent,
     SemaphoreComponent,
     MatchRecordkeepingComponent,

@@ -55,4 +55,16 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "away_roster_id", nullable = true)
     private MatchRoster awayRoster;
+
+    @OneToOne(mappedBy = "match")
+    private MatchResult result;
+
+    @ManyToOne
+    @JoinColumn(name = "regular_season_schedule_id", nullable = true)
+    private RegularSeasonSchedule regularSeasonSchedule;
+
+    @Override
+    public String toString() {
+        return "Home Team: " + homeTeam.getName() + ", Away Team: " + awayTeam.getName() + ", Match day: " + matchDay;
+    }
 }
