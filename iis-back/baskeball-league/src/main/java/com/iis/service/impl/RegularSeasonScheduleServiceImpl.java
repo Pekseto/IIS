@@ -13,6 +13,7 @@ import com.iis.repository.RegularSeasonScheduleRepository;
 import com.iis.repository.TeamRepository;
 import com.iis.service.RegularSeasonScheduleService;
 import com.iis.util.Mapper;
+import com.iis.validators.ScheduleValidator;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.boot.MappingException;
 import org.springframework.dao.DataAccessException;
@@ -33,6 +34,7 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
     private final MatchResultRepository matchResultRepository;
     private final MatchRepository matchRepository;
     private final Mapper mapper;
+    private final ScheduleValidator scheduleValidator;
     @Override
     public RegularSeasonScheduleDto generateSchedule() {
 
@@ -44,17 +46,15 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
         List<MatchResult> results = matchResultRepository.findAll();
 
         RegularSeasonScheduleDto schedule = generateBasicSchedule(teams);
-        if (!validateSchedule(schedule)) {
-            throw new IllegalStateException("Raspored nije validan.");
+
+        Map<Boolean, String> validationResults = scheduleValidator.validateSchedule(schedule);
+
+        for (Map.Entry<Boolean, String> entry : validationResults.entrySet()) {
+            if (!entry.getKey()) {
+                // Ako validacija nije uspela, baci izuzetak sa odgovarajućom porukom
+                throw new IllegalStateException("Raspored nije validan: " + entry.getValue());
+            }
         }
-        /*schedule = adjustScheduleToMinimizeTravel(schedule,mapper.mapList(teams, TeamDto.class));
-        if (!validateSchedule(schedule)) {
-            throw new IllegalStateException("Raspored nije validan.");
-        }
-        schedule = adjustScheduleBasedOnPreviousResults(schedule,results,mapper.mapList(teams, TeamDto.class));
-        if (!validateSchedule(schedule)) {
-            throw new IllegalStateException("Raspored nije validan.");
-        }*/
 
         return schedule;
     }
@@ -62,6 +62,14 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
     @Transactional
     public RegularSeasonScheduleDto save(RegularSeasonScheduleDto schedule) {
         try {
+            Map<Boolean, String> validationResults = scheduleValidator.validateSchedule(schedule);
+            for (Map.Entry<Boolean, String> entry : validationResults.entrySet()) {
+                if (!entry.getKey()) {
+                    // Ako validacija nije uspela, bacamo izuzetak sa odgovarajućom porukom
+                    throw new IllegalStateException("Schedule is not valid: " + entry.getValue());
+                }
+            }
+
             RegularSeasonSchedule scheduleToSave = mapper.map(schedule, RegularSeasonSchedule.class);
             RegularSeasonSchedule savedSchedule = scheduleRepository.saveAndFlush(scheduleToSave);
 
@@ -345,6 +353,7 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
         nextMatch.setAwayTeam(newAwayTeam);
     }
 
+    /*
     public boolean validateSchedule(RegularSeasonScheduleDto scheduleDto, List<TeamDto> teams) {
 
         // Provera da li svaki tim igra protiv svakog drugog tima jednom kao domaćin i jednom kao gost
@@ -367,37 +376,7 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
         }
 
         return true; // Raspored je validan
-    }
+    }*/
 
-    public boolean validateSchedule(RegularSeasonScheduleDto scheduleDto) {
-        List<MatchDto> matches = scheduleDto.getMatches();
-        Map<String, Integer> matchCountMap = new HashMap<>();
 
-        for (MatchDto match : matches) {
-            String matchKey = generateMatchKey(match.getHomeTeam(), match.getAwayTeam());
-
-            // Ako je ključ već u mapi, povećaj broj odigranih mečeva za taj par timova
-            if (matchCountMap.containsKey(matchKey)) {
-                int count = matchCountMap.get(matchKey);
-                matchCountMap.put(matchKey, count + 1);
-            } else {
-                // Inače, dodaj novi ključ u mapu
-                matchCountMap.put(matchKey, 1);
-            }
-        }
-
-        // Provera da li postoje mečevi koji su odigrani više od jednom
-        for (int count : matchCountMap.values()) {
-            if (count > 1) {
-                return false; // Raspored nije validan ako postoje ponavljani mečevi
-            }
-        }
-
-        return true; // Raspored je validan ako se ne pojavljuju ponavljani mečevi
-    }
-
-    private String generateMatchKey(TeamDto homeTeam, TeamDto awayTeam) {
-        // Generisanje ključa na osnovu imena timova
-        return homeTeam.getName() + " vs " + awayTeam.getName();
-    }
 }

@@ -31,6 +31,7 @@ export class ScheduleManagmentComponent {
   dateDropdownPosition = { top: '0px', left: '0px' };
   newCity = '';
   newDate!: Date;
+  updating!: boolean;
 
   @ViewChild('dropdown', { static: false }) dropdown: ElementRef | undefined;
   @ViewChild('cityDropdown', { static: false }) cityDropdown: ElementRef | undefined;
@@ -144,6 +145,7 @@ export class ScheduleManagmentComponent {
       this.regularSeasonSchedule.matches[this.activeMatchIndex][this.activeTeamType] = team;
       this.activeMatchIndex = null;
       this.activeTeamType = null;
+      this.updating = true;
     }
   }
 
@@ -152,6 +154,7 @@ export class ScheduleManagmentComponent {
       this.regularSeasonSchedule.matches[this.activeCityIndex].homeTeam.city = city;
       this.activeCityIndex = null;
       this.newCity = '';
+      this.updating = true;
     }
   }
 
@@ -159,6 +162,7 @@ export class ScheduleManagmentComponent {
     if (this.activeDateIndex !== null) {
       this.regularSeasonSchedule.matches[this.activeDateIndex].matchDay = date;
       this.activeDateIndex = null;
+      this.updating = true;
     }
   }
 
@@ -167,6 +171,7 @@ export class ScheduleManagmentComponent {
       if (this.activeCityIndex !== null) {
         this.regularSeasonSchedule.matches[this.activeCityIndex].homeTeam.city = this.newCity;
         this.activeCityIndex = null;
+        this.updating = true;
       }
     }
   }
@@ -176,6 +181,7 @@ export class ScheduleManagmentComponent {
       if (this.activeDateIndex !== null) {
         this.regularSeasonSchedule.matches[this.activeDateIndex].matchDay = this.newDate;
         this.activeCityIndex = null;
+        this.updating = true;
       }
     }
   }
@@ -196,25 +202,45 @@ export class ScheduleManagmentComponent {
   saveSchedule(): void {
     this.showSchedule = true;
     const now = new Date();
+    
     this.scheduleService.checkIfScheduleExists(now.getFullYear()).subscribe(
       (exists: boolean) => {
-        if (exists == false) {
+        if (!exists) {
           this.scheduleService.saveRegSeasonSchedule(this.regularSeasonSchedule).subscribe(
             data => {
-                alert('Raspored je uspešno sačuvan!');  // Dodavanje alert-a za uspešno sačuvanje
+              alert('The schedule has been successfully saved!');  // Alert for successful save
             },
             error => {
-                console.error('Došlo je do greške prilikom čuvanja rasporeda:', error);
-                alert('Došlo je do greške prilikom čuvanja rasporeda. Molimo pokušajte ponovo.');  // Alert za grešku
+              console.error('Error occurred while saving the schedule:', error);
+              if (error.status === 409) {
+                alert(`Error occurred while saving the schedule: ${error.error}`);
+              } else {
+                alert('An error occurred while saving the schedule. Please try again.');
+              }
             }
-        );
+          );
+        } else if (exists && this.updating) {
+          this.scheduleService.saveRegSeasonSchedule(this.regularSeasonSchedule).subscribe(
+            data => {
+              alert('The schedule has been successfully updated!');  // Alert for successful update
+            },
+            error => {
+              console.error('Error occurred while updating the schedule:', error);
+              if (error.status === 409) {
+                alert(`Error occurred while updating the schedule: ${error.error}`);
+              } else {
+                alert('An error occurred while updating the schedule. Please try again.');
+              }
+            }
+          );
         } else {
-          alert('Raspored za ovu sezonu je vec napravljen i sacuvan.');
+          alert('The schedule for this season has already been created and saved.');
         }
       },
-      (error) => {
-        console.error('Greška prilikom provere rasporeda:', error);
+      error => {
+        console.error('Error occurred while checking the schedule:', error);
+        alert('An error occurred while checking the schedule. Please try again.');
       }
-    )
+    );
   }
 }
