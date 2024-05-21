@@ -33,6 +33,10 @@ import { MatchState } from "../model/match-state.model";
         return this.http.post<MatchState>(environment.apiHost + 'match-state/addMatchState', matchState)
     }
 
+    createPlayerMatchStats(match: Match): Observable<Match>{
+        return this.http.post<Match>(environment.apiHost + 'player-match-stats/createPlayerMatchStats', match)
+    }
+
     updateMatchStateForMatch(matchState: MatchState): Observable<MatchState>{
         return this.http.post<MatchState>(environment.apiHost + 'match-state/addMatchState', matchState)
     }

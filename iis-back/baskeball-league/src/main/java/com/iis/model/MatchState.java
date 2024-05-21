@@ -14,40 +14,38 @@ public class MatchState {
     @Column(name="id", unique = true, nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="match_id", nullable = false)
     private long matchId;
-    @Column(nullable = true)
-    private Long winningTeamId;
 
-    @Column(nullable = false)
+    @Column(name="home_points", nullable = false)
     private int homePoints;
-    @Column(nullable = false)
+    @Column(name="away_points", nullable = false)
     private int awayPoints;
 
-    @Column(nullable = false)
+    @Column(name="first_half_timeouts_home", nullable = false)
     private int firstHalfTimeoutsHome;
-    @Column(nullable = false)
+    @Column(name="second_half_timeouts_home", nullable = false)
     private int secondHalfTimeoutsHome;
-    @Column(nullable = false)
+    @Column(name="first_half_timeouts_away", nullable = false)
     private int firstHalfTimeoutsAway;
-    @Column(nullable = false)
+    @Column(name="second_half_timeouts_away", nullable = false)
     private int secondHalfTimeoutsAway;
 
-    @Column(nullable = false)
+    @Column(name="first_quarter_fouls_home", nullable = false)
     private int firstQuarterFoulsHome;
-    @Column(nullable = false)
+    @Column(name="second_quarter_fouls_home", nullable = false)
     private int secondQuarterFoulsHome;
-    @Column(nullable = false)
+    @Column(name="third_quarter_fouls_home", nullable = false)
     private int thirdQuarterFoulsHome;
-    @Column(nullable = false)
+    @Column(name="fourth_quarter_fouls_home", nullable = false)
     private int fourthQuarterFoulsHome;
-    @Column(nullable = false)
+    @Column(name="first_quarter_fouls_away", nullable = false)
     private int firstQuarterFoulsAway;
-    @Column(nullable = false)
+    @Column(name="second_quarter_fouls_away", nullable = false)
     private int secondQuarterFoulsAway;
-    @Column(nullable = false)
+    @Column(name="third_quarter_fouls_away", nullable = false)
     private int thirdQuarterFoulsAway;
-    @Column(nullable = false)
+    @Column(name="fourth_quarter_fouls_away", nullable = false)
     private int fourthQuarterFoulsAway;
 
     @Column(nullable = false)

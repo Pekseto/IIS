@@ -28,13 +28,13 @@ public class MatchEvent {
     @Column(name="second", nullable = false)
     private int second;
 
-    @Column(name="perpetratorName", nullable = false)
+    @Column(name="perpetrator_name", nullable = false)
     private String perpetratorName;
 
-    @Column(name="perpetratorId", nullable = false)
+    @Column(name="perpetrator_id", nullable = false)
     private Long perpetratorId;
 
-    @Column(name="matchId", nullable = false)
+    @Column(name="match_id", nullable = false)
     private Long matchId;
 
     @Column(name="period", nullable = false)

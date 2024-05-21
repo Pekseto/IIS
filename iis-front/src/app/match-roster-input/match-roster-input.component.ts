@@ -122,7 +122,11 @@ export class MatchRosterInputComponent implements OnInit {
         next: (response) => {
           this.service.createMatchStateForMatch(matchState).subscribe({
             next: (response) => {
-              this.router.navigate([`/match-recordkeeping/${this.match.id}`])
+              this.service.createPlayerMatchStats(this.match).subscribe({
+                next: (response) =>{
+                  this.router.navigate([`/match-recordkeeping/${this.match.id}`])
+                }
+              })
             }
           })
         }
