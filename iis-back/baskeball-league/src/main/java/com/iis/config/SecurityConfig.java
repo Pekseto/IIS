@@ -46,7 +46,8 @@ public class SecurityConfig {
             "/api/match-roster/**",
             "/api/match-event/**",
             "/api/match-state/**",
-            "/api/referee/**"
+            "/api/referee/**",
+            "api/certification/**"
     };
 
     private final JwtAuthenticationFilter jwtAuthFilter;

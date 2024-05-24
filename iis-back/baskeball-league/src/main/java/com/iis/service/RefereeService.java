@@ -1,6 +1,7 @@
 package com.iis.service;
 
 import com.iis.dto.judgeDTOs.RefereeDTO;
+import com.iis.dtos.CertificateDataInDto;
 import com.iis.helpers.SearchIn;
 import com.iis.model.Referee;
 import org.springframework.data.domain.Page;
@@ -17,4 +18,5 @@ public interface RefereeService {
     Page<Referee> GetAll(SearchIn dataIn);
     List<RefereeDTO> GetAll();
     List<RefereeDTO> GetRecommendation();
+    String CreateCertificationRequest(CertificateDataInDto dataIn) throws Exception;
 }

@@ -32,4 +32,8 @@ import { Referee } from "../model/referee.model";
     getRecommendation() : Observable<any> {
         return this.http.get(environment.apiHost + this.apiController + 'getRecommendation');
     }
+
+    createCertificateRequest(certificate : any) : Observable<any> {
+        return this.http.post(environment.apiHost + this.apiController + 'createCertificateRequest', certificate);
+    }
   }

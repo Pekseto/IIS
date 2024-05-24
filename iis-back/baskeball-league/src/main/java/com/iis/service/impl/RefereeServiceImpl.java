@@ -1,9 +1,13 @@
 package com.iis.service.impl;
 
 import com.iis.dto.judgeDTOs.RefereeDTO;
+import com.iis.dtos.CertificateDataInDto;
 import com.iis.helpers.SearchIn;
+import com.iis.model.Certificate;
+import com.iis.model.CertificationStatus;
 import com.iis.model.Referee;
 import com.iis.model.Role;
+import com.iis.repository.CertificateRepository;
 import com.iis.repository.RefereeRepository;
 import com.iis.service.RefereeService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +18,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +31,7 @@ import java.util.stream.Collectors;
 public class RefereeServiceImpl implements RefereeService {
 
     private final RefereeRepository refereeRepository;
+    private final CertificateRepository certificateRepository;
     ModelMapper modelMapper = new ModelMapper();
 
     @Override
@@ -88,5 +97,21 @@ public class RefereeServiceImpl implements RefereeService {
         var refereesFromDb = refereeRepository.findAll(page);
         var retVal = refereesFromDb.getContent();
         return retVal.stream().map(referee -> modelMapper.map(referee, RefereeDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public String CreateCertificationRequest(CertificateDataInDto dataIn) throws IOException {
+        String folder = "/Users/lukat/Desktop/Fax/IIS/iis-front/src/assets/Certification/";
+
+        byte[] bytes = dataIn.getUploadFile().getBytes();
+        Path path = Paths.get(folder + dataIn.getUploadFile().getOriginalFilename());
+
+        Files.write(path, bytes);
+        var model = modelMapper.map(dataIn, Certificate.class);
+        model.setPath(path.toString());
+        model.setCertificationStatus(CertificationStatus.REQUESTED);
+        model.setPoints(0);
+        certificateRepository.save(model);
+        return "Successfully created Certification Request";
     }
 }

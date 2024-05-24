@@ -16,6 +16,7 @@ import { MatchRosterInputComponent } from "./match-roster-input/match-roster-inp
 import { SemaphoreComponent } from "./semaphore/semaphore.component";
 import { MatchRecordkeepingComponent } from "./match-recordkeeping/match-recordkeeping.component";
 import { RefereeTeamPickComponent } from "./referee-team-pick/referee-team-pick.component";
+import { CertificatesComponent } from "./certificates/certificates.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -33,7 +34,8 @@ const routes: Routes = [
     { path: 'match-roster-input/:matchId', component: MatchRosterInputComponent},
     { path: 'semaphore', component: SemaphoreComponent},
     { path: 'match-recordkeeping/:matchId', component: MatchRecordkeepingComponent},
-    { path: 'referee-pick/:id', component: RefereeTeamPickComponent}
+    { path: 'referee-pick/:id', component: RefereeTeamPickComponent},
+    { path: 'certificates', component: CertificatesComponent },
 ];
 
 @NgModule({

@@ -23,6 +23,7 @@ import { MatchRosterInputComponent } from './match-roster-input/match-roster-inp
 import { SemaphoreComponent } from './semaphore/semaphore.component';
 import { MatchRecordkeepingComponent } from './match-recordkeeping/match-recordkeeping.component';
 import { RefereeTeamPickComponent } from './referee-team-pick/referee-team-pick.component';
+import { CertificatesComponent } from './certificates/certificates.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { RefereeTeamPickComponent } from './referee-team-pick/referee-team-pick.
     SemaphoreComponent,
     MatchRecordkeepingComponent,
     RefereeTeamPickComponent,
+    CertificatesComponent,
   ],
   imports: [
     BrowserModule,
