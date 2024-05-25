@@ -23,12 +23,12 @@ public class ScheduleValidator {
         if (!checkIfMatchDateIsInFuture(scheduleDto)) {
             validationResults.put(false, "There are matches scheduled in the past.");
         }
-       /* if (!checkIfThereIsMinRestDayBetweenMatches(scheduleDto)) {
+        if (!checkIfThereIsMinRestDayBetweenMatches(scheduleDto)) {
             validationResults.put(false, "A team has less than 3 days between matches.");
-        }*/
-       /* if (!checkIfTeamHasMultipleMatchesOnSameDate(scheduleDto)) {
+        }
+        if (!checkIfTeamHasMultipleMatchesOnSameDate(scheduleDto)) {
             validationResults.put(false, "A team has multiple matches on the same date.");
-        }*/
+        }
 
 
         return validationResults;

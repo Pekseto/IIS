@@ -173,48 +173,39 @@ public class RegularSeasonScheduleServiceImpl implements RegularSeasonScheduleSe
         return matches;
     }
 
-    private List<MatchDto> generateAllMatches(List<Team> teams) {
+    public List<MatchDto> generateAllMatches(List<Team> teams) {
         List<MatchDto> allMatches = new ArrayList<>();
+        int numberOfTeams = teams.size();
 
-        // Pozivamo generateMatchesForOneWeek metodu za sve nedelje u sezoni
-        for (int i = 0; i < (teams.size() - 1) * 2; i++) {
-            allMatches.addAll(generateMatchesForOneWeek(teams,allMatches));
-            Collections.rotate(teams, 1);
+        int totalRounds = numberOfTeams - 1;
+        int matchesPerRound = numberOfTeams / 2;
+
+        // Generišemo raspored za prvu polovinu sezone
+        for (int round = 0; round < totalRounds; round++) {
+            for (int match = 0; match < matchesPerRound; match++) {
+                int home = (round + match) % (numberOfTeams - 1);
+                int away = (numberOfTeams - 1 - match + round) % (numberOfTeams - 1);
+
+                // Poslednji tim je fiksiran i ne rotira se
+                if (match == 0) {
+                    away = numberOfTeams - 1;
+                }
+
+                // Kreiramo utakmicu i dodajemo je u listu
+                if (!teams.get(home).getName().equals("BYE") && !teams.get(away).getName().equals("BYE")) {
+                    allMatches.add(new MatchDto(mapper.map(teams.get(home), TeamDto.class), mapper.map(teams.get(away), TeamDto.class)));
+                }
+            }
+        }
+
+        // Generišemo raspored za drugu polovinu sezone (zamena domaćin-gost)
+        int originalSize = allMatches.size();
+        for (int i = 0; i < originalSize; i++) {
+            MatchDto match = allMatches.get(i);
+            allMatches.add(new MatchDto(match.getAwayTeam(), match.getHomeTeam()));
         }
 
         return allMatches;
-    }
-    private List<MatchDto> generateMatchesForOneWeek(List<Team> teams, List<MatchDto> existingMatches) {
-        List<MatchDto> matches = new ArrayList<>();
-        List<Team> shuffledTeams = new ArrayList<>(teams); // Kopiramo listu timova i nasumično je mešamo
-        Collections.shuffle(shuffledTeams);
-
-        // Razdeljujemo timove na domaće i gostujuće
-        List<Team> homeTeams = shuffledTeams.subList(0, shuffledTeams.size() / 2);
-        List<Team> awayTeams = shuffledTeams.subList(shuffledTeams.size() / 2, shuffledTeams.size());
-
-        // Kreiramo utakmice za svaki par domaćin-gost
-        for (int i = 0; i < homeTeams.size(); i++) {
-            Team homeTeam = homeTeams.get(i);
-            Team awayTeam = awayTeams.get(i);
-            MatchDto match = new MatchDto(mapper.map(homeTeam, TeamDto.class), mapper.map(awayTeam, TeamDto.class));
-
-            // Proveravamo da li je ova utakmica već kreirana u okviru nedelje ili cele sezone
-            while (isMatchDuplicate(match, matches) || isMatchDuplicate(match, existingMatches)) {
-                // Ponovo mešamo timove kako bismo generisali novi par utakmica
-                Collections.shuffle(shuffledTeams);
-                homeTeams = shuffledTeams.subList(0, shuffledTeams.size() / 2);
-                awayTeams = shuffledTeams.subList(shuffledTeams.size() / 2, shuffledTeams.size());
-                homeTeam = homeTeams.get(i);
-                awayTeam = awayTeams.get(i);
-                match = new MatchDto(mapper.map(homeTeam, TeamDto.class), mapper.map(awayTeam, TeamDto.class));
-            }
-
-            // Dodajemo utakmicu u listu
-            matches.add(match);
-        }
-
-        return matches;
     }
 
     // Funkcija koja proverava da li se utakmica nalazi u listi postojećih utakmica
