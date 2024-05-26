@@ -55,9 +55,11 @@ export class CertificatesComponent implements OnInit {
 
     this.refereeService.createCertificateRequest(formData).subscribe({
       next: () => {
-
+        this.reloadTable()
       }
     })
+    this.reloadTable()
+
   }
 
   getMyCertificate(userId: number) {
