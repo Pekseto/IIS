@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import { Match } from "../model/match.model";
 import { MatchEvent } from "../model/match-event.model";
 import { MatchState } from "../model/match-state.model";
+import { PlayerMatchStats } from "../model/player-match-stats.model";
 
 @Injectable({
     providedIn: 'root'
@@ -51,6 +52,18 @@ import { MatchState } from "../model/match-state.model";
 
     addEvent(event: MatchEvent): Observable<MatchEvent>{
         return this.http.post<MatchEvent>(environment.apiHost + 'match-event/addEvent', event)
+    }
+
+    getPlayersTradionalStatsForTeam(matchId: number, teamId: number): Observable<PlayerMatchStats[]>{
+        return this.http.get<PlayerMatchStats[]>(environment.apiHost + `player-match-stats/getAllForTeamOnMatch/${matchId}/${teamId}`)
+    }
+
+    getActivePlayersStats(matchId: number, homeRosterId: number, awayRosterId: number): Observable<PlayerMatchStats[]>{
+        return this.http.get<PlayerMatchStats[]>(environment.apiHost + `player-match-stats/getActivePlayersOnMatch/${matchId}/${homeRosterId}/${awayRosterId}`)
+    }
+
+    updatePlayersTimePlayed(playersStats: PlayerMatchStats[]): Observable<void>{
+        return this.http.put<void>(environment.apiHost + `player-match-stats/updatePlayersTimePlayed`, playersStats)
     }
 
     // addToBench(matchRosterId: number, playerId: number){

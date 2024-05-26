@@ -1,22 +1,21 @@
 package com.iis.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
 public class PlayerMatchStatsDto {
     private Long id;
-    private Long playerId;
+    private PlayerDto player;
     private Long matchId;
 
     private Integer MinutesPlayed;
+    private Integer SecondsPlayed;
     private Integer PlusMinus;
     private Integer PIR;
     // @Column(name = "player_efficiency_rating", nullable = false)
     // private Integer PER;
+
+    private Integer Points;
 
     private Integer TwoPM;
     private Integer ThreePM;
@@ -25,6 +24,10 @@ public class PlayerMatchStatsDto {
     private Integer TwoPA;
     private Integer ThreePA;
     private Integer FreeThrowA;
+
+    private Double TwoPP;
+    private Double ThreePP;
+    private Double FreeThrowP;
 
     private Integer OffRebounds;
     private Integer DefRebounds;

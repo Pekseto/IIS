@@ -1,6 +1,5 @@
 package com.iis.dtos;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data
@@ -8,7 +7,6 @@ public class MatchStateDto {
     private Long id;
 
     private long matchId;
-    private Long winningTeamId;
 
     private int homePoints;
     private int awayPoints;
@@ -30,4 +28,6 @@ public class MatchStateDto {
     private int minute;
     private int second;
     private int quarter;
+
+    private boolean isFinished;
 }

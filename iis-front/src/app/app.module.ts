@@ -24,6 +24,8 @@ import { SemaphoreComponent } from './semaphore/semaphore.component';
 import { MatchRecordkeepingComponent } from './match-recordkeeping/match-recordkeeping.component';
 import { RefereeTeamPickComponent } from './referee-team-pick/referee-team-pick.component';
 import { CertificatesComponent } from './certificates/certificates.component';
+import { FinishedMatchesComponent } from './finished-matches/finished-matches.component';
+import { MatchStatsComponent } from './match-stats/match-stats.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { CertificatesComponent } from './certificates/certificates.component';
     MatchRecordkeepingComponent,
     RefereeTeamPickComponent,
     CertificatesComponent,
+    FinishedMatchesComponent,
+    MatchStatsComponent,
   ],
   imports: [
     BrowserModule,

@@ -55,7 +55,7 @@
 }
 
 .time-out-container {
-    height: 20%;
+    height: 15%;
     width: 100%;
     display: flex;
 }
@@ -114,4 +114,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.end-match-container{
+    width: 100%;
+    height: 13%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }

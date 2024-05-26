@@ -10,4 +10,6 @@ import java.util.List;
 public interface PlayerMatchStatsService {
     MatchDto CreatePlayerMatchStats(MatchDto matchDto);
     List<PlayerMatchStatsDto> GetAllForTeamOnMatch(long matchId, long teamId);
+    List<PlayerMatchStatsDto> GetStatsForActivePlayersOnMatch(long matchId, long homeRosterId, long awayRosterId);
+    void UpdatePlayersTimePlayed(List<PlayerMatchStatsDto> playersStats);
 }

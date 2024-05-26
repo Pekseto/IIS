@@ -1,0 +1,146 @@
+<div class="main-container">
+    <div class="result-container">
+        <div class="home-container">
+            <h3>{{match?.homeTeam?.name}} (Home)</h3>
+        </div>
+
+        <div class="score-container">
+            <h3>{{matchState?.homePoints}} : {{matchState?.awayPoints}}</h3>
+        </div>
+
+        <div class="away-container">
+            <h3>{{match?.awayTeam?.name}} (Away)</h3>
+        </div>
+    </div>
+    <div class="match-stats-row-container">
+        <div class="match-stats-container">
+            <h5>Match statistics</h5>
+        </div>
+        <div class="switch-stats-container">
+            <button class="btn btn-secondary">Advanced Stats</button>
+        </div>
+    </div>
+    <div class="stats-table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">MIN</th>
+                    <th scope="col">PTS</th>
+                    <th scope="col">2PM</th>
+                    <th scope="col">2PA</th>
+                    <th scope="col">2P%</th>
+                    <th scope="col">3PM</th>
+                    <th scope="col">3PA</th>
+                    <th scope="col">3P%</th>
+                    <th scope="col">FTM</th>
+                    <th scope="col">FTA</th>
+                    <th scope="col">FT%</th>
+                    <th scope="col">OR</th>
+                    <th scope="col">DR</th>
+                    <th scope="col">TR</th>
+                    <th scope="col">AST</th>
+                    <th scope="col">STL</th>
+                    <th scope="col">TO</th>
+                    <th scope="col">BLK</th>
+                    <th scope="col">BLKA</th>
+                    <th scope="col">FC</th>
+                    <th scope="col">FD</th>
+                    <th scope="col">PIR</th>
+                    <th scope="col">+/-</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let stats of homePlayersTraditionalStats">
+                    <td scope="row">{{stats.player.name}} {{stats.player.surname}}</td>
+                    <td>{{stats.minutesPlayed}}:{{stats.secondsPlayed < 10 ? '0' + stats.secondsPlayed : stats.secondsPlayed}}</td>
+                    <td>{{stats.points}}</td>
+                    <td>{{stats.twoPM}}</td>
+                    <td>{{stats.twoPA}}</td>
+                    <td>{{(stats.twoPP * 100).toFixed(1)}}%</td>
+                    <td>{{stats.threePM}}</td>
+                    <td>{{stats.threePA}}</td>
+                    <td>{{(stats.threePP * 100).toFixed(1)}}%</td>
+                    <td>{{stats.freeThrowM}}</td>
+                    <td>{{stats.freeThrowA}}</td>
+                    <td>{{(stats.freeThrowP * 100).toFixed(1)}}%</td>
+                    <td>{{stats.offRebounds}}</td>
+                    <td>{{stats.defRebounds}}</td>
+                    <td>{{stats.offRebounds + stats.defRebounds}}</td>
+                    <td>{{stats.assists}}</td>
+                    <td>{{stats.steals}}</td>
+                    <td>{{stats.turnovers}}</td>
+                    <td>{{stats.blocks}}</td>
+                    <td>{{stats.blocksAgainst}}</td>
+                    <td>{{stats.foulsCommited}}</td>
+                    <td>{{stats.foulsDrawn}}</td>
+                    <td>{{stats.pir}}</td>
+                    <td>{{stats.plusMinus}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="stats-tables-devider"></div>
+    
+    <div class="stats-table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">MIN</th>
+                    <th scope="col">PTS</th>
+                    <th scope="col">2PM</th>
+                    <th scope="col">2PA</th>
+                    <th scope="col">2P%</th>
+                    <th scope="col">3PM</th>
+                    <th scope="col">3PA</th>
+                    <th scope="col">3P%</th>
+                    <th scope="col">FTM</th>
+                    <th scope="col">FTA</th>
+                    <th scope="col">FT%</th>
+                    <th scope="col">OR</th>
+                    <th scope="col">DR</th>
+                    <th scope="col">TR</th>
+                    <th scope="col">AST</th>
+                    <th scope="col">STL</th>
+                    <th scope="col">TO</th>
+                    <th scope="col">BLK</th>
+                    <th scope="col">BLKA</th>
+                    <th scope="col">FC</th>
+                    <th scope="col">FD</th>
+                    <th scope="col">PIR</th>
+                    <th scope="col">+/-</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let stats of awayPlayersTraditionalStats">
+                    <td scope="row">{{stats.player.name}} {{stats.player.surname}}</td>
+                    <td>{{stats.minutesPlayed}}:{{stats.secondsPlayed < 10 ? '0' + stats.secondsPlayed : stats.secondsPlayed}}</td> 
+                    <td>{{stats.points}}</td>
+                    <td>{{stats.twoPM}}</td>
+                    <td>{{stats.twoPA}}</td>
+                    <td>{{(stats.twoPP * 100).toFixed(1)}}%</td>
+                    <td>{{stats.threePM}}</td>
+                    <td>{{stats.threePA}}</td>
+                    <td>{{(stats.threePP * 100).toFixed(1)}}%</td>
+                    <td>{{stats.freeThrowM}}</td>
+                    <td>{{stats.freeThrowA}}</td>
+                    <td>{{(stats.freeThrowP * 100).toFixed(1)}}%</td>
+                    <td>{{stats.offRebounds}}</td>
+                    <td>{{stats.defRebounds}}</td>
+                    <td>{{stats.offRebounds + stats.defRebounds}}</td>
+                    <td>{{stats.assists}}</td>
+                    <td>{{stats.steals}}</td>
+                    <td>{{stats.turnovers}}</td>
+                    <td>{{stats.blocks}}</td>
+                    <td>{{stats.blocksAgainst}}</td>
+                    <td>{{stats.foulsCommited}}</td>
+                    <td>{{stats.foulsDrawn}}</td>
+                    <td>{{stats.pir}}</td>
+                    <td>{{stats.plusMinus}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,7 +1,6 @@
 export interface MatchState {
     id?: number,
     matchId: number,
-    winningTeamId?: number,
     homePoints: number,
     awayPoints: number,
     firstHalfTimeoutsHome: number,
@@ -19,4 +18,5 @@ export interface MatchState {
     minute: number,
     second: number,
     quarter: number,
+    finished: boolean,
 }

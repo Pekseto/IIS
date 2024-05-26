@@ -54,4 +54,7 @@ public class MatchState {
     private int second;
     @Column(nullable = false)
     private int quarter;
+
+    @Column(name = "is_finished", nullable = false)
+    private boolean isFinished;
 }

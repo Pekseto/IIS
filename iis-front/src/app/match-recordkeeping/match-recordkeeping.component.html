@@ -2,7 +2,7 @@
     <div class="first-row-container">
         <div class="semaphore-container">
             <app-semaphore (matchStateUpdated)="updateMatchState($event)" (saveMatchState)="saveMatchState()"
-                [matchStateInput]="matchState"></app-semaphore>
+                [matchStateInput]="matchState" [activePlayersStats]="activePlayersStats"></app-semaphore>
         </div>
         <div class="active-roster-container">
             <div class="active-roster-table-container">
@@ -94,6 +94,10 @@
                     <button class="btn btn-secondary mt-3" *ngIf="matchState?.quarter == 3 || matchState?.quarter == 4"
                         (click)="timeOut(false)" [disabled]="matchState!.secondHalfTimeoutsAway == 0">Away TO</button>
                 </div>
+            </div>
+
+            <div class="end-match-container">
+                <button class="btn btn-secondary" (click)="endMatch()">END MATCH</button>
             </div>
 
             <!-- <div class="play-by-play-container"> -->

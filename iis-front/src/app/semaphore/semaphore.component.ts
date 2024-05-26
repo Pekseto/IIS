@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatchState } from '../model/match-state.model';
+import { PlayerMatchStats } from '../model/player-match-stats.model';
 
 @Component({
   selector: 'app-semaphore',
@@ -10,6 +11,7 @@ export class SemaphoreComponent implements OnInit, OnChanges {
   @Output() matchStateUpdated = new EventEmitter<MatchState>();
   @Output() saveMatchState = new EventEmitter<null>();
   @Input() matchStateInput?: MatchState;
+  @Input() activePlayersStats?: PlayerMatchStats[];
   matchState?: MatchState;
   countdownInterval: any;
   shotClockSeconds: number = 24;
@@ -28,6 +30,7 @@ export class SemaphoreComponent implements OnInit, OnChanges {
   startCountdown() {
     this.countdownInterval = setInterval(() => {
       if (!this.isPaused) {
+        //IMA DELAY OD JEDNE SEKUNDE
         if (this.matchState?.second === 0) {
           if (this.matchState?.minute === 0) {
             // Timer has reached 0
@@ -52,6 +55,17 @@ export class SemaphoreComponent implements OnInit, OnChanges {
           this.matchState!.second--;
           this.matchStateUpdated.emit(this.matchState)
         }
+
+        //Players timers
+        this.activePlayersStats!.forEach(player => {
+          if (player.secondsPlayed < 59) {
+            player.secondsPlayed++;
+          }
+          else {
+            player.minutesPlayed++;
+            player.secondsPlayed = 0;
+          }
+        });
       }
     }, 1000);
 

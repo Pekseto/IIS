@@ -5,6 +5,7 @@ import com.iis.dtos.PlayerMatchStatsDto;
 import com.iis.model.Match;
 import com.iis.model.Player;
 import com.iis.model.PlayerMatchStats;
+import com.iis.repository.MatchRosterRepository;
 import com.iis.repository.PlayerMatchStatsRepository;
 import com.iis.service.PlayerMatchStatsService;
 import com.iis.util.Mapper;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlayerMatchStatsServiceImpl implements PlayerMatchStatsService {
     private final PlayerMatchStatsRepository repo;
+    private final MatchRosterRepository matchRosterRepo;
     private final Mapper mapper;
 
     @Override
@@ -34,7 +36,7 @@ public class PlayerMatchStatsServiceImpl implements PlayerMatchStatsService {
 
             var playerMatchStats = new PlayerMatchStats();
 
-            playerMatchStats.setPlayerId(player.getId());
+            playerMatchStats.setPlayer(player);
             playerMatchStats.setTeamId(player.getTeam().getId());
             playerMatchStats.setMatchId(match.getId());
 
@@ -51,5 +53,39 @@ public class PlayerMatchStatsServiceImpl implements PlayerMatchStatsService {
         return playersMatchStats.stream()
                 .map(playerMatchStats -> mapper.map(playerMatchStats, PlayerMatchStatsDto.class))
                 .toList();
+    }
+
+    @Override
+    public List<PlayerMatchStatsDto> GetStatsForActivePlayersOnMatch(long matchId, long homeRosterId, long awayRosterId) {
+        var playersMatchStats = repo.getAllForMatch(matchId);
+        var homeRoster = matchRosterRepo.getReferenceById(homeRosterId);
+        var awayRoster = matchRosterRepo.getReferenceById(awayRosterId);
+
+        var retVal = new ArrayList<PlayerMatchStats>();
+        playersMatchStats.forEach(playerMatchStats -> {
+
+            homeRoster.getActiveFive().forEach(player -> {
+                if(playerMatchStats.getPlayer().getId() == player.getId()){
+                    retVal.add(playerMatchStats);
+                }
+            });
+
+            awayRoster.getActiveFive().forEach(player -> {
+                if(playerMatchStats.getPlayer().getId() == player.getId()){
+                    retVal.add(playerMatchStats);
+                }
+            });
+        });
+
+        return retVal.stream()
+                .map(pms -> mapper.map(pms, PlayerMatchStatsDto.class))
+                .toList();
+    }
+
+    @Override
+    public void UpdatePlayersTimePlayed(List<PlayerMatchStatsDto> playersStats) {
+        playersStats.forEach(playerStats -> {
+            repo.updateTimePlayed(playerStats.getMinutesPlayed(), playerStats.getSecondsPlayed(), playerStats.getId());
+        });
     }
 }

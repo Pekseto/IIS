@@ -29,4 +29,14 @@ public class PlayerMatchStatsController {
     public ResponseEntity<List<PlayerMatchStatsDto>> getAllForTeamOnMatch(@PathVariable long matchId, @PathVariable long teamId){
         return ResponseEntity.ok(service.GetAllForTeamOnMatch(matchId, teamId));
     }
+
+    @GetMapping("/getActivePlayersOnMatch/{matchId}/{homeRosterId}/{awayRosterId}")
+    public ResponseEntity<List<PlayerMatchStatsDto>> getForActivePlayersOnMatch(@PathVariable long matchId, @PathVariable long homeRosterId, @PathVariable long awayRosterId){
+        return ResponseEntity.ok(service.GetStatsForActivePlayersOnMatch(matchId, homeRosterId, awayRosterId));
+    }
+
+    @PutMapping("/updatePlayersTimePlayed")
+    public void updatePlayersTimePlayed(@RequestBody List<PlayerMatchStatsDto> playersStats){
+        service.UpdatePlayersTimePlayed(playersStats);
+    }
 }

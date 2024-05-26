@@ -154,6 +154,7 @@ export class MatchRosterInputComponent implements OnInit {
       minute: 10,
       second: 0,
       quarter: 1,
+      finished: false,
     }
     return matchState;
   }

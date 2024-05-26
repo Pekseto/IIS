@@ -1,0 +1,70 @@
+.main-container {
+    width: 100%;
+    height: 55rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.result-container {
+    width: 100%;
+    height: 15%;
+    display: flex;
+}
+
+.home-container{
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.score-container{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.away-container{
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.match-stats-row-container {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.match-stats-container {
+    width: 49%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.switch-stats-container {
+    width: 49%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.stats-table-container {
+    width: 100%;
+    height: 40%;
+}
+
+.stats-tables-devider{
+    width: 100%;
+    height: 3%;
+}

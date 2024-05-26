@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecordKeeperService } from '../services/record-keeper.service';
 import { Match, MatchRoster } from '../model/match.model';
 import { Player } from '../model/player.model';
 import { MatchEvent } from '../model/match-event.model';
 import { MatchState } from '../model/match-state.model';
+import { PlayerMatchStats } from '../model/player-match-stats.model';
 
 @Component({
   selector: 'app-match-recordkeeping',
@@ -18,10 +19,12 @@ export class MatchRecordkeepingComponent implements OnInit {
   awayRoster?: MatchRoster;
   selectedPlayer?: Player;
   events: MatchEvent[] = [];
+  activePlayersStats: PlayerMatchStats[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private service: RecordKeeperService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +36,12 @@ export class MatchRecordkeepingComponent implements OnInit {
           this.match = response
           this.homeRoster = this.match.homeRoster
           this.awayRoster = this.match.awayRoster
+
+          this.service.getActivePlayersStats(matchId, this.homeRoster.id!, this.awayRoster.id!).subscribe({
+            next: response => {
+              this.activePlayersStats = response;
+            }
+          })
         }
       })
       this.service.getMatchStateByMatchId(matchId).subscribe({
@@ -62,6 +71,7 @@ export class MatchRecordkeepingComponent implements OnInit {
 
   saveMatchState() {
     this.service.updateMatchStateForMatch(this.matchState!).subscribe()
+    this.service.updatePlayersTimePlayed(this.activePlayersStats).subscribe()
   }
 
   timeOut(isHomeTeam: boolean) {
@@ -89,6 +99,7 @@ export class MatchRecordkeepingComponent implements OnInit {
       }
     })
     this.service.updateMatchStateForMatch(this.matchState!).subscribe()
+    this.service.updatePlayersTimePlayed(this.activePlayersStats).subscribe()
   }
 
   addEvent(eventType: string) {
@@ -102,54 +113,70 @@ export class MatchRecordkeepingComponent implements OnInit {
       period: this.matchState!.quarter,
     }
 
-    switch (eventType) {
-      case "TWO_POINTER":
-        if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.homePoints += 2
-        else this.matchState!.awayPoints += 2
-        break;
-      case "THREE_POINTER":
-        if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.homePoints += 3
-        else this.matchState!.awayPoints += 3
-        break;
-      case "FREE_THROW_IN":
-        if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.homePoints += 1
-        else this.matchState!.awayPoints += 1
-        break;
-      case "UNSPORTSMANLIKE_FOUL":
-      case "FOUL":
-        switch (this.matchState?.quarter) {
-          case 1:
-            if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.firstQuarterFoulsHome += 1
-            else this.matchState!.firstQuarterFoulsAway += 1
-            break;
-          case 2:
-            if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.secondQuarterFoulsHome += 1
-            else this.matchState!.secondQuarterFoulsAway += 1
-            break;
-          case 3:
-            if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.thirdQuarterFoulsHome += 1
-            else this.matchState!.thirdQuarterFoulsAway += 1
-            break;
-          case 4:
-            if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.fourthQuarterFoulsHome += 1
-            else this.matchState!.fourthQuarterFoulsAway += 1
-            break;
-        }
-        break;
-      case "TIME_OUT":
-        if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.homePoints += 1
-        else this.matchState!.awayPoints += 1
-        break;
-      default:
-    }
-
     this.service.addEvent(matchEvent).subscribe({
       next: (response) => {
         this.events?.unshift(response)
-        this.selectedPlayer = undefined
 
+        switch (eventType) {
+          case "TWO_POINTER":
+            if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.homePoints += 2
+            else this.matchState!.awayPoints += 2
+            break;
+          case "THREE_POINTER":
+            if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.homePoints += 3
+            else this.matchState!.awayPoints += 3
+            break;
+          case "FREE_THROW_IN":
+            if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.homePoints += 1
+            else this.matchState!.awayPoints += 1
+            break;
+          case "UNSPORTSMANLIKE_FOUL":
+          case "FOUL":
+            switch (this.matchState?.quarter) {
+              case 1:
+                if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.firstQuarterFoulsHome += 1
+                else this.matchState!.firstQuarterFoulsAway += 1
+                break;
+              case 2:
+                if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.secondQuarterFoulsHome += 1
+                else this.matchState!.secondQuarterFoulsAway += 1
+                break;
+              case 3:
+                if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.thirdQuarterFoulsHome += 1
+                else this.matchState!.thirdQuarterFoulsAway += 1
+                break;
+              case 4:
+                if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.fourthQuarterFoulsHome += 1
+                else this.matchState!.fourthQuarterFoulsAway += 1
+                break;
+            }
+            break;
+          case "TIME_OUT":
+            if (this.selectedPlayer?.teamId == this.match.homeTeam.id) this.matchState!.homePoints += 1
+            else this.matchState!.awayPoints += 1
+            break;
+          default:
+        }
+        
+        this.selectedPlayer = undefined
         this.service.updateMatchStateForMatch(this.matchState!).subscribe()
+        this.service.updatePlayersTimePlayed(this.activePlayersStats).subscribe()
       }
     })
+  }
+
+  endMatch(){
+    //Zavrsiti mec
+    this.matchState!.finished = true
+    this.service.updateMatchStateForMatch(this.matchState!).subscribe({
+      next: response => {
+        this.router.navigate([`/match-stats/${this.match.id}`])
+      }
+    })
+
+    
+
+    //Izracunati naprednu statistiku igraca
+    
   }
 }
