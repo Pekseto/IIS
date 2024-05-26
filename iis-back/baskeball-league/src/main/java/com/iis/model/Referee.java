@@ -14,4 +14,7 @@ public class Referee extends User {
 
     @Column(name = "point", nullable = false)
     private double point;
+
+    @Column(name = "rank", nullable = true)
+    private int rank;
 }

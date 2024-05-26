@@ -22,6 +22,7 @@ public class MatchDto {
     private RecordKeeperDto recordKeeper;
     private MatchRosterDto homeRoster;
     private MatchRosterDto awayRoster;
+    private boolean isFinished;
 
     public MatchDto(TeamDto homeTeam, TeamDto awayTeam) {
         this.homeTeam = homeTeam;

@@ -63,6 +63,9 @@ public class Match {
     @JoinColumn(name = "regular_season_schedule_id", nullable = true)
     private RegularSeasonSchedule regularSeasonSchedule;
 
+    @Column(name="isFinished", nullable = true)
+    private Boolean isFinished;
+
     @Override
     public String toString() {
         return "Home Team: " + homeTeam.getName() + ", Away Team: " + awayTeam.getName() + ", Match day: " + matchDay;
