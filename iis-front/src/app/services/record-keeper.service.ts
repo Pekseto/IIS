@@ -66,6 +66,10 @@ import { PlayerMatchStats } from "../model/player-match-stats.model";
         return this.http.put<void>(environment.apiHost + `player-match-stats/updatePlayersTimePlayed`, playersStats)
     }
 
+    generatePdf(matchId: number): Observable<Blob>{
+        return this.http.get<Blob>(environment.apiHost + `player-match-stats/generatePdf/${matchId}`)
+    }
+
     // addToBench(matchRosterId: number, playerId: number){
     //     return this.http.put<any>(environment.apiHost + `match-roster/addToBench/${matchRosterId}/${playerId}`, undefined);
     // }

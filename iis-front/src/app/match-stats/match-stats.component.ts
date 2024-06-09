@@ -53,5 +53,21 @@ export class MatchStatsComponent implements OnInit {
     })
   }
 
+  generatePdf(){
+    this.service.generatePdf(this.match!.id).subscribe({
+      next: response => {
+        const blobUrl = window.URL.createObjectURL(response);
+        const anchor = document.createElement('a');
+        anchor.href = blobUrl;
+        anchor.download = 'matchReport.pdf';
+        anchor.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      error: err => {
+        console.error('Error downloading the PDF', err);
+      }
+    })
+  }
+
 
 }
