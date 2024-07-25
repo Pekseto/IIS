@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdministrationService } from '../services/administration.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-delegate-recordkeeper',
@@ -11,7 +12,7 @@ export class DelegateRecordkeeperComponent implements OnInit{
   matches: any[] = [];
   recordKeepers: any[] = [];
 
-  constructor(private adminService: AdministrationService) { }
+  constructor(private adminService: AdministrationService, private toastr: ToastrService) { }
 
   delegationForm = new FormGroup({
     matchId: new FormControl('', Validators.required),
@@ -41,6 +42,7 @@ export class DelegateRecordkeeperComponent implements OnInit{
       this.adminService.delegateRecordKeeper(matchId, recordKeeperId).subscribe({
         next: (response: any) => {
           this.delegationForm.reset();
+          this.toastr.success('You have successfully delegated a recordkeeper for the match!', 'Delegation success');
         }
       })
     }
